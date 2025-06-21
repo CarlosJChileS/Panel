@@ -10,6 +10,7 @@
     "react": "^19.1.0",
     "react-color": "^2.19.3",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^6.30.1",
     "react-scripts": "5.0.1",
     "react-speech-kit": "^3.0.1",
     "screenfull": "^6.0.2",
