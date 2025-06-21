@@ -1,6 +1,6 @@
 import React from "react";
-import AccessibilityPanel from "./AccessibilityPanel";
-import Dashboard from "./Dashboard"; // importa el dashboard
+import AccessibilityPanel from "./components/AccessibilityPanel";
+import Dashboard from "./components/Dashboard"; // importa el dashboard
 
 function App() {
   return (
