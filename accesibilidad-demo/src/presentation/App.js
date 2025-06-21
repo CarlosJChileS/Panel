@@ -1,13 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccessibilityPanel from "./components/AccessibilityPanel";
-import Dashboard from "./components/Dashboard"; // importa el dashboard
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
-    <div>
+    <Router basename={process.env.PUBLIC_URL}>
       <AccessibilityPanel />
-      <Dashboard />
-    </div>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
