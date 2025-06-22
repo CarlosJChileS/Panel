@@ -1,3 +1,4 @@
+
 export const initialWeather = {
   temperature: "",
   humidity: "",
@@ -31,6 +32,7 @@ export const mockWeather = {
     no2: "0.61",
     ozone: "50.37",
     pm25: "6.92",
+
   },
   water: {
     temp: "76°C",

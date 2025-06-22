@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
+
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 function Dashboard() {
@@ -62,6 +63,7 @@ function Dashboard() {
               />
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
+
             {loading && <p>Consultando datos...</p>}
             {error && <p style={{color: 'red'}}>{error}</p>}
           </div>

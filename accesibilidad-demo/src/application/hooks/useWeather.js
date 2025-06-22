@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { initialWeather, mockWeather } from '../../domain/mockWeather';
 import { fetchWeather, fetchForecast } from '../../infrastructure/openWeatherService';
 
@@ -27,6 +28,7 @@ export function useWeather() {
     try {
       const apiKey = process.env.REACT_APP_OPENWEATHER_KEY;
       const real = await fetchWeather(city, apiKey);
+
       let forecast = [];
       try {
         forecast = await fetchForecast(city, apiKey);
@@ -38,6 +40,7 @@ export function useWeather() {
         ...real,
         air: { ...mockWeather.air, ...real.air },
       };
+
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);
@@ -52,4 +55,5 @@ export function useWeather() {
   };
 
   return { weather: data, trend, loading, error, search };
+
 }
