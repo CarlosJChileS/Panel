@@ -61,8 +61,10 @@ function Dashboard() {
               />
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
+
             {loading && <p>Consultando datos...</p>}
             {error && <p style={{color: 'red'}}>{error}</p>}
+
           </div>
         </section>
 
