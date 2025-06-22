@@ -1,5 +1,4 @@
 import React from "react";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccessibilityPanel from "./components/AccessibilityPanel";
 import Dashboard from "./components/Dashboard";

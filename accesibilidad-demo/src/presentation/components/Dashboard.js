@@ -1,9 +1,47 @@
 import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
-
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
+function getStatus(type, val) {
+  const n = parseFloat(val);
+  if (Number.isNaN(n)) {
+    if (type === 'alert') {
+      if (val === 'ALTA') return 'status-bad';
+      if (val === 'MEDIA') return 'status-warning';
+      if (val === 'BAJA') return 'status-good';
+    }
+    return "";
+  }
+  switch (type) {
+    case "temp":
+      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
+    case "humidity":
+      return n > 90 || n < 30 ? "status-bad" : n > 70 || n < 50 ? "status-warning" : "status-good";
+    case "wind":
+      return n > 10 ? "status-bad" : n > 5 ? "status-warning" : "status-good";
+    case "pressure":
+      return n > 1025 || n < 1000 ? "status-bad" : n > 1015 || n < 1010 ? "status-warning" : "status-good";
+    case "co":
+      return n > 100 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
+    case "no2":
+      return n > 100 ? "status-bad" : n > 40 ? "status-warning" : "status-good";
+    case "ozone":
+      return n > 120 ? "status-bad" : n > 60 ? "status-warning" : "status-good";
+    case "pm25":
+      return n > 35 ? "status-bad" : n > 12 ? "status-warning" : "status-good";
+    case "waterTemp":
+      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
+    case "oxygen":
+      return n < 4 ? "status-bad" : n < 7 ? "status-warning" : "status-good";
+    case "salinity":
+      return n > 38 || n < 30 ? "status-bad" : n > 36 || n < 32 ? "status-warning" : "status-good";
+    case "chlorophyll":
+      return n > 40 ? "status-bad" : n > 10 ? "status-warning" : "status-good";
+    default:
+      return "";
+  }
+}
 function Dashboard() {
   const [city, setCity] = useState("");
   const { weather: weatherData, trend, loading, error, search } = useWeather();
@@ -63,7 +101,6 @@ function Dashboard() {
               />
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
-
             {loading && <p>Consultando datos...</p>}
             {error && <p style={{color: 'red'}}>{error}</p>}
           </div>
@@ -80,19 +117,20 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Climáticas</h3>
               <div className="card-row">
                 <span>Temperatura</span>
-                <span>{weatherData.temperature}</span>
+
+                <span className={getStatus('temp', weatherData.temperature)}>{weatherData.temperature}</span>
               </div>
               <div className="card-row">
                 <span>Humedad</span>
-                <span>{weatherData.humidity}</span>
+                <span className={getStatus('humidity', weatherData.humidity)}>{weatherData.humidity}</span>
               </div>
               <div className="card-row">
                 <span>Viento</span>
-                <span>{weatherData.wind}</span>
+                <span className={getStatus('wind', weatherData.wind)}>{weatherData.wind}</span>
               </div>
               <div className="card-row">
                 <span>Presión Atmosférica</span>
-                <span>{weatherData.pressure}</span>
+                <span className={getStatus('pressure', weatherData.pressure)}>{weatherData.pressure}</span>
               </div>
             </article>
 
@@ -101,19 +139,19 @@ function Dashboard() {
               <h3 className="card-title">Calidad Del Aire</h3>
               <div className="card-row">
                 <span>Monóxido De Carbono</span>
-                <span>{weatherData.air.co}</span>
+                <span className={getStatus('co', weatherData.air.co)}>{weatherData.air.co}</span>
               </div>
               <div className="card-row">
                 <span>Dióxido De Nitrógeno</span>
-                <span>{weatherData.air.no2}</span>
+                <span className={getStatus('no2', weatherData.air.no2)}>{weatherData.air.no2}</span>
               </div>
               <div className="card-row">
                 <span>Ozono</span>
-                <span>{weatherData.air.ozone}</span>
+                <span className={getStatus('ozone', weatherData.air.ozone)}>{weatherData.air.ozone}</span>
               </div>
               <div className="card-row">
                 <span>Partículas PM2.5</span>
-                <span>{weatherData.air.pm25}</span>
+                <span className={getStatus('pm25', weatherData.air.pm25)}>{weatherData.air.pm25}</span>
               </div>
             </article>
 
@@ -122,19 +160,20 @@ function Dashboard() {
               <h3 className="card-title">Calidad Del Agua</h3>
               <div className="card-row">
                 <span>Temperatura Del Mar</span>
-                <span>{weatherData.water.temp}</span>
+                <span className={getStatus('waterTemp', weatherData.water.temp)}>{weatherData.water.temp}</span>
               </div>
               <div className="card-row">
                 <span>Oxígeno disuelto</span>
-                <span>{weatherData.water.oxygen}</span>
+                <span className={getStatus('oxygen', weatherData.water.oxygen)}>{weatherData.water.oxygen}</span>
               </div>
               <div className="card-row">
                 <span>Salinidad</span>
-                <span>{weatherData.water.salinity}</span>
+                <span className={getStatus('salinity', weatherData.water.salinity)}>{weatherData.water.salinity}</span>
               </div>
               <div className="card-row">
                 <span>Clorofila</span>
-                <span>{weatherData.water.chlorophyll}</span>
+                <span className={getStatus('chlorophyll', weatherData.water.chlorophyll)}>{weatherData.water.chlorophyll}</span>
+
               </div>
             </article>
 
@@ -143,14 +182,20 @@ function Dashboard() {
               <h3 className="card-title">Alertas</h3>
               <div className="card-row">
                 <span>Temperatura Óptima</span>
-                <span>{weatherData.alerts.temp}</span>
+                <span className={getStatus('alert', weatherData.alerts.temp)}>{weatherData.alerts.temp}</span>
               </div>
               <div className="card-row">
                 <span>Viento Fuerte</span>
-                <span>{weatherData.alerts.wind}</span>
+                <span className={getStatus('alert', weatherData.alerts.wind)}>{weatherData.alerts.wind}</span>
               </div>
-              <div className="card-row"></div>
-              <div className="card-row"></div>
+              <div className="card-row">
+                <span>Humedad Alta</span>
+                <span className={getStatus('alert', weatherData.alerts.humidity)}>{weatherData.alerts.humidity}</span>
+              </div>
+              <div className="card-row">
+                <span>Aire Contaminado</span>
+                <span className={getStatus('alert', weatherData.alerts.air)}>{weatherData.alerts.air}</span>
+              </div>
             </article>
           </div>
 
@@ -165,7 +210,7 @@ function Dashboard() {
             <strong>Tendencia Histórica</strong>
             <div className="map-box" tabIndex="0" aria-label="Gráfico de tendencias">
               {trend.length ? (
-                <LineChart width={280} height={150} data={trend}>
+                <LineChart width={420} height={200} data={trend}>
                   <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                   <XAxis dataKey="time" />
                   <YAxis />

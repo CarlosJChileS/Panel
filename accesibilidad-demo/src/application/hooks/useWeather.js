@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { initialWeather, mockWeather } from '../../domain/mockWeather';
 import { fetchWeather, fetchForecast } from '../../infrastructure/openWeatherService';
 
@@ -12,6 +11,15 @@ function computeAlerts(w) {
   if (w.wind) {
     const v = parseFloat(w.wind);
     alerts.wind = v > 10 ? 'ALTA' : v > 5 ? 'MEDIA' : 'BAJA';
+  }
+
+  if (w.humidity) {
+    const h = parseFloat(w.humidity);
+    alerts.humidity = h > 80 ? 'ALTA' : h > 60 ? 'MEDIA' : 'BAJA';
+  }
+  if (w.air && w.air.pm25) {
+    const pm = parseFloat(w.air.pm25);
+    alerts.air = pm > 35 ? 'ALTA' : pm > 12 ? 'MEDIA' : 'BAJA';
   }
   return alerts;
 }

@@ -1,4 +1,3 @@
-
 export const initialWeather = {
   temperature: "",
   humidity: "",
@@ -19,6 +18,8 @@ export const initialWeather = {
   alerts: {
     temp: "",
     wind: "",
+    humidity: "",
+    air: "",
   },
 };
 
@@ -32,7 +33,6 @@ export const mockWeather = {
     no2: "0.61",
     ozone: "50.37",
     pm25: "6.92",
-
   },
   water: {
     temp: "76°C",
@@ -43,5 +43,7 @@ export const mockWeather = {
   alerts: {
     temp: "BAJA",
     wind: "MEDIA",
+    humidity: "MEDIA",
+    air: "BAJA",
   },
 };
