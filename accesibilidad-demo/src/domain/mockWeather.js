@@ -1,13 +1,38 @@
-export const mockWeather = {
-  temperature: "76°C",
-  humidity: "65%",
-  wind: "15 km/h",
-  pressure: "1013 hPA",
+
+export const initialWeather = {
+  temperature: "",
+  humidity: "",
+  wind: "",
+  pressure: "",
   air: {
-    co: "76.2",
-    no2: "76.2",
-    ozone: "76.2",
-    pm25: "76.2",
+    co: "",
+    no2: "",
+    ozone: "",
+    pm25: "",
+  },
+  water: {
+    temp: "",
+    oxygen: "",
+    salinity: "",
+    chlorophyll: "",
+  },
+  alerts: {
+    temp: "",
+    wind: "",
+  },
+};
+
+export const mockWeather = {
+  temperature: "23°C",
+  humidity: "84%",
+  wind: "2.19 m/s",
+  pressure: "1011 hPa",
+  air: {
+    co: "76.43",
+    no2: "0.61",
+    ozone: "50.37",
+    pm25: "6.92",
+
   },
   water: {
     temp: "76°C",

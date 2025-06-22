@@ -30,3 +30,15 @@ export async function fetchWeather(city, apiKey) {
   }
   return { ...base, air };
 }
+
+export async function fetchForecast(city, apiKey) {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('forecast');
+  const json = await res.json();
+  return json.list.slice(0, 5).map((item) => ({
+    time: new Date(item.dt * 1000).toLocaleDateString('es-ES'),
+    temp: Math.round(item.main.temp),
+  }));
+}
+

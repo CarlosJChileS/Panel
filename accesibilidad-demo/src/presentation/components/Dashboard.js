@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+
 function Dashboard() {
   const [city, setCity] = useState("");
-  const { weather: weatherData, loading, error, search } = useWeather();
+  const { weather: weatherData, trend, loading, error, search } = useWeather();
 
   return (
     <div className="dashboard-container dashboard-bg">
@@ -64,7 +66,6 @@ function Dashboard() {
 
             {loading && <p>Consultando datos...</p>}
             {error && <p style={{color: 'red'}}>{error}</p>}
-
           </div>
         </section>
 
@@ -163,7 +164,17 @@ function Dashboard() {
           <section className="section-box" aria-label="Tendencia Histórica">
             <strong>Tendencia Histórica</strong>
             <div className="map-box" tabIndex="0" aria-label="Gráfico de tendencias">
-              Gráfico de Tendencias
+              {trend.length ? (
+                <LineChart width={280} height={150} data={trend}>
+                  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+                </LineChart>
+              ) : (
+                'Gráfico no disponible'
+              )}
             </div>
           </section>
         </section>
