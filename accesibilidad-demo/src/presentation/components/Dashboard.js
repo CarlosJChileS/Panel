@@ -7,47 +7,60 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 function getStatus(type, val) {
+  const response = { className: "", label: "" };
   const n = parseFloat(val);
   if (Number.isNaN(n)) {
-    if (type === 'alert') {
-      if (val === 'ALTA') return 'status-bad';
-      if (val === 'MEDIA') return 'status-warning';
-      if (val === 'BAJA') return 'status-good';
-    }
-    if (type === 'sky' && val) {
+    if (type === "alert") {
+      if (val === "ALTA") response.className = "status-bad";
+      if (val === "MEDIA") response.className = "status-warning";
+      if (val === "BAJA") response.className = "status-good";
+    } else if (type === "sky" && val) {
       const text = String(val).toLowerCase();
-      if (text.includes('torment') || text.includes('lluv')) return 'status-bad';
-      if (text.includes('nubl')) return 'status-warning';
-      return 'status-good';
+      if (text.includes("torment") || text.includes("lluv")) response.className = "status-bad";
+      else if (text.includes("nubl")) response.className = "status-warning";
+      else response.className = "status-good";
     }
-    return "";
+  } else {
+    switch (type) {
+      case "temp":
+      case "feelsLike":
+        response.className = n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
+        break;
+      case "humidity":
+        response.className = n > 90 || n < 30 ? "status-bad" : n > 70 || n < 50 ? "status-warning" : "status-good";
+        break;
+      case "wind":
+        response.className = n > 10 ? "status-bad" : n > 5 ? "status-warning" : "status-good";
+        break;
+      case "pressure":
+        response.className = n > 1025 || n < 1000 ? "status-bad" : n > 1015 || n < 1010 ? "status-warning" : "status-good";
+        break;
+      case "co":
+        response.className = n > 100 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
+        break;
+      case "no2":
+        response.className = n > 100 ? "status-bad" : n > 40 ? "status-warning" : "status-good";
+        break;
+      case "ozone":
+        response.className = n > 120 ? "status-bad" : n > 60 ? "status-warning" : "status-good";
+        break;
+      case "pm25":
+        response.className = n > 35 ? "status-bad" : n > 12 ? "status-warning" : "status-good";
+        break;
+      case "clouds":
+        response.className = n > 80 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
+        break;
+      case "visibility":
+        response.className = n < 2000 ? "status-bad" : n < 5000 ? "status-warning" : "status-good";
+        break;
+      default:
+        break;
+    }
   }
-  switch (type) {
-    case "temp":
-      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
-    case "humidity":
-      return n > 90 || n < 30 ? "status-bad" : n > 70 || n < 50 ? "status-warning" : "status-good";
-    case "wind":
-      return n > 10 ? "status-bad" : n > 5 ? "status-warning" : "status-good";
-    case "pressure":
-      return n > 1025 || n < 1000 ? "status-bad" : n > 1015 || n < 1010 ? "status-warning" : "status-good";
-    case "co":
-      return n > 100 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
-    case "no2":
-      return n > 100 ? "status-bad" : n > 40 ? "status-warning" : "status-good";
-    case "ozone":
-      return n > 120 ? "status-bad" : n > 60 ? "status-warning" : "status-good";
-    case "pm25":
-      return n > 35 ? "status-bad" : n > 12 ? "status-warning" : "status-good";
-    case "feelsLike":
-      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
-    case "clouds":
-      return n > 80 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
-    case "visibility":
-      return n < 2000 ? "status-bad" : n < 5000 ? "status-warning" : "status-good";
-    default:
-      return "";
-  }
+  if (response.className === "status-bad") response.label = "Crítico";
+  else if (response.className === "status-warning") response.label = "Precaución";
+  else if (response.className === "status-good") response.label = "Bueno";
+  return response;
 }
 
 function Dashboard() {
@@ -125,19 +138,19 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Climáticas</h3>
               <div className="card-row">
                 <span>Temperatura</span>
-                <span className={getStatus('temp', weatherData.temperature)}>{weatherData.temperature}</span>
+                {(function(){const s=getStatus('temp', weatherData.temperature);return <span className={s.className} aria-label={s.label}>{weatherData.temperature}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Humedad</span>
-                <span className={getStatus('humidity', weatherData.humidity)}>{weatherData.humidity}</span>
+                {(function(){const s=getStatus('humidity', weatherData.humidity);return <span className={s.className} aria-label={s.label}>{weatherData.humidity}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Viento</span>
-                <span className={getStatus('wind', weatherData.wind)}>{weatherData.wind}</span>
+                {(function(){const s=getStatus('wind', weatherData.wind);return <span className={s.className} aria-label={s.label}>{weatherData.wind}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Presión Atmosférica</span>
-                <span className={getStatus('pressure', weatherData.pressure)}>{weatherData.pressure}</span>
+                {(function(){const s=getStatus('pressure', weatherData.pressure);return <span className={s.className} aria-label={s.label}>{weatherData.pressure}</span>;})()}
               </div>
             </article>
 
@@ -146,19 +159,19 @@ function Dashboard() {
               <h3 className="card-title">Calidad Del Aire</h3>
               <div className="card-row">
                 <span>Monóxido De Carbono</span>
-                <span className={getStatus('co', weatherData.air.co)}>{weatherData.air.co}</span>
+                {(function(){const s=getStatus('co', weatherData.air.co);return <span className={s.className} aria-label={s.label}>{weatherData.air.co}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Dióxido De Nitrógeno</span>
-                <span className={getStatus('no2', weatherData.air.no2)}>{weatherData.air.no2}</span>
+                {(function(){const s=getStatus('no2', weatherData.air.no2);return <span className={s.className} aria-label={s.label}>{weatherData.air.no2}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Ozono</span>
-                <span className={getStatus('ozone', weatherData.air.ozone)}>{weatherData.air.ozone}</span>
+                {(function(){const s=getStatus('ozone', weatherData.air.ozone);return <span className={s.className} aria-label={s.label}>{weatherData.air.ozone}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Partículas PM2.5</span>
-                <span className={getStatus('pm25', weatherData.air.pm25)}>{weatherData.air.pm25}</span>
+                {(function(){const s=getStatus('pm25', weatherData.air.pm25);return <span className={s.className} aria-label={s.label}>{weatherData.air.pm25}</span>;})()}
               </div>
             </article>
             {/* Extras */}
@@ -166,19 +179,20 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Adicionales</h3>
               <div className="card-row">
                 <span>Sensación térmica</span>
-                <span className={getStatus('feelsLike', weatherData.extras.feelsLike)}>{weatherData.extras.feelsLike}</span>
+
+                {(function(){const s=getStatus('feelsLike', weatherData.extras.feelsLike);return <span className={s.className} aria-label={s.label}>{weatherData.extras.feelsLike}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Estado del cielo</span>
-                <span className={getStatus('sky', weatherData.extras.sky)}>{weatherData.extras.sky}</span>
+                {(function(){const s=getStatus('sky', weatherData.extras.sky);return <span className={s.className} aria-label={s.label}>{weatherData.extras.sky}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Nubosidad</span>
-                <span className={getStatus('clouds', weatherData.extras.clouds)}>{weatherData.extras.clouds}</span>
+                {(function(){const s=getStatus('clouds', weatherData.extras.clouds);return <span className={s.className} aria-label={s.label}>{weatherData.extras.clouds}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Visibilidad</span>
-                <span className={getStatus('visibility', weatherData.extras.visibility)}>{weatherData.extras.visibility}</span>
+                {(function(){const s=getStatus('visibility', weatherData.extras.visibility);return <span className={s.className} aria-label={s.label}>{weatherData.extras.visibility}</span>;})()}
               </div>
             </article>
 
@@ -187,19 +201,19 @@ function Dashboard() {
               <h3 className="card-title">Alertas</h3>
               <div className="card-row">
                 <span>Temperatura Óptima</span>
-                <span className={getStatus('alert', weatherData.alerts.temp)}>{weatherData.alerts.temp}</span>
+                {(function(){const s=getStatus('alert', weatherData.alerts.temp);return <span className={s.className} aria-label={s.label}>{weatherData.alerts.temp}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Viento Fuerte</span>
-                <span className={getStatus('alert', weatherData.alerts.wind)}>{weatherData.alerts.wind}</span>
+                {(function(){const s=getStatus('alert', weatherData.alerts.wind);return <span className={s.className} aria-label={s.label}>{weatherData.alerts.wind}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Humedad</span>
-                <span className={getStatus('alert', weatherData.alerts.humidity)}>{weatherData.alerts.humidity}</span>
+                {(function(){const s=getStatus('alert', weatherData.alerts.humidity);return <span className={s.className} aria-label={s.label}>{weatherData.alerts.humidity}</span>;})()}
               </div>
               <div className="card-row">
                 <span>Aire Contaminado</span>
-                <span className={getStatus('alert', weatherData.alerts.air)}>{weatherData.alerts.air}</span>
+                {(function(){const s=getStatus('alert', weatherData.alerts.air);return <span className={s.className} aria-label={s.label}>{weatherData.alerts.air}</span>;})()}
               </div>
             </article>
           </div>
