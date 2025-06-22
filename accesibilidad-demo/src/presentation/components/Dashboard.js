@@ -13,6 +13,12 @@ function getStatus(type, val) {
       if (val === 'MEDIA') return 'status-warning';
       if (val === 'BAJA') return 'status-good';
     }
+    if (type === 'sky' && val) {
+      const text = String(val).toLowerCase();
+      if (text.includes('torment') || text.includes('lluv')) return 'status-bad';
+      if (text.includes('nubl')) return 'status-warning';
+      return 'status-good';
+    }
     return "";
   }
   switch (type) {
@@ -32,6 +38,12 @@ function getStatus(type, val) {
       return n > 120 ? "status-bad" : n > 60 ? "status-warning" : "status-good";
     case "pm25":
       return n > 35 ? "status-bad" : n > 12 ? "status-warning" : "status-good";
+    case "feelsLike":
+      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
+    case "clouds":
+      return n > 80 ? "status-bad" : n > 50 ? "status-warning" : "status-good";
+    case "visibility":
+      return n < 2000 ? "status-bad" : n < 5000 ? "status-warning" : "status-good";
     default:
       return "";
   }
@@ -153,19 +165,19 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Adicionales</h3>
               <div className="card-row">
                 <span>Sensación térmica</span>
-                <span>{weatherData.extras.feelsLike}</span>
+                <span className={getStatus('feelsLike', weatherData.extras.feelsLike)}>{weatherData.extras.feelsLike}</span>
               </div>
               <div className="card-row">
                 <span>Estado del cielo</span>
-                <span>{weatherData.extras.sky}</span>
+                <span className={getStatus('sky', weatherData.extras.sky)}>{weatherData.extras.sky}</span>
               </div>
               <div className="card-row">
                 <span>Nubosidad</span>
-                <span>{weatherData.extras.clouds}</span>
+                <span className={getStatus('clouds', weatherData.extras.clouds)}>{weatherData.extras.clouds}</span>
               </div>
               <div className="card-row">
                 <span>Visibilidad</span>
-                <span>{weatherData.extras.visibility}</span>
+                <span className={getStatus('visibility', weatherData.extras.visibility)}>{weatherData.extras.visibility}</span>
               </div>
             </article>
 
