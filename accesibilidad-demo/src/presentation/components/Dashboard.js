@@ -148,7 +148,6 @@ function Dashboard() {
                 <span className={getStatus('pm25', weatherData.air.pm25)}>{weatherData.air.pm25}</span>
               </div>
             </article>
-
             {/* Extras */}
             <article className="card" role="region" aria-label="Condiciones adicionales">
               <h3 className="card-title">Condiciones Adicionales</h3>
