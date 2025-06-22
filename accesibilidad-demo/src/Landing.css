@@ -194,3 +194,20 @@
     max-width: 98vw;
   }
 }
+.navbar-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: #2563eb;
+}
+.navbar-links a:hover {
+  background: #114cad;
+}
+

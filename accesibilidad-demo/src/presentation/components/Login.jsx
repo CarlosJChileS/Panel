@@ -1,19 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../../Dashboard.css";
+import Header from "./Header";
+import { useAuth } from "../AuthContext";
 
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
+  const { supabase } = useAuth();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    navigate("/dashboard");
+    const { error } = await supabase.auth.signInWithPassword({
+      email: user,
+      password: pass,
+    });
+    if (!error) navigate("/dashboard");
   }
 
   return (
     <div className="dashboard-container dashboard-bg" style={{ paddingTop: "60px" }}>
+      <Header />
       <main className="search-section-center" aria-labelledby="login-title">
         <div className="search-box" role="region" aria-label="Iniciar sesión">
           <h2 id="login-title" className="search-box-title">
@@ -38,6 +46,9 @@ export default function Login() {
             />
             <button type="submit">Ingresar</button>
           </form>
+          <p style={{ marginTop: '10px', textAlign: 'center' }}>
+            ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+          </p>
         </div>
       </main>
     </div>

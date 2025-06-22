@@ -1,22 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../Landing.css";
+import Header from "./Header";
 
 export default function Welcome() {
   return (
     <div className="dashboard-bg">
-      <header className="header">
-        <div className="header-title">
-          <span className="header-main-title">Dashboard Ambiental Costero</span>
-          <span className="header-subtitle">Monitoreo en Tiempo Real</span>
-        </div>
-        <div className="header-actions">
-          <button className="lang-btn">ES</button>
-          <Link to="/login" aria-label="Iniciar sesión">
-            <div className="profile-circle"></div>
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       <div className="central-panel">
         <h1 className="welcome-title">Bienvenido al Sistema de Monitoreo Ambiental</h1>
@@ -41,10 +31,10 @@ export default function Welcome() {
           </div>
         </div>
         <div className="central-actions">
-          <Link to="/dashboard">
+          <Link to="/login">
             <button className="main-btn">Consultar Datos Ahora</button>
           </Link>
-          <Link to="/mapa">
+          <Link to="/login">
             <button className="sec-btn">Explorar Mapa</button>
           </Link>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { initialWeather, mockWeather } from '../../domain/mockWeather';
 import { fetchWeather, fetchForecast } from '../../infrastructure/openWeatherService';
+import { supabase } from '../../infrastructure/supabaseClient';
 
 function computeAlerts(w) {
   const alerts = {};
@@ -50,6 +51,7 @@ export function useWeather() {
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);
+      await supabase.from('historial').insert({ ciudad: city });
       setError(null);
     } catch (e) {
       setError('No se pudo obtener datos');
