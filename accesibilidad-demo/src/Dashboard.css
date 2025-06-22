@@ -175,6 +175,27 @@ body, .dashboard-bg {
   font-weight: 600;
   letter-spacing: 0.2px;
 }
+
+.status-good {
+  background: #e6f9ec;
+  color: #0a8a27;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.status-warning {
+  background: #fff5cc;
+  color: #c18f00;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.status-bad {
+  background: #ffe6e6;
+  color: #c30000;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
 .section-box {
   background: #e8f1fb;
   margin: 24px auto 0 auto;
