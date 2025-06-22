@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
 
 function getStatus(type, val) {
   const n = parseFloat(val);
@@ -42,6 +45,7 @@ function getStatus(type, val) {
       return "";
   }
 }
+
 function Dashboard() {
   const [city, setCity] = useState("");
   const { weather: weatherData, trend, loading, error, search } = useWeather();
@@ -189,7 +193,8 @@ function Dashboard() {
                 <span className={getStatus('alert', weatherData.alerts.wind)}>{weatherData.alerts.wind}</span>
               </div>
               <div className="card-row">
-                <span>Humedad Alta</span>
+                <span>Humedad</span>
+
                 <span className={getStatus('alert', weatherData.alerts.humidity)}>{weatherData.alerts.humidity}</span>
               </div>
               <div className="card-row">
@@ -200,10 +205,18 @@ function Dashboard() {
           </div>
 
           {/* Mapa y tendencias */}
-          <section className="section-box" aria-label="Mapa de estaciones">
-            <strong>Mapa de Estaciones</strong>
+          <section className="section-box" aria-label="Mapa de ubicación">
+            <strong>Mapa de Ubicación</strong>
             <div className="map-box" tabIndex="0" aria-label="Mapa interactivo">
-              Mapa interactivo
+              {weatherData.lat && weatherData.lon ? (
+                <MapContainer center={[weatherData.lat, weatherData.lon]} zoom={10} style={{height: "160px", width: "100%"}}>
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <Marker position={[weatherData.lat, weatherData.lon]} />
+                </MapContainer>
+              ) : (
+                'Mapa no disponible'
+              )}
+
             </div>
           </section>
           <section className="section-box" aria-label="Tendencia Histórica">

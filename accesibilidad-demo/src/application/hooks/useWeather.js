@@ -36,7 +36,6 @@ export function useWeather() {
     try {
       const apiKey = process.env.REACT_APP_OPENWEATHER_KEY;
       const real = await fetchWeather(city, apiKey);
-
       let forecast = [];
       try {
         forecast = await fetchForecast(city, apiKey);

@@ -3,6 +3,10 @@ export const initialWeather = {
   humidity: "",
   wind: "",
   pressure: "",
+
+  lat: null,
+  lon: null,
+
   air: {
     co: "",
     no2: "",
@@ -28,6 +32,10 @@ export const mockWeather = {
   humidity: "84%",
   wind: "2.19 m/s",
   pressure: "1011 hPa",
+
+  lat: -0.96,
+  lon: -80.73,
+
   air: {
     co: "76.43",
     no2: "0.61",

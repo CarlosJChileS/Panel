@@ -8,6 +8,8 @@ export async function fetchWeather(city, apiKey) {
     humidity: data.main ? `${data.main.humidity}%` : null,
     wind: data.wind ? `${data.wind.speed} m/s` : null,
     pressure: data.main ? `${data.main.pressure} hPa` : null,
+    lat: data.coord ? data.coord.lat : null,
+    lon: data.coord ? data.coord.lon : null,
   };
   let air = {};
   try {
@@ -41,4 +43,3 @@ export async function fetchForecast(city, apiKey) {
     temp: Math.round(item.main.temp),
   }));
 }
-
