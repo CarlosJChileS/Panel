@@ -32,6 +32,7 @@ export const mockWeather = {
   pressure: "1011 hPa",
   lat: -0.96,
   lon: -80.73,
+
   air: {
     co: "76.43",
     no2: "0.61",

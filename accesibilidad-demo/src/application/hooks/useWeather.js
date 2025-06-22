@@ -60,4 +60,5 @@ export function useWeather() {
   };
 
   return { weather: data, trend, loading, error, search };
+
 }
