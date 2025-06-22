@@ -42,7 +42,6 @@ function getStatus(type, val) {
       return "";
   }
 }
-
 function Dashboard() {
   const [city, setCity] = useState("");
   const { weather: weatherData, trend, loading, error, search } = useWeather();
@@ -118,6 +117,7 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Climáticas</h3>
               <div className="card-row">
                 <span>Temperatura</span>
+
                 <span className={getStatus('temp', weatherData.temperature)}>{weatherData.temperature}</span>
               </div>
               <div className="card-row">
@@ -173,6 +173,7 @@ function Dashboard() {
               <div className="card-row">
                 <span>Clorofila</span>
                 <span className={getStatus('chlorophyll', weatherData.water.chlorophyll)}>{weatherData.water.chlorophyll}</span>
+
               </div>
             </article>
 

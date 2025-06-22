@@ -41,3 +41,4 @@ export async function fetchForecast(city, apiKey) {
     temp: Math.round(item.main.temp),
   }));
 }
+
