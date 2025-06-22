@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
+
 function getStatus(type, val) {
   const n = parseFloat(val);
   if (Number.isNaN(n)) {
@@ -120,6 +121,7 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Climáticas</h3>
               <div className="card-row">
                 <span>Temperatura</span>
+
                 <span className={getStatus('temp', weatherData.temperature)}>{weatherData.temperature}</span>
               </div>
               <div className="card-row">
@@ -175,6 +177,7 @@ function Dashboard() {
               <div className="card-row">
                 <span>Clorofila</span>
                 <span className={getStatus('chlorophyll', weatherData.water.chlorophyll)}>{weatherData.water.chlorophyll}</span>
+
               </div>
             </article>
 
@@ -191,6 +194,7 @@ function Dashboard() {
               </div>
               <div className="card-row">
                 <span>Humedad</span>
+
                 <span className={getStatus('alert', weatherData.alerts.humidity)}>{weatherData.alerts.humidity}</span>
               </div>
               <div className="card-row">
@@ -212,6 +216,7 @@ function Dashboard() {
               ) : (
                 'Mapa no disponible'
               )}
+
             </div>
           </section>
           <section className="section-box" aria-label="Tendencia Histórica">
