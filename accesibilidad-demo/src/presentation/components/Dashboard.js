@@ -174,12 +174,12 @@ function Dashboard() {
                 {(function(){const s=getStatus('pm25', weatherData.air.pm25);return <span className={s.className} aria-label={s.label}>{weatherData.air.pm25}</span>;})()}
               </div>
             </article>
-
             {/* Extras */}
             <article className="card" role="region" aria-label="Condiciones adicionales">
               <h3 className="card-title">Condiciones Adicionales</h3>
               <div className="card-row">
                 <span>Sensación térmica</span>
+
                 {(function(){const s=getStatus('feelsLike', weatherData.extras.feelsLike);return <span className={s.className} aria-label={s.label}>{weatherData.extras.feelsLike}</span>;})()}
               </div>
               <div className="card-row">
