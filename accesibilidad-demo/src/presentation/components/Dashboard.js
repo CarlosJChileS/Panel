@@ -1,32 +1,11 @@
 import React, { useState } from "react";
-import "./Dashboard.css";
+import "../../Dashboard.css";
+import { useWeather } from "../../application/hooks/useWeather";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 function Dashboard() {
   const [city, setCity] = useState("");
-
-  // Mock data para pruebas, reemplázalos con la API cuando quieras
-  const weatherData = {
-    temperature: "76°C",
-    humidity: "65%",
-    wind: "15 km/h",
-    pressure: "1013 hPA",
-    air: {
-      co: "76.2",
-      no2: "76.2",
-      ozone: "76.2",
-      pm25: "76.2",
-    },
-    water: {
-      temp: "76°C",
-      oxygen: "8.8",
-      salinity: "36.5ppt",
-      chlorophyll: "76.2",
-    },
-    alerts: {
-      temp: "BAJA",
-      wind: "MEDIA",
-    },
-  };
+  const { weather: weatherData, trend, loading, error, search } = useWeather();
 
   return (
     <div className="dashboard-container dashboard-bg">
@@ -61,7 +40,10 @@ function Dashboard() {
             </p>
             <form
               className="city-form-horizontal"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                search(city);
+              }}
               aria-describedby="search-location-desc"
               role="search"
               autoComplete="off"
@@ -80,6 +62,8 @@ function Dashboard() {
               />
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
+            {loading && <p>Consultando datos...</p>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
           </div>
         </section>
 
@@ -178,7 +162,17 @@ function Dashboard() {
           <section className="section-box" aria-label="Tendencia Histórica">
             <strong>Tendencia Histórica</strong>
             <div className="map-box" tabIndex="0" aria-label="Gráfico de tendencias">
-              Gráfico de Tendencias
+              {trend.length ? (
+                <LineChart width={280} height={150} data={trend}>
+                  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+                </LineChart>
+              ) : (
+                'Gráfico no disponible'
+              )}
             </div>
           </section>
         </section>
