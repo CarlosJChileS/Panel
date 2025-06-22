@@ -14,6 +14,7 @@ export async function fetchWeather(city, apiKey) {
       clouds: data.clouds ? `${data.clouds.all}%` : null,
       visibility: data.visibility ? `${data.visibility} m` : null,
     },
+
     lat: data.coord ? data.coord.lat : null,
     lon: data.coord ? data.coord.lon : null,
   };
