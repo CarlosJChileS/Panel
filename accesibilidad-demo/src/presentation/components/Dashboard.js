@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
+import { Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -61,13 +62,13 @@ function Dashboard() {
           Dashboard Ambiental Costero
         </div>
         <div className="navbar-links" role="menubar">
-          <a href="#" role="menuitem" tabIndex="0">Dashboard</a>
-          <a href="#" role="menuitem" tabIndex="0">Calidad Aire</a>
-          <a href="#" role="menuitem" tabIndex="0">Condiciones Extra</a>
-          <a href="#" role="menuitem" tabIndex="0">Mapa</a>
-          <a href="#" role="menuitem" tabIndex="0">Alertas</a>
-          <a href="#" role="menuitem" tabIndex="0">Estadísticas</a>
-          <a href="#" role="menuitem" tabIndex="0">Contacto</a>
+          <Link to="/dashboard" role="menuitem" tabIndex="0">Dashboard</Link>
+          <Link to="/aire" role="menuitem" tabIndex="0">Calidad Aire</Link>
+          <Link to="/extras" role="menuitem" tabIndex="0">Condiciones Extra</Link>
+          <Link to="/mapa" role="menuitem" tabIndex="0">Mapa</Link>
+          <Link to="/alertas" role="menuitem" tabIndex="0">Alertas</Link>
+          <Link to="/estadisticas" role="menuitem" tabIndex="0">Estadísticas</Link>
+          <Link to="/contacto" role="menuitem" tabIndex="0">Contacto</Link>
         </div>
       </nav>
 
