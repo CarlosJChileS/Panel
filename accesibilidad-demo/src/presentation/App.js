@@ -4,6 +4,7 @@ import AccessibilityPanel from "./components/AccessibilityPanel";
 import Dashboard from "./components/Dashboard";
 import Welcome from "./components/Welcome";
 import Placeholder from "./components/Placeholder";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AccessibilityPanel />
       <Routes>
         <Route path="/" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/aire" element={<Placeholder title="Calidad del Aire" />} />
         <Route path="/extras" element={<Placeholder title="Condiciones Extra" />} />
