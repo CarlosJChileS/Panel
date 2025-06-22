@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from './presentation/App';
+jest.mock('react-leaflet');
 
-test('renders learn react link', () => {
+test('renders welcome page', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const heading = screen.getByText(/Bienvenido al Dashboard Ambiental Costero/i);
+  expect(heading).toBeInTheDocument();
 });
