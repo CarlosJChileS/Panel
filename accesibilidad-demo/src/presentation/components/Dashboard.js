@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "../../Dashboard.css";
 import { useWeather } from "../../application/hooks/useWeather";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
 
 function getStatus(type, val) {
   const n = parseFloat(val);
@@ -121,7 +120,6 @@ function Dashboard() {
               <h3 className="card-title">Condiciones Climáticas</h3>
               <div className="card-row">
                 <span>Temperatura</span>
-
                 <span className={getStatus('temp', weatherData.temperature)}>{weatherData.temperature}</span>
               </div>
               <div className="card-row">
@@ -177,7 +175,6 @@ function Dashboard() {
               <div className="card-row">
                 <span>Clorofila</span>
                 <span className={getStatus('chlorophyll', weatherData.water.chlorophyll)}>{weatherData.water.chlorophyll}</span>
-
               </div>
             </article>
 
@@ -194,7 +191,6 @@ function Dashboard() {
               </div>
               <div className="card-row">
                 <span>Humedad</span>
-
                 <span className={getStatus('alert', weatherData.alerts.humidity)}>{weatherData.alerts.humidity}</span>
               </div>
               <div className="card-row">
@@ -209,27 +205,33 @@ function Dashboard() {
             <strong>Mapa de Ubicación</strong>
             <div className="map-box" tabIndex="0" aria-label="Mapa interactivo">
               {weatherData.lat && weatherData.lon ? (
-                <MapContainer center={[weatherData.lat, weatherData.lon]} zoom={10} style={{height: "160px", width: "100%"}}>
+                <MapContainer
+                  key={`${weatherData.lat},${weatherData.lon}`}
+                  center={[weatherData.lat, weatherData.lon]}
+                  zoom={10}
+                  style={{ height: "220px", width: "100%" }}
+                >
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <Marker position={[weatherData.lat, weatherData.lon]} />
                 </MapContainer>
               ) : (
                 'Mapa no disponible'
               )}
-
             </div>
           </section>
           <section className="section-box" aria-label="Tendencia Histórica">
             <strong>Tendencia Histórica</strong>
             <div className="map-box" tabIndex="0" aria-label="Gráfico de tendencias">
               {trend.length ? (
-                <LineChart width={420} height={200} data={trend}>
-                  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                  <XAxis dataKey="time" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="temp" stroke="#8884d8" />
-                </LineChart>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={trend}>
+                    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                    <XAxis dataKey="time" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+                  </LineChart>
+                </ResponsiveContainer>
               ) : (
                 'Gráfico no disponible'
               )}
