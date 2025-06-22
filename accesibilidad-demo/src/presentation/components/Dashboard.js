@@ -32,14 +32,6 @@ function getStatus(type, val) {
       return n > 120 ? "status-bad" : n > 60 ? "status-warning" : "status-good";
     case "pm25":
       return n > 35 ? "status-bad" : n > 12 ? "status-warning" : "status-good";
-    case "waterTemp":
-      return n > 30 || n < 15 ? "status-bad" : n > 25 || n < 20 ? "status-warning" : "status-good";
-    case "oxygen":
-      return n < 4 ? "status-bad" : n < 7 ? "status-warning" : "status-good";
-    case "salinity":
-      return n > 38 || n < 30 ? "status-bad" : n > 36 || n < 32 ? "status-warning" : "status-good";
-    case "chlorophyll":
-      return n > 40 ? "status-bad" : n > 10 ? "status-warning" : "status-good";
     default:
       return "";
   }
@@ -59,7 +51,7 @@ function Dashboard() {
         <div className="navbar-links" role="menubar">
           <a href="#" role="menuitem" tabIndex="0">Dashboard</a>
           <a href="#" role="menuitem" tabIndex="0">Calidad Aire</a>
-          <a href="#" role="menuitem" tabIndex="0">Calidad Agua</a>
+          <a href="#" role="menuitem" tabIndex="0">Condiciones Extra</a>
           <a href="#" role="menuitem" tabIndex="0">Mapa</a>
           <a href="#" role="menuitem" tabIndex="0">Alertas</a>
           <a href="#" role="menuitem" tabIndex="0">Estadísticas</a>
@@ -156,25 +148,24 @@ function Dashboard() {
                 <span className={getStatus('pm25', weatherData.air.pm25)}>{weatherData.air.pm25}</span>
               </div>
             </article>
-
-            {/* Agua */}
-            <article className="card" role="region" aria-label="Calidad del agua">
-              <h3 className="card-title">Calidad Del Agua</h3>
+            {/* Extras */}
+            <article className="card" role="region" aria-label="Condiciones adicionales">
+              <h3 className="card-title">Condiciones Adicionales</h3>
               <div className="card-row">
-                <span>Temperatura Del Mar</span>
-                <span className={getStatus('waterTemp', weatherData.water.temp)}>{weatherData.water.temp}</span>
+                <span>Sensación térmica</span>
+                <span>{weatherData.extras.feelsLike}</span>
               </div>
               <div className="card-row">
-                <span>Oxígeno disuelto</span>
-                <span className={getStatus('oxygen', weatherData.water.oxygen)}>{weatherData.water.oxygen}</span>
+                <span>Estado del cielo</span>
+                <span>{weatherData.extras.sky}</span>
               </div>
               <div className="card-row">
-                <span>Salinidad</span>
-                <span className={getStatus('salinity', weatherData.water.salinity)}>{weatherData.water.salinity}</span>
+                <span>Nubosidad</span>
+                <span>{weatherData.extras.clouds}</span>
               </div>
               <div className="card-row">
-                <span>Clorofila</span>
-                <span className={getStatus('chlorophyll', weatherData.water.chlorophyll)}>{weatherData.water.chlorophyll}</span>
+                <span>Visibilidad</span>
+                <span>{weatherData.extras.visibility}</span>
               </div>
             </article>
 

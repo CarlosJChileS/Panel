@@ -11,11 +11,11 @@ export const initialWeather = {
     ozone: "",
     pm25: "",
   },
-  water: {
-    temp: "",
-    oxygen: "",
-    salinity: "",
-    chlorophyll: "",
+  extras: {
+    feelsLike: "",
+    sky: "",
+    clouds: "",
+    visibility: "",
   },
   alerts: {
     temp: "",
@@ -32,18 +32,17 @@ export const mockWeather = {
   pressure: "1011 hPa",
   lat: -0.96,
   lon: -80.73,
-
   air: {
     co: "76.43",
     no2: "0.61",
     ozone: "50.37",
     pm25: "6.92",
   },
-  water: {
-    temp: "76°C",
-    oxygen: "8.8",
-    salinity: "36.5ppt",
-    chlorophyll: "76.2",
+  extras: {
+    feelsLike: "25°C",
+    sky: "cielo claro",
+    clouds: "10%",
+    visibility: "10000 m",
   },
   alerts: {
     temp: "BAJA",

@@ -45,6 +45,8 @@ export function useWeather() {
         ...mockWeather,
         ...real,
         air: { ...mockWeather.air, ...real.air },
+        extras: { ...mockWeather.extras, ...(real.extras || {}) },
+
       };
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
@@ -60,5 +62,4 @@ export function useWeather() {
   };
 
   return { weather: data, trend, loading, error, search };
-
 }

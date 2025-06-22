@@ -8,6 +8,13 @@ export async function fetchWeather(city, apiKey) {
     humidity: data.main ? `${data.main.humidity}%` : null,
     wind: data.wind ? `${data.wind.speed} m/s` : null,
     pressure: data.main ? `${data.main.pressure} hPa` : null,
+    extras: {
+      feelsLike: data.main ? `${Math.round(data.main.feels_like)}°C` : null,
+      sky: data.weather && data.weather[0] ? data.weather[0].description : null,
+      clouds: data.clouds ? `${data.clouds.all}%` : null,
+      visibility: data.visibility ? `${data.visibility} m` : null,
+    },
+
     lat: data.coord ? data.coord.lat : null,
     lon: data.coord ? data.coord.lon : null,
   };
