@@ -1,0 +1,52 @@
+# Dashboard Ambiental Costero
+
+Este repositorio contiene una demostración de un panel de monitoreo ambiental compuesto por un **frontend en React** y un **backend en Express**. Supabase se utiliza como base de datos y servicio de autenticación.
+
+## Requisitos
+- Node.js 18 o superior
+- Cuenta de Supabase con las claves de proyecto
+- Docker (opcional, para ejecución en contenedores)
+
+## Instalación manual
+### Frontend
+1. Copia el archivo `accesibilidad-demo/.env` y coloca tus datos de `REACT_APP_OPENWEATHER_KEY`, `REACT_APP_SUPABASE_URL` y `REACT_APP_SUPABASE_KEY`.
+2. Instala las dependencias ejecutando:
+   ```bash
+   npm install --force --prefix accesibilidad-demo
+   ```
+3. Inicia el servidor de desarrollo con:
+   ```bash
+   npm start --prefix accesibilidad-demo
+   ```
+   La aplicación estará disponible en `http://localhost:3000`.
+
+### Backend
+1. Crea un archivo `.env` en `backend` a partir de `backend/.env.sample` y completa `SUPABASE_URL`, `SUPABASE_KEY` y `PORT`.
+2. Instala las dependencias:
+   ```bash
+   npm install --prefix backend
+   ```
+3. Ejecuta el servidor:
+   ```bash
+   npm start --prefix backend
+   ```
+   Escuchará en `http://localhost:4000`.
+
+## Uso con Docker
+1. Construye y levanta ambos servicios con:
+   ```bash
+   docker compose up --build
+   ```
+2. El contenedor del frontend se expone en el puerto `3000` y el del backend en `4000`.
+
+## Base de datos
+En la carpeta `scripts` encontrarás `supabase_schema.sql` con el script para crear todas las tablas necesarias (usuarios, ciudades, historial de consultas y condiciones climáticas). Ejecútalo en tu proyecto de Supabase antes de usar la aplicación.
+
+## Pruebas
+Para ejecutar la suite de tests del frontend utiliza:
+```bash
+CI=true npm test --silent --runInBand --prefix accesibilidad-demo
+```
+
+## Licencia
+Este proyecto se distribuye bajo la licencia MIT incluida en el repositorio.
