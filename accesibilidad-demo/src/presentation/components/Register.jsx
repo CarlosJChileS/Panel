@@ -11,8 +11,11 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { error } = await supabase.auth.signUp({ email, password: pass });
-    if (!error) navigate('/dashboard');
+    const { data, error } = await supabase.auth.signUp({ email, password: pass });
+    if (!error && data.user) {
+      await supabase.from('users').insert({ id: data.user.id, email });
+      navigate('/dashboard');
+    }
   }
 
   return (
