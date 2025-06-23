@@ -51,8 +51,10 @@ export function useWeather() {
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);
+
       const { data: { user } } = await supabase.auth.getUser();
       await supabase.from('historial').insert({ ciudad: city, user_id: user?.id });
+
       setError(null);
     } catch (e) {
       setError('No se pudo obtener datos');
