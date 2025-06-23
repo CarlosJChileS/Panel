@@ -211,3 +211,25 @@
   background: #114cad;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.login-form input {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.login-form button {
+  background: #fff;
+  color: #2176ea;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
