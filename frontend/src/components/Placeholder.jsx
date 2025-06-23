@@ -1,6 +1,6 @@
 import React from "react";
-import "../../Landing.css";
-import "../../Dashboard.css";
+import "../Landing.css";
+import "../Dashboard.css";
 import Header from "./Header";
 
 export default function Placeholder({ title }) {

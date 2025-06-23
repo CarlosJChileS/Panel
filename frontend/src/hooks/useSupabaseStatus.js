@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../infrastructure/supabaseClient';
+import { supabase } from '../services/supabaseClient';
 
 export function useSupabaseStatus() {
   const [status, setStatus] = useState('checking');

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { accessibilityProfiles } from "../../domain/accessibilityProfiles";
-import { applyAccessibilityEffects } from "../../infrastructure/applyAccessibilityEffects";
+import { accessibilityProfiles } from "../data/accessibilityProfiles";
+import { applyAccessibilityEffects } from "../services/applyAccessibilityEffects";
 
 export function useAccessibility() {
   const [visible, setVisible] = useState(false);

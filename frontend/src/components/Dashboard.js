@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../../Dashboard.css";
-import { useWeather } from "../../application/hooks/useWeather";
+import "../Dashboard.css";
+import { useWeather } from "../hooks/useWeather";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { initialWeather, mockWeather } from '../../domain/mockWeather';
-import { fetchWeather, fetchForecast } from '../../infrastructure/openWeatherService';
-import { supabase } from '../../infrastructure/supabaseClient';
+import { initialWeather, mockWeather } from '../data/mockWeather';
+import { fetchWeather, fetchForecast } from '../services/openWeatherService';
+import { supabase } from '../services/supabaseClient';
 
 function parseNum(value) {
   const n = parseFloat(String(value).replace(/[^0-9.-]/g, ''));

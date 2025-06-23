@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../../Landing.css";
+import "../Landing.css";
 import { useAuth } from "../AuthContext";
-import { useSupabaseStatus } from "../../application/hooks/useSupabaseStatus";
+import { useSupabaseStatus } from "../hooks/useSupabaseStatus";
 
 export default function Login() {
   const [user, setUser] = useState("");
