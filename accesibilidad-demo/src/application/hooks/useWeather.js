@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { initialWeather, mockWeather } from '../../domain/mockWeather';
 import { fetchWeather, fetchForecast } from '../../infrastructure/openWeatherService';
 import { supabase } from '../../infrastructure/supabaseClient';
+
 function parseNum(value) {
   const n = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
   return Number.isNaN(n) ? null : n;

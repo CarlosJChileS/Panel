@@ -3,8 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import "../../Landing.css";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../../application/hooks/useSupabaseStatus";
-
-
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -29,12 +27,11 @@ export default function Login() {
       setMessage("Error al iniciar sesión");
     }
     setLoading(false);
-
   }
 
   return (
     <div className="dashboard-bg">
-      <div className="central-panel" style={{ maxWidth: '400px' }}>
+      <div className="central-panel" style={{ maxWidth: '600px' }}>
         <h1 className="welcome-title" id="login-title">Iniciar Sesión</h1>
         <form className="login-form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
           <label htmlFor="username">Correo</label>

@@ -30,7 +30,8 @@ export default function Register() {
 
   return (
     <div className="dashboard-bg">
-      <div className="central-panel" style={{ maxWidth: '400px' }}>
+
+      <div className="central-panel" style={{ maxWidth: '600px' }}>
         <h1 className="welcome-title" id="register-title">Registrarse</h1>
         <form className="login-form" onSubmit={handleSubmit} aria-label="Crear cuenta">
           <label htmlFor="reg-email">Correo</label>
