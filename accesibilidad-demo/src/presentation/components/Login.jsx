@@ -2,20 +2,34 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../../Landing.css";
 import { useAuth } from "../AuthContext";
+import { useSupabaseStatus } from "../../application/hooks/useSupabaseStatus";
+
 
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { supabase } = useAuth();
+  const status = useSupabaseStatus();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
+    setMessage("");
     const { error } = await supabase.auth.signInWithPassword({
       email: user,
       password: pass,
     });
-    if (!error) navigate("/dashboard");
+    if (!error) {
+      setMessage("Login exitoso");
+      navigate("/dashboard");
+    } else {
+      setMessage("Error al iniciar sesión");
+    }
+    setLoading(false);
+
   }
 
   return (
@@ -41,6 +55,13 @@ export default function Login() {
           />
           <button type="submit">Ingresar</button>
         </form>
+        {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
+        {message && <div className="status-message">{message}</div>}
+        {status === 'error' && (
+          <div className="status-message" style={{ color: 'red' }}>
+            Error de conexión con Supabase
+          </div>
+        )}
         <p style={{ marginTop: '10px', textAlign: 'center' }}>
           ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
         </p>
