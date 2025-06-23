@@ -1,6 +1,6 @@
 import React from "react";
-import { icons } from "../../domain/icons";
-import { useAccessibility } from "../../application/hooks/useAccessibility";
+import { icons } from "../data/icons";
+import { useAccessibility } from "../hooks/useAccessibility";
 
 function AccessibilityPanel() {
   const {
