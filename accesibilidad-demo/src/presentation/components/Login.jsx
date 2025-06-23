@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import "../../Landing.css";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../../application/hooks/useSupabaseStatus";
-
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
