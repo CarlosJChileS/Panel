@@ -4,6 +4,7 @@ import "../../Landing.css";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../../application/hooks/useSupabaseStatus";
 
+
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -28,6 +29,7 @@ export default function Login() {
       setMessage("Error al iniciar sesión");
     }
     setLoading(false);
+
   }
 
   return (
