@@ -31,8 +31,8 @@ export default function Login() {
   }
 
   return (
-    <div className="dashboard-bg">
-      <div className="central-panel" style={{ maxWidth: '600px' }}>
+    <div className="dashboard-bg auth-container">
+      <div className="central-panel" style={{ maxWidth: '600px', margin: '0 auto' }}>
         <h1 className="welcome-title" id="login-title">Iniciar Sesión</h1>
         <form className="login-form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
           <label htmlFor="username">Correo</label>
