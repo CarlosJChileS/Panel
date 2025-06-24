@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../Landing.css";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../hooks/useSupabaseStatus";
+import styles from "./Login.module.css";
 
 export default function Login() {
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Login() {
     setLoading(true);
     setMessage("");
     const { error } = await supabase.auth.signInWithPassword({
-      email: user,
+      email,
       password: pass,
     });
     if (!error) {
@@ -31,27 +32,84 @@ export default function Login() {
   }
 
   return (
-    <div className="dashboard-bg auth-container">
-      <div className="central-panel" style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h1 className="welcome-title" id="login-title">Iniciar Sesión</h1>
-        <form className="login-form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
-          <label htmlFor="username">Correo</label>
-          <input
-            id="username"
-            type="email"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            required
-          />
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            required
-          />
-          <button type="submit">Ingresar</button>
+    <div className={styles.container}>
+      <div className={styles.leftPanel}>
+        <div className={styles.logoCircle}>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v2M12 19v2M5.64 7.64l-1.41-1.41M18.36 16.36l1.41 1.41M3 12H5M19 12h2M5.64 16.36l-1.41 1.41M18.36 7.64l1.41-1.41" stroke="#4caf50" strokeWidth="2"/>
+            <circle cx="12" cy="12" r="7" stroke="#4caf50" strokeWidth="2"/>
+          </svg>
+        </div>
+        <h2 className={styles.welcome}>¡Bienvenido de vuelta!</h2>
+        <p className={styles.desc}>Continúa tu monitoreo ambiental</p>
+        <div className={styles.statsRow}>
+          <div>
+            <span className={styles.statsNumber}>2,847</span>
+            <span className={styles.statsLabel}>Usuarios</span>
+          </div>
+          <div>
+            <span className={styles.statsNumber}>15.2 Ton</span>
+            <span className={styles.statsLabel}>Datos procesados</span>
+          </div>
+          <div>
+            <span className={styles.statsNumber}>45</span>
+            <span className={styles.statsLabel}>Sensores</span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.rightPanel}>
+        <h2 className={styles.loginTitle}>Iniciar Sesión</h2>
+        <p className={styles.loginDesc}>Ingresa tus credenciales</p>
+        <form onSubmit={handleSubmit} className={styles.form} aria-label="Iniciar sesión">
+          <label className={styles.label} htmlFor="login-email">Correo Electrónico *</label>
+          <div className={styles.inputIcon}>
+            <span className={styles.icon}>
+              <svg width="18" height="18" fill="none"><path d="M2 4h14v10H2z" stroke="#888" strokeWidth="1.5"/><path d="M2 4l7 6 7-6" stroke="#888" strokeWidth="1.5"/></svg>
+            </span>
+            <input
+              id="login-email"
+              className={styles.input}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="tu.correo@ejemplo.com"
+              required
+            />
+          </div>
+          <label className={styles.label} htmlFor="login-pass">Contraseña *</label>
+          <div className={styles.inputIcon}>
+            <span className={styles.icon}>
+              <svg width="18" height="18" fill="none"><circle cx="9" cy="9" r="7" stroke="#888" strokeWidth="1.5"/><circle cx="9" cy="9" r="2" fill="#888"/></svg>
+            </span>
+            <input
+              id="login-pass"
+              className={styles.input}
+              type={showPass ? "text" : "password"}
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              placeholder="********"
+              required
+            />
+            <span
+              className={styles.iconEye}
+              onClick={() => setShowPass((s) => !s)}
+              style={{ cursor: "pointer" }}
+              title="Mostrar/Ocultar"
+            >
+              {showPass ? (
+                <svg width="18" height="18" fill="none"><path d="M1 9c2-4 7-7 8-7s6 3 8 7c-2 4-7 7-8 7s-6-3-8-7z" stroke="#888" strokeWidth="1.5"/><circle cx="9" cy="9" r="2" fill="#888"/></svg>
+              ) : (
+                <svg width="18" height="18" fill="none"><path d="M1 9c2-4 7-7 8-7s6 3 8 7c-2 4-7 7-8 7s-6-3-8-7z" stroke="#888" strokeWidth="1.5"/><path d="M3 3l12 12" stroke="#888" strokeWidth="1.5"/></svg>
+              )}
+            </span>
+          </div>
+          <div className={styles.optionsRow}>
+            <label className={styles.checkboxLabel}>
+              <input type="checkbox" /> Recordarme
+            </label>
+            <a href="#" className={styles.forgot}>¿Olvidaste tu contraseña?</a>
+          </div>
+          <button type="submit" className={styles.loginBtn}>Iniciar Sesión</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && <div className="status-message">{message}</div>}
@@ -60,9 +118,11 @@ export default function Login() {
             Error de conexión con Supabase
           </div>
         )}
-        <p style={{ marginTop: '10px', textAlign: 'center' }}>
-          ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
-        </p>
+        <div className={styles.registerRow}>
+          <span>¿No tienes cuenta?</span>
+          <Link to="/register" className={styles.registerLink}>Regístrate aquí</Link>
+        </div>
+        <p className={styles.terms}>Al iniciar sesión aceptas nuestros Términos y Condiciones</p>
       </div>
     </div>
   );
