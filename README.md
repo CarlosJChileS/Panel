@@ -33,11 +33,15 @@ Este repositorio contiene una demostración de un panel de monitoreo ambiental c
    Escuchará en `http://localhost:4000`.
 
 ## Uso con Docker
-1. Construye y levanta ambos servicios con:
+1. Construye la imagen del frontend desde la raiz del proyecto:
    ```bash
-   docker compose up --build
+   docker build -t dashboard-frontend .
    ```
-2. El contenedor del frontend se expone en el puerto `3000` y el del backend en `4000`.
+2. Ejecuta el contenedor de la interfaz:
+   ```bash
+   docker run -p 3000:80 dashboard-frontend
+   ```
+   La aplicación quedará disponible en `http://localhost:3000`.
 
 ## Base de datos
 En la carpeta `scripts` encontrarás `supabase_schema.sql` con el script para crear todas las tablas necesarias (usuarios, ciudades, historial de consultas y condiciones climáticas). Ejecútalo en tu proyecto de Supabase antes de usar la aplicación.
