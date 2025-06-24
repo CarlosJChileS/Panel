@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../Landing.css";
+import "../Auth.css";
+import logo from "../logo.svg";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../hooks/useSupabaseStatus";
 
@@ -31,27 +32,41 @@ export default function Login() {
   }
 
   return (
-    <div className="dashboard-bg auth-container">
-      <div className="central-panel" style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h1 className="welcome-title" id="login-title">Iniciar Sesión</h1>
-        <form className="login-form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
-          <label htmlFor="username">Correo</label>
-          <input
-            id="username"
-            type="email"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            required
-          />
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            required
-          />
-          <button type="submit">Ingresar</button>
+    <div className="login-container">
+      <div className="login-leftPanel">
+        <div className="logoCircle">
+          <img src={logo} alt="logo" width="40" />
+        </div>
+        <h2 className="welcome">Bienvenido</h2>
+        <p className="desc">Ingresa tus credenciales para continuar</p>
+      </div>
+      <div className="login-rightPanel">
+        <h2 className="loginTitle">Iniciar Sesión</h2>
+        <p className="loginDesc">Introduce tu correo y contraseña</p>
+        <form className="form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
+          <label className="label" htmlFor="username">Correo</label>
+          <div className="inputIcon">
+            <input
+              className="input"
+              id="username"
+              type="email"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              required
+            />
+          </div>
+          <label className="label" htmlFor="password">Contraseña</label>
+          <div className="inputIcon">
+            <input
+              className="input"
+              id="password"
+              type="password"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              required
+            />
+          </div>
+          <button className="loginBtn" type="submit">Ingresar</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && <div className="status-message">{message}</div>}
@@ -60,8 +75,9 @@ export default function Login() {
             Error de conexión con Supabase
           </div>
         )}
-        <p style={{ marginTop: '10px', textAlign: 'center' }}>
-          ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+        <p className="registerRow">
+          ¿No tienes cuenta?
+          <Link className="registerLink" to="/register">Regístrate</Link>
         </p>
       </div>
     </div>
