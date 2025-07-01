@@ -19,3 +19,13 @@ body.dark-mode {
 body.dark-mode .search-box {
   background: #222;
 }
+
+body.dark-mode .header {
+  background: #333;
+}
+body.dark-mode .navbar-links a {
+  background: #444;
+}
+body.dark-mode .navbar-links a:hover {
+  background: #555;
+}
