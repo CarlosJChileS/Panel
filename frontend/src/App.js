@@ -6,6 +6,8 @@ import Welcome from "./components/Welcome";
 import Placeholder from "./components/Placeholder";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Profile from "./components/Profile";
+import AdminPanel from "./components/AdminPanel";
 import { AuthProvider } from "./AuthContext";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/aire" element={<Placeholder title="Calidad del Aire" />} />
           <Route path="/extras" element={<Placeholder title="Condiciones Extra" />} />
           <Route path="/mapa" element={<Placeholder title="Mapa de Ubicación" />} />
