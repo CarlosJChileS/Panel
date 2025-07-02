@@ -55,6 +55,27 @@ La interfaz es **responsiva** y dispone de un panel de accesibilidad que ajusta 
 ## Base de datos
 En la carpeta `scripts` encontrarás `supabase_schema.sql` con el script para crear todas las tablas necesarias (usuarios, ciudades, historial de consultas y condiciones climáticas). Ejecútalo en tu proyecto de Supabase antes de usar la aplicación.
 Las secciones de Aire, Extras, Mapa, Alertas, Estadísticas y Contacto muestran información detallada obtenida de OpenWeatherMap. La página de Contacto cuenta además con formularios para reportar errores y dejar sugerencias.
+## Rutas principales
+
+Estas son las rutas disponibles en el frontend. Salvo el inicio, login y registro, todas requieren autenticación:
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Página de bienvenida |
+| `/login` | Formulario de acceso |
+| `/register` | Registro de nuevos usuarios |
+| `/dashboard` | Panel de condiciones actuales |
+| `/aire` | Calidad del aire |
+| `/extras` | Condiciones adicionales |
+| `/mapa` | Mapa con ubicación |
+| `/alertas` | Alertas de clima |
+| `/estadisticas` | Estadísticas históricas |
+| `/contacto` | Información de contacto |
+| `/profile` | Perfil y preferencias |
+| `/admin` | Panel de administración (solo usuarios administradores) |
+
+El backend expone además `/status` para comprobar la conexión con Supabase.
+>>>>>>> main
 
 ## Rutas principales
 

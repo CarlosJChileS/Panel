@@ -10,7 +10,6 @@ const AQI_TEXT = {
   '4': 'Deficiente',
   '5': 'Peligroso',
 };
-
 export default function AirQuality() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();

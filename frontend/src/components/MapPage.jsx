@@ -16,7 +16,6 @@ L.Marker.prototype.options.icon = L.icon({
   iconAnchor: [12, 41],
   shadowSize: [41, 41],
 });
-
 export default function MapPage() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();
