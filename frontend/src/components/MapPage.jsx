@@ -15,7 +15,6 @@ L.Marker.prototype.options.icon = L.icon({
   iconAnchor: [12, 41],
   shadowSize: [41, 41],
 });
-
 export default function MapPage() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();
@@ -53,6 +52,7 @@ export default function MapPage() {
                   center={[weather.lat, weather.lon]}
                   zoom={10}
                   style={{ height: '260px', width: '100%' }}
+                  style={{ height: '220px', width: '100%' }}
                 >
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <Marker position={[weather.lat, weather.lon]} />
