@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const prefDark = localStorage.getItem('pref_dark') === '1';
+if (prefDark) {
+  document.body.classList.add('dark-mode');
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
