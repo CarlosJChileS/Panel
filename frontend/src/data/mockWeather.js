@@ -67,3 +67,11 @@ export const mockWeather = {
     air: "BAJA",
   },
 };
+
+export const mockTrend = [
+  { time: "Hoy", temp: 23, humidity: 82, wind: 2 },
+  { time: "Mañana", temp: 24, humidity: 78, wind: 3 },
+  { time: "Pasado", temp: 25, humidity: 75, wind: 3.5 },
+  { time: "+3 días", temp: 26, humidity: 70, wind: 4 },
+  { time: "+4 días", temp: 27, humidity: 68, wind: 4.2 },
+];

@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { mockWeather } from '../data/mockWeather';
 
 L.Marker.prototype.options.icon = L.icon({
   iconUrl: markerIcon,
@@ -46,20 +47,15 @@ export default function MapPage() {
             {loading && <p>Consultando...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="map-box" style={{ marginTop: 16 }}>
-              {weather.lat && weather.lon ? (
-                <MapContainer
-                  key={`${weather.lat},${weather.lon}`}
-                  center={[weather.lat, weather.lon]}
-                  zoom={10}
-                  style={{ height: '260px', width: '100%' }}
-                  style={{ height: '220px', width: '100%' }}
-                >
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  <Marker position={[weather.lat, weather.lon]} />
-                </MapContainer>
-              ) : (
-                'Mapa no disponible'
-              )}
+              <MapContainer
+                key={`${weather.lat || mockWeather.lat},${weather.lon || mockWeather.lon}`}
+                center={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]}
+                zoom={10}
+                style={{ height: '300px', width: '100%' }}
+              >
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <Marker position={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]} />
+              </MapContainer>
             </div>
           </div>
         </section>

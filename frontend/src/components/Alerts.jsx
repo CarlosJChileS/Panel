@@ -3,6 +3,12 @@ import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import '../Dashboard.css';
 
+function overallLevel(alerts) {
+  const vals = Object.values(alerts);
+  if (vals.includes('ALTA')) return 'ALTA';
+  if (vals.includes('MEDIA')) return 'MEDIA';
+  return 'BAJA';
+}
 export default function Alerts() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();
@@ -45,6 +51,7 @@ export default function Alerts() {
               <div className="card-row"><span>Humedad</span><span>{weather.alerts.humidity}</span></div>
               <div className="card-row"><span>Aire Contaminado</span><span>{weather.alerts.air}</span></div>
               <div className="card-row"><span>Índice AQI</span><span>{weather.alerts.aqi}</span></div>
+              <div className="card-row"><span>Nivel general</span><span>{overallLevel(weather.alerts)}</span></div>
             </article>
           </div>
         </section>
