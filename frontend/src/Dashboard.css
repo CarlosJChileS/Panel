@@ -253,3 +253,11 @@ a:active {
     padding: 10px 3vw 15px 3vw;
   }
 }
+
+@media (max-width: 600px) {
+  .search-box {
+    width: 95%;
+    min-width: auto;
+    padding: 20px 16px;
+  }
+}

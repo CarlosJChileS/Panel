@@ -5,6 +5,7 @@ import { useAuth } from '../AuthContext';
 
 export default function Header() {
   const { user } = useAuth();
+  const isAdmin = user?.user_metadata?.is_admin;
   return (
     <header className="header">
       <div className="header-title">
@@ -20,11 +21,16 @@ export default function Header() {
         <Link to="/estadisticas">Estadísticas</Link>
         <Link to="/contacto">Contacto</Link>
         {user ? (
-          <span className="profile-circle" title={user.email}></span>
+          <Link to="/profile" aria-label="Perfil">
+            <div className="profile-circle" title={user.email}></div>
+          </Link>
         ) : (
           <Link to="/login" aria-label="Iniciar sesión">
             <div className="profile-circle"></div>
           </Link>
+        )}
+        {isAdmin && (
+          <Link to="/admin" style={{ marginLeft: 8 }}>Admin</Link>
         )}
       </nav>
     </header>

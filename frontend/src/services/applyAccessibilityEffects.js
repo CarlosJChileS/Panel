@@ -1,10 +1,12 @@
 export function applyAccessibilityEffects(active, customColors) {
   const root = document.querySelector('.dashboard-bg') || document.body;
 
-  root.style.background =
-    customColors.fondos || (active.moon ? "#222" : active.sun ? "#fff" : "#fff");
-  root.style.color =
-    customColors.contenido || (active.moon ? "#fff" : active.sun ? "#111" : "#222");
+  const baseBg = customColors.fondos || (active.moon ? "#222" : active.sun ? "#fff" : "#fff");
+  const baseColor = customColors.contenido || (active.moon ? "#fff" : active.sun ? "#111" : "#222");
+
+  root.style.background = active.contrast && !customColors.fondos ? "#fff" : baseBg;
+  root.style.color = active.contrast ? "#000" : baseColor;
+  root.classList.toggle("contrast-mode", !!active.contrast);
 
   root.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((h) => {
     h.style.background = customColors.encabezados || (active.heading ? "#ffff80" : "");

@@ -1,6 +1,7 @@
 import React from "react";
 import { icons } from "../data/icons";
 import { useAccessibility } from "../hooks/useAccessibility";
+import "../AccessibilityPanel.css";
 
 function AccessibilityPanel() {
   const {
@@ -20,7 +21,9 @@ function AccessibilityPanel() {
     dict,
   } = useAccessibility();
 
-  function Card({ icon, label, keyName, onClick, profile }) {
+  const DropIcon = icons.drop;
+
+  function Card({ icon: Icon, label, keyName, onClick, profile }) {
     return (
       <button
         onClick={() =>
@@ -54,7 +57,7 @@ function AccessibilityPanel() {
           }
         }}
       >
-        <span style={{ fontSize: 32 }}>{icon}</span>
+        <Icon size={32} />
         <span style={{ fontSize: 13, marginTop: 4 }}>{label}</span>
       </button>
     );
@@ -90,48 +93,23 @@ function AccessibilityPanel() {
   return (
     <>
       <button
-        style={{
-          position: "fixed",
-          bottom: 32,
-          left: 32,
-          zIndex: 9999,
-          background: "#0086c3",
-          color: "#fff",
-          borderRadius: "50%",
-          width: 56,
-          height: 56,
-          border: "none",
-          fontSize: 30,
-          cursor: "pointer",
-          boxShadow: "2px 2px 12px #0003",
-        }}
+        className="access-btn"
         aria-label="Abrir panel de accesibilidad"
         onClick={() => setVisible(true)}
         tabIndex={0}
       >
-        ♿
+        <icons.access size={28} />
       </button>
-
       {visible && (
-        <div
-          id="panel-accesibilidad"
-          tabIndex={-1}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: 450,
-            height: "100vh",
-            background: "#fff",
-            boxShadow: "3px 0 24px #0005",
-            zIndex: 10000,
-            padding: 20,
-            overflowY: "auto",
-            outline: "none",
-          }}
-          aria-modal="true"
-          role="dialog"
-        >
+        <>
+          <div className="access-overlay" onClick={() => setVisible(false)} />
+          <div
+            id="panel-accesibilidad"
+            className="access-panel"
+            tabIndex={-1}
+            aria-modal="true"
+            role="dialog"
+          >
           <button
             onClick={() => setVisible(false)}
             style={{
@@ -206,7 +184,7 @@ function AccessibilityPanel() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
-                <span style={{ fontSize: 26, marginRight: 8 }}>{icons.drop}</span>
+                <DropIcon size={26} style={{ marginRight: 8 }} />
                 <span>
                   <b style={{ color: "#0086c3" }}>Color personalizado</b>
                   <div style={{ fontSize: 15, color: "#444" }}>Cambiar los colores del sitio</div>
@@ -379,6 +357,7 @@ function AccessibilityPanel() {
             Desactivar accesibilidad
           </button>
         </div>
+        </>
       )}
     </>
   );
