@@ -26,6 +26,14 @@
 .admin-link {
   margin-top: 20px;
 }
+body.dark-mode .profile-container {
+  background: #222;
+  color: #eee;
+}
+body.contrast-mode .profile-container {
+  background: #fff;
+  color: #000;
+}
 @media (max-width: 600px) {
   .profile-container {
     margin: 10px;
