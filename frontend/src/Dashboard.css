@@ -208,6 +208,7 @@ body, .dashboard-bg {
   margin-top: 10px;
   background: #fff;
   min-height: 120px;
+  width: 100%;
   border-radius: 7px;
   display: flex;
   align-items: center;
