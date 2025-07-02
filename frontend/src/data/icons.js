@@ -71,4 +71,5 @@ export const icons = {
   dict: FaBookOpen,
   virtualkb: FaKeyboard,
   access: FaUniversalAccess
+
 };

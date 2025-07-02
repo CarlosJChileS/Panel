@@ -28,7 +28,6 @@ body.dark-mode .navbar-links a {
 body.dark-mode .navbar-links a:hover {
   background: #555;
 }
-
 body.contrast-mode,
 body.contrast-mode .dashboard-bg {
   background: #fff;
