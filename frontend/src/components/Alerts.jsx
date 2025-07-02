@@ -9,7 +9,6 @@ function overallLevel(alerts) {
   if (vals.includes('MEDIA')) return 'MEDIA';
   return 'BAJA';
 }
-
 export default function Alerts() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();
