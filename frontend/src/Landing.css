@@ -194,10 +194,22 @@
     max-width: 98vw;
   }
 }
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px;
+  }
+  .navbar-links {
+    justify-content: center;
+  }
+}
 .navbar-links {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 .navbar-links a {
   color: #fff;
