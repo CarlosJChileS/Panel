@@ -13,6 +13,10 @@ export async function fetchWeather(city, apiKey) {
       sky: data.weather && data.weather[0] ? data.weather[0].description : null,
       clouds: data.clouds ? `${data.clouds.all}%` : null,
       visibility: data.visibility ? `${data.visibility} m` : null,
+      tempMin: data.main ? `${Math.round(data.main.temp_min)}°C` : null,
+      tempMax: data.main ? `${Math.round(data.main.temp_max)}°C` : null,
+      sunrise: data.sys ? new Date(data.sys.sunrise * 1000).toLocaleTimeString('es-ES') : null,
+      sunset: data.sys ? new Date(data.sys.sunset * 1000).toLocaleTimeString('es-ES') : null,
     },
     lat: data.coord ? data.coord.lat : null,
     lon: data.coord ? data.coord.lon : null,
@@ -24,12 +28,16 @@ export async function fetchWeather(city, apiKey) {
       const airRes = await fetch(airUrl);
       if (airRes.ok) {
         const airJson = await airRes.json();
-        const comp = airJson.list[0].components;
+        const { components, main } = airJson.list[0];
         air = {
-          co: String(comp.co),
-          no2: String(comp.no2),
-          ozone: String(comp.o3),
-          pm25: String(comp.pm2_5),
+          co: String(components.co),
+          no2: String(components.no2),
+          ozone: String(components.o3),
+          so2: String(components.so2),
+          pm25: String(components.pm2_5),
+          pm10: String(components.pm10),
+          nh3: String(components.nh3),
+          aqi: String(main.aqi),
         };
       }
     }
@@ -47,5 +55,7 @@ export async function fetchForecast(city, apiKey) {
   return json.list.slice(0, 8).map((item) => ({
     time: new Date(item.dt * 1000).toLocaleDateString('es-ES'),
     temp: Math.round(item.main.temp),
+    humidity: item.main.humidity,
+    wind: item.wind.speed,
   }));
 }

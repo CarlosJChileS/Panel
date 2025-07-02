@@ -24,6 +24,7 @@
   box-shadow: 3px 0 24px #0005;
   z-index: 10000;
   padding: 20px;
+  padding-bottom: 80px;
   overflow-y: auto;
   outline: none;
   transform: translateX(-100%);

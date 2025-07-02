@@ -341,7 +341,7 @@ function AccessibilityPanel() {
 
           <button
             style={{
-              margin: "30px auto 0 auto",
+              margin: "30px auto 20px auto",
               display: "block",
               background: "#f33",
               color: "#fff",
@@ -354,7 +354,7 @@ function AccessibilityPanel() {
             onClick={() => window.location.reload()}
             tabIndex={-1}
           >
-            Desactivar accesibilidad
+            Restablecer parámetros
           </button>
         </div>
         </>

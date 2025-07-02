@@ -44,6 +44,7 @@ export default function Alerts() {
               <div className="card-row"><span>Viento Fuerte</span><span>{weather.alerts.wind}</span></div>
               <div className="card-row"><span>Humedad</span><span>{weather.alerts.humidity}</span></div>
               <div className="card-row"><span>Aire Contaminado</span><span>{weather.alerts.air}</span></div>
+              <div className="card-row"><span>Índice AQI</span><span>{weather.alerts.aqi}</span></div>
             </article>
           </div>
         </section>

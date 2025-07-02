@@ -44,6 +44,10 @@ export default function Extras() {
               <div className="card-row"><span>Estado del cielo</span><span>{weather.extras.sky}</span></div>
               <div className="card-row"><span>Nubosidad</span><span>{weather.extras.clouds}</span></div>
               <div className="card-row"><span>Visibilidad</span><span>{weather.extras.visibility}</span></div>
+              <div className="card-row"><span>Temp. mínima</span><span>{weather.extras.tempMin}</span></div>
+              <div className="card-row"><span>Temp. máxima</span><span>{weather.extras.tempMax}</span></div>
+              <div className="card-row"><span>Amanecer</span><span>{weather.extras.sunrise}</span></div>
+              <div className="card-row"><span>Atardecer</span><span>{weather.extras.sunset}</span></div>
             </article>
           </div>
         </section>

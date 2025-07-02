@@ -42,7 +42,9 @@ export default function Stats() {
                     <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="temp" stroke="#8884d8" name="Temp" />
+                    <Line type="monotone" dataKey="humidity" stroke="#82ca9d" name="Humedad" />
+                    <Line type="monotone" dataKey="wind" stroke="#ff7300" name="Viento" />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (

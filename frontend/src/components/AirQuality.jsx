@@ -40,22 +40,14 @@ export default function AirQuality() {
               style={{ marginTop: 16 }}
             >
               <h3 className="card-title">Resultados</h3>
-              <div className="card-row">
-                <span>Monóxido De Carbono</span>
-                <span>{weather.air.co}</span>
-              </div>
-              <div className="card-row">
-                <span>Dióxido De Nitrógeno</span>
-                <span>{weather.air.no2}</span>
-              </div>
-              <div className="card-row">
-                <span>Ozono</span>
-                <span>{weather.air.ozone}</span>
-              </div>
-              <div className="card-row">
-                <span>Partículas PM2.5</span>
-                <span>{weather.air.pm25}</span>
-              </div>
+              <div className="card-row"><span>Monóxido De Carbono</span><span>{weather.air.co}</span></div>
+              <div className="card-row"><span>Dióxido De Nitrógeno</span><span>{weather.air.no2}</span></div>
+              <div className="card-row"><span>Dióxido De Azufre</span><span>{weather.air.so2}</span></div>
+              <div className="card-row"><span>Ozono</span><span>{weather.air.ozone}</span></div>
+              <div className="card-row"><span>Partículas PM2.5</span><span>{weather.air.pm25}</span></div>
+              <div className="card-row"><span>Partículas PM10</span><span>{weather.air.pm10}</span></div>
+              <div className="card-row"><span>Amoniaco</span><span>{weather.air.nh3}</span></div>
+              <div className="card-row"><span>Índice AQI</span><span>{weather.air.aqi}</span></div>
             </article>
           </div>
         </section>

@@ -4,7 +4,17 @@ import { useWeather } from '../hooks/useWeather';
 import '../Dashboard.css';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
+L.Marker.prototype.options.icon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  shadowSize: [41, 41],
+});
 export default function MapPage() {
   const [city, setCity] = useState('');
   const { weather, loading, error, search } = useWeather();
@@ -41,6 +51,7 @@ export default function MapPage() {
                   key={`${weather.lat},${weather.lon}`}
                   center={[weather.lat, weather.lon]}
                   zoom={10}
+                  style={{ height: '260px', width: '100%' }}
                   style={{ height: '220px', width: '100%' }}
                 >
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
