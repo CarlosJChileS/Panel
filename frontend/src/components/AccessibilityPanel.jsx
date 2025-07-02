@@ -111,7 +111,7 @@ function AccessibilityPanel() {
         onClick={() => setVisible(true)}
         tabIndex={0}
       >
-        ♿
+        <icons.access size={28} />
       </button>
 
       {visible && (

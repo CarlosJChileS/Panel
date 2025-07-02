@@ -30,7 +30,8 @@ import {
   FaFileAlt,
   FaVolumeMute,
   FaCrosshairs,
-  FaBook
+  FaBook,
+  FaUniversalAccess
 } from "react-icons/fa";
 
 export const icons = {
@@ -68,5 +69,7 @@ export const icons = {
   focus: FaCrosshairs,
   guide: FaBook,
   dict: FaBookOpen,
-  virtualkb: FaKeyboard
+  virtualkb: FaKeyboard,
+  access: FaUniversalAccess
+
 };
