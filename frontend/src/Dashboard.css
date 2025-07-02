@@ -208,6 +208,7 @@ body, .dashboard-bg {
   margin-top: 10px;
   background: #fff;
   min-height: 120px;
+  width: 100%;
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -251,5 +252,13 @@ a:active {
   }
   .section-box {
     padding: 10px 3vw 15px 3vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    width: 95%;
+    min-width: auto;
+    padding: 20px 16px;
   }
 }
