@@ -1,36 +1,45 @@
 # Dashboard Ambiental Costero
 
-Este repositorio contiene una demostración de un panel de monitoreo ambiental compuesto por un **frontend en React** y un **backend en Express**. Supabase se utiliza como base de datos y servicio de autenticación. El proyecto está dividido en dos carpetas: `frontend` y `backend`.
+Demostración de un sistema de monitoreo ambiental con **React** y **Express**. Utiliza Supabase para almacenar usuarios y datos de ejemplo. El repositorio se organiza en dos carpetas principales: `frontend` y `backend`.
+
+La interfaz es **responsiva** y dispone de un panel de accesibilidad que ajusta contraste, tamaño de texto y otros efectos de acuerdo con las pautas **WCAG&nbsp;2.2**. El panel incluye un boton para *restablecer parametros*.
 
 ## Requisitos
 - Node.js 18 o superior
 - Cuenta de Supabase con las claves de proyecto
 - Docker (opcional, para ejecución en contenedores)
+- Clave de API de OpenWeatherMap para obtener datos meteorológicos
 
 ## Instalación manual
 ### Frontend
-1. Copia el archivo `frontend/.env` y coloca tus datos de `REACT_APP_OPENWEATHER_KEY`, `REACT_APP_SUPABASE_URL` y `REACT_APP_SUPABASE_KEY`.
-2. Instala las dependencias ejecutando:
+1. Crea un archivo `frontend/.env` con las variables:
+   - `REACT_APP_OPENWEATHER_KEY`
+   - `REACT_APP_SUPABASE_URL`
+   - `REACT_APP_SUPABASE_KEY`
+2. Instala las dependencias:
    ```bash
    npm install --force --prefix frontend
    ```
-3. Inicia el servidor de desarrollo con:
+3. Ejecuta en modo desarrollo:
    ```bash
    npm start --prefix frontend
    ```
-   La aplicación estará disponible en `http://localhost:3000`.
+   Abrirá `http://localhost:3000`.
 
 ### Backend
-1. Crea un archivo `.env` en `backend` a partir de `backend/.env.sample` y completa `SUPABASE_URL`, `SUPABASE_KEY` y `PORT`.
+1. Dentro de `backend` crea un archivo `.env` con:
+   - `SUPABASE_URL`
+   - `SUPABASE_KEY`
+   - `PORT` (opcional, 4000 por defecto)
 2. Instala las dependencias:
    ```bash
    npm install --prefix backend
    ```
-3. Ejecuta el servidor:
+3. Inicia el servidor:
    ```bash
    npm start --prefix backend
    ```
-   Escuchará en `http://localhost:4000`.
+   Disponibl​e en `http://localhost:4000`.
 
 ## Uso con Docker
 1. Construye la imagen del frontend desde la raiz del proyecto:
@@ -45,6 +54,28 @@ Este repositorio contiene una demostración de un panel de monitoreo ambiental c
 
 ## Base de datos
 En la carpeta `scripts` encontrarás `supabase_schema.sql` con el script para crear todas las tablas necesarias (usuarios, ciudades, historial de consultas y condiciones climáticas). Ejecútalo en tu proyecto de Supabase antes de usar la aplicación.
+Las secciones de Aire, Extras, Mapa, Alertas, Estadísticas y Contacto muestran información detallada obtenida de OpenWeatherMap.
+
+## Rutas principales
+
+Estas son las rutas disponibles en el frontend. Salvo el inicio, login y registro, todas requieren autenticación:
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Página de bienvenida |
+| `/login` | Formulario de acceso |
+| `/register` | Registro de nuevos usuarios |
+| `/dashboard` | Panel de condiciones actuales |
+| `/aire` | Calidad del aire |
+| `/extras` | Condiciones adicionales |
+| `/mapa` | Mapa con ubicación |
+| `/alertas` | Alertas de clima |
+| `/estadisticas` | Estadísticas históricas |
+| `/contacto` | Información de contacto |
+| `/profile` | Perfil y preferencias |
+| `/admin` | Panel de administración (solo usuarios administradores) |
+
+El backend expone además `/status` para comprobar la conexión con Supabase.
 
 ## Pruebas
 Para ejecutar la suite de tests del frontend utiliza:

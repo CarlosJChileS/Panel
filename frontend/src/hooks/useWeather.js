@@ -26,6 +26,10 @@ function computeAlerts(w) {
     const pm = parseFloat(w.air.pm25);
     alerts.air = pm > 35 ? 'ALTA' : pm > 12 ? 'MEDIA' : 'BAJA';
   }
+  if (w.air && w.air.aqi) {
+    const aqi = parseFloat(w.air.aqi);
+    alerts.aqi = aqi > 3 ? 'ALTA' : aqi > 2 ? 'MEDIA' : 'BAJA';
+  }
   return alerts;
 }
 
