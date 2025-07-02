@@ -20,7 +20,9 @@ function AccessibilityPanel() {
     dict,
   } = useAccessibility();
 
-  function Card({ icon, label, keyName, onClick, profile }) {
+  const DropIcon = icons.drop;
+
+  function Card({ icon: Icon, label, keyName, onClick, profile }) {
     return (
       <button
         onClick={() =>
@@ -54,7 +56,7 @@ function AccessibilityPanel() {
           }
         }}
       >
-        <span style={{ fontSize: 32 }}>{icon}</span>
+        <Icon size={32} />
         <span style={{ fontSize: 13, marginTop: 4 }}>{label}</span>
       </button>
     );
@@ -206,7 +208,7 @@ function AccessibilityPanel() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
-                <span style={{ fontSize: 26, marginRight: 8 }}>{icons.drop}</span>
+                <DropIcon size={26} style={{ marginRight: 8 }} />
                 <span>
                   <b style={{ color: "#0086c3" }}>Color personalizado</b>
                   <div style={{ fontSize: 15, color: "#444" }}>Cambiar los colores del sitio</div>
