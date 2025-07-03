@@ -14,6 +14,7 @@ La interfaz es **responsiva** y dispone de un panel de accesibilidad que ajusta 
 ### Frontend
 1. Crea un archivo `frontend/.env` con las variables:
    - `REACT_APP_OPENWEATHER_KEY`
+   - `REACT_APP_GOOGLEAIR_KEY`
    - `REACT_APP_SUPABASE_URL`
    - `REACT_APP_SUPABASE_KEY`
 2. Instala las dependencias:

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import { initialWeather, mockWeather } from '../data/mockWeather';
 import { fetchWeather, fetchForecast } from '../services/openWeatherService';
+import { fetchGoogleAirQuality } from '../services/googleAirService';
 import { supabase } from '../services/supabaseClient';
 
 function parseNum(value) {
@@ -30,24 +31,41 @@ function computeAlerts(w) {
     const aqi = parseFloat(w.air.aqi);
     alerts.aqi = aqi > 3 ? 'ALTA' : aqi > 2 ? 'MEDIA' : 'BAJA';
   }
+  if (w.air && w.air.uaqi) {
+    const u = parseFloat(w.air.uaqi);
+    alerts.uaqi = u > 100 ? 'ALTA' : u > 50 ? 'MEDIA' : 'BAJA';
+  }
   return alerts;
 }
 
-export function useWeather() {
+const WeatherContext = createContext(null);
+
+export function WeatherProvider({ children }) {
   const [data, setData] = useState(initialWeather);
   const [trend, setTrend] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [city, setCity] = useState('');
+  const [history, setHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('weather_history')) || [];
+    } catch {
+      return [];
+    }
+  });
 
-  const search = async (city) => {
-    if (!city) return;
+  const search = async (newCity) => {
+    const cityToSearch = newCity ?? city;
+    if (!cityToSearch) return;
+    setCity(cityToSearch);
     setLoading(true);
     try {
       const apiKey = process.env.REACT_APP_OPENWEATHER_KEY;
-      const real = await fetchWeather(city, apiKey);
+      const googleKey = process.env.REACT_APP_GOOGLEAIR_KEY;
+      const real = await fetchWeather(cityToSearch, apiKey);
       let forecast = [];
       try {
-        forecast = await fetchForecast(city, apiKey);
+        forecast = await fetchForecast(cityToSearch, apiKey);
       } catch (_) {
         // ignore forecast errors
       }
@@ -57,23 +75,36 @@ export function useWeather() {
         air: { ...mockWeather.air, ...real.air },
         extras: { ...mockWeather.extras, ...(real.extras || {}) },
       };
+      if (googleKey && merged.lat && merged.lon) {
+        try {
+          const gAir = await fetchGoogleAirQuality(merged.lat, merged.lon, googleKey);
+          merged.air = { ...merged.air, ...gAir };
+        } catch (_) {
+          // ignore google air errors
+        }
+      }
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);
+      setHistory((h) => {
+        const newHist = [cityToSearch, ...h.filter((c) => c !== cityToSearch)].slice(0, 5);
+        localStorage.setItem('weather_history', JSON.stringify(newHist));
+        return newHist;
+      });
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         let cityId;
         const { data: cityRow } = await supabase
           .from('cities')
           .select('id')
-          .eq('name', city)
+          .eq('name', cityToSearch)
           .single();
         if (cityRow) {
           cityId = cityRow.id;
         } else {
           const { data: newCity } = await supabase
             .from('cities')
-            .insert({ name: city, lat: parseNum(merged.lat), lon: parseNum(merged.lon) })
+            .insert({ name: cityToSearch, lat: parseNum(merged.lat), lon: parseNum(merged.lon) })
             .select('id')
             .single();
           cityId = newCity?.id;
@@ -123,5 +154,15 @@ export function useWeather() {
     }
   };
 
-  return { weather: data, trend, loading, error, search };
+  return (
+    <WeatherContext.Provider
+      value={{ weather: data, trend, loading, error, search, city, setCity, history }}
+    >
+      {children}
+    </WeatherContext.Provider>
+  );
+}
+
+export function useWeather() {
+  return useContext(WeatherContext);
 }

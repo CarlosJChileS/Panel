@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Dashboard.css";
 import { useWeather } from "../hooks/useWeather";
 import { Link } from "react-router-dom";
@@ -65,8 +65,7 @@ function getStatus(type, val) {
 }
 
 function Dashboard() {
-  const [city, setCity] = useState("");
-  const { weather: weatherData, trend, loading, error, search } = useWeather();
+  const { weather: weatherData, trend, loading, error, search, city, setCity, history } = useWeather();
 
   return (
     <div className="dashboard-container dashboard-bg">
@@ -105,8 +104,14 @@ function Dashboard() {
                 onChange={(e) => setCity(e.target.value)}
                 aria-label="Ciudad"
                 tabIndex="0"
+                list="recent-cities"
                 required
               />
+              <datalist id="recent-cities">
+                {history.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
             {loading && <p>Consultando datos...</p>}
@@ -159,6 +164,14 @@ function Dashboard() {
               <div className="card-row">
                 <span>Partículas PM2.5</span>
                 {(function(){const s=getStatus('pm25', weatherData.air.pm25);return <span className={s.className} aria-label={s.label}>{weatherData.air.pm25}</span>;})()}
+              </div>
+              <div className="card-row">
+                <span>Índice UAQI</span>
+                {(function(){const s=getStatus('uaqi', weatherData.air.uaqi);return <span className={s.className} aria-label={s.label}>{weatherData.air.uaqi}</span>;})()}
+              </div>
+              <div className="card-row">
+                <span>Categoría UAQI</span>
+                <span>{weatherData.air.uaqiCategory}</span>
               </div>
             </article>
             {/* Extras */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import '../Dashboard.css';
@@ -11,8 +11,7 @@ const AQI_TEXT = {
   '5': 'Peligroso',
 };
 export default function AirQuality() {
-  const [city, setCity] = useState('');
-  const { weather, loading, error, search } = useWeather();
+  const { weather, loading, error, search, city, setCity } = useWeather();
 
   return (
     <div className="dashboard-bg">
@@ -56,6 +55,11 @@ export default function AirQuality() {
               <div className="card-row"><span>Amoniaco</span><span>{weather.air.nh3}</span></div>
               <div className="card-row"><span>Índice AQI</span><span>{weather.air.aqi}</span></div>
               <div className="card-row"><span>Calidad</span><span>{AQI_TEXT[weather.air.aqi] || '-'}</span></div>
+              <div className="card-row"><span>Índice UAQI</span><span>{weather.air.uaqi}</span></div>
+              <div className="card-row"><span>Categoría UAQI</span><span>{weather.air.uaqiCategory}</span></div>
+              {weather.air.recommendations?.generalPopulation && (
+                <div className="card-row"><span>Recomendación</span><span>{weather.air.recommendations.generalPopulation}</span></div>
+              )}
             </article>
           </div>
         </section>

@@ -14,6 +14,9 @@ export const initialWeather = {
     pm10: "",
     nh3: "",
     aqi: "",
+    uaqi: "",
+    uaqiCategory: "",
+    uaqiPollutant: "",
   },
   extras: {
     feelsLike: "",
@@ -30,6 +33,7 @@ export const initialWeather = {
     wind: "",
     humidity: "",
     air: "",
+    uaqi: "",
   },
 };
 
@@ -49,6 +53,9 @@ export const mockWeather = {
     pm10: "15.2",
     nh3: "0.1",
     aqi: "2",
+    uaqi: "55",
+    uaqiCategory: "Moderado",
+    uaqiPollutant: "pm10",
   },
   extras: {
     feelsLike: "25°C",
@@ -65,6 +72,7 @@ export const mockWeather = {
     wind: "MEDIA",
     humidity: "MEDIA",
     air: "BAJA",
+    uaqi: "MEDIA",
   },
 };
 
