@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import '../Dashboard.css';
@@ -11,8 +11,7 @@ const AQI_TEXT = {
   '5': 'Peligroso',
 };
 export default function AirQuality() {
-  const [city, setCity] = useState('');
-  const { weather, loading, error, search } = useWeather();
+  const { weather, loading, error, search, city, setCity } = useWeather();
 
   return (
     <div className="dashboard-bg">
