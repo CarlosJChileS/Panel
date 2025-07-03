@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Profile from "./components/Profile";
 import AdminPanel from "./components/AdminPanel";
 import AirQuality from "./components/AirQuality";
+import AirQualityDashboard from "./components/AirQualityDashboard";
 import Extras from "./components/Extras";
 import MapPage from "./components/MapPage";
 import Alerts from "./components/Alerts";
@@ -56,6 +57,14 @@ function App() {
             element={
               <PrivateRoute>
                 <AirQuality />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/aire-dashboard"
+            element={
+              <PrivateRoute>
+                <AirQualityDashboard />
               </PrivateRoute>
             }
           />
