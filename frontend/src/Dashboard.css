@@ -176,6 +176,15 @@ body, .dashboard-bg {
   letter-spacing: 0.2px;
 }
 
+.contact-form {
+  width: 100%;
+  margin-top: 20px;
+}
+.contact-form textarea {
+  width: 100%;
+  min-height: 80px;
+}
+
 .status-good {
   background: #e6f9ec;
   color: #0a8a27;

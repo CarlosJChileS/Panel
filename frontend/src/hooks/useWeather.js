@@ -41,6 +41,13 @@ export function WeatherProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [city, setCity] = useState('');
+  const [history, setHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('weather_history')) || [];
+    } catch {
+      return [];
+    }
+  });
 
   const search = async (newCity) => {
     const cityToSearch = newCity ?? city;
@@ -65,6 +72,11 @@ export function WeatherProvider({ children }) {
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);
+      setHistory((h) => {
+        const newHist = [cityToSearch, ...h.filter((c) => c !== cityToSearch)].slice(0, 5);
+        localStorage.setItem('weather_history', JSON.stringify(newHist));
+        return newHist;
+      });
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         let cityId;
@@ -129,7 +141,9 @@ export function WeatherProvider({ children }) {
   };
 
   return (
-    <WeatherContext.Provider value={{ weather: data, trend, loading, error, search, city, setCity }}>
+    <WeatherContext.Provider
+      value={{ weather: data, trend, loading, error, search, city, setCity, history }}
+    >
       {children}
     </WeatherContext.Provider>
   );

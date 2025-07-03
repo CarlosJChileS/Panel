@@ -14,6 +14,14 @@
 .pref-row {
   margin-bottom: 20px;
 }
+.history-box {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.history-box ul {
+  list-style: disc;
+  margin-left: 20px;
+}
 .logout-btn {
   background: #f44336;
   border: none;

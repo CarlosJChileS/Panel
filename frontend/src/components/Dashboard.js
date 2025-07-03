@@ -65,7 +65,7 @@ function getStatus(type, val) {
 }
 
 function Dashboard() {
-  const { weather: weatherData, trend, loading, error, search, city, setCity } = useWeather();
+  const { weather: weatherData, trend, loading, error, search, city, setCity, history } = useWeather();
 
   return (
     <div className="dashboard-container dashboard-bg">
@@ -104,8 +104,14 @@ function Dashboard() {
                 onChange={(e) => setCity(e.target.value)}
                 aria-label="Ciudad"
                 tabIndex="0"
+                list="recent-cities"
                 required
               />
+              <datalist id="recent-cities">
+                {history.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
               <button type="submit" tabIndex="0">Consultar</button>
             </form>
             {loading && <p>Consultando datos...</p>}

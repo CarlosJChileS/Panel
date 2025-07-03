@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import '../Profile.css';
 import { useAuth } from '../AuthContext';
+import { useWeather } from '../hooks/useWeather';
 
 export default function Profile() {
   const { user, supabase } = useAuth();
   const [dark, setDark] = useState(() => localStorage.getItem('pref_dark') === '1');
+  const { history } = useWeather();
 
   useEffect(() => {
     document.body.classList.toggle('dark-mode', dark);
@@ -44,6 +46,16 @@ export default function Profile() {
             Modo oscuro
           </label>
         </div>
+        {history.length > 0 && (
+          <div className="history-box">
+            <h3>Historial de Búsquedas</h3>
+            <ul>
+              {history.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
         {isAdmin && (
           <p className="admin-link"><a href="/admin">Ir al panel de administración</a></p>
