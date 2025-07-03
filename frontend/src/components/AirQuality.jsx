@@ -1,66 +1,135 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
-import '../Dashboard.css';
+import './AirQualityDashboard.css';
 
-const AQI_TEXT = {
-  '1': 'Excelente',
-  '2': 'Bueno',
-  '3': 'Moderado',
-  '4': 'Deficiente',
-  '5': 'Peligroso',
-};
+const AQ_CATEGORY = [
+  { label: 'Buena', max: 50 },
+  { label: 'Moderada', max: 100 },
+  { label: 'Mala', max: 150 },
+  { label: 'Muy Mala', max: Infinity },
+];
 export default function AirQuality() {
   const { weather, loading, error, search, city, setCity } = useWeather();
+  const [pollutant, setPollutant] = useState('PM2.5');
+
+  const aqi = parseFloat(weather.air.uaqi || weather.air.aqi) || 0;
+  const category = AQ_CATEGORY.find((c) => aqi <= c.max) || AQ_CATEGORY[0];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    search(city);
+  };
 
   return (
-    <div className="dashboard-bg">
+    <div className="aq-dashboard-container">
       <Header />
-      <main id="main-content">
-        <section className="search-section-center" aria-labelledby="air-title">
-          <div className="search-box">
-            <h2 id="air-title" className="search-box-title">Calidad del Aire</h2>
-            <form
-              className="city-form-horizontal"
-              onSubmit={(e) => {
-                e.preventDefault();
-                search(city);
-              }}
-            >
-              <label htmlFor="air-city">Ciudad</label>
-              <input
-                id="air-city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Ej: Manta"
-                required
-              />
-              <button type="submit">Consultar</button>
-            </form>
-            {loading && <p>Consultando...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <article
-              className="card"
-              role="region"
-              aria-label="Calidad del aire"
-              style={{ marginTop: 16 }}
-            >
-              <h3 className="card-title">Resultados</h3>
-              <div className="card-row"><span>Monóxido De Carbono</span><span>{weather.air.co}</span></div>
-              <div className="card-row"><span>Dióxido De Nitrógeno</span><span>{weather.air.no2}</span></div>
-              <div className="card-row"><span>Dióxido De Azufre</span><span>{weather.air.so2}</span></div>
-              <div className="card-row"><span>Ozono</span><span>{weather.air.ozone}</span></div>
-              <div className="card-row"><span>Partículas PM2.5</span><span>{weather.air.pm25}</span></div>
-              <div className="card-row"><span>Partículas PM10</span><span>{weather.air.pm10}</span></div>
-              <div className="card-row"><span>Amoniaco</span><span>{weather.air.nh3}</span></div>
-              <div className="card-row"><span>Índice AQI</span><span>{weather.air.aqi}</span></div>
-              <div className="card-row"><span>Calidad</span><span>{AQI_TEXT[weather.air.aqi] || '-'}</span></div>
-              <div className="card-row"><span>Índice UAQI</span><span>{weather.air.uaqi}</span></div>
-              <div className="card-row"><span>Categoría UAQI</span><span>{weather.air.uaqiCategory}</span></div>
-              {weather.air.recommendations?.generalPopulation && (
-                <div className="card-row"><span>Recomendación</span><span>{weather.air.recommendations.generalPopulation}</span></div>
-              )}
-            </article>
+      <main className="aq-main-content" id="main-content" tabIndex="-1">
+        <section className="aq-consulta-panel" aria-label="Consulta de ubicación">
+          <form className="aq-form-row" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="Ciudad"
+              aria-label="Ciudad"
+              required
+            />
+            <select value={pollutant} onChange={(e) => setPollutant(e.target.value)}>
+              <option>PM2.5</option>
+              <option>PM10</option>
+              <option>NO₂</option>
+              <option>O₃</option>
+              <option>CO</option>
+            </select>
+            <select>
+              <option>Últimas 24h</option>
+            </select>
+            <button type="submit" className="aq-btn-aplicar">Aplicar</button>
+            <button type="button" className="aq-btn-exportar">Exportar</button>
+          </form>
+          {loading && <p>Consultando...</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+        </section>
+        <section className="aq-content-panels">
+          <div className="aq-panel-izq">
+            <div className="aq-card aq-aire-index" aria-label="Índice de calidad del aire">
+              <div className="aq-card-header">
+                Índice de Calidad del Aire (AQI)
+                <span className="aq-actualiza">Actualizado: {new Date().toLocaleTimeString('es-ES')}</span>
+              </div>
+              <div className="aq-aqi-value" aria-live="polite">{aqi}</div>
+              <div className="aq-moderado">{category.label.toUpperCase()}</div>
+              <div className="aq-precaucion">Precaución para grupos sensibles</div>
+              <div className="aq-escala-ref">
+                <div className="aq-escala-bar">
+                  <span className="aq-escala verde" />
+                  <span className="aq-escala amarillo" />
+                  <span className="aq-escala naranja" />
+                  <span className="aq-escala rojo" />
+                </div>
+                <div className="aq-escala-labels">
+                  <span>Buena</span>
+                  <span>Moderada</span>
+                  <span>Mala</span>
+                  <span>Muy Mala</span>
+                </div>
+              </div>
+            </div>
+            <div className="aq-card aq-contaminantes" aria-label="Contaminantes individuales">
+              <div className="aq-card-header">Contaminantes Individuales</div>
+              <ul>
+                <li><b>PM2.5</b> <span className="aq-value red">{weather.air.pm25 || '-'} µg/m³</span></li>
+                <li><b>PM10</b> <span className="aq-value orange">{weather.air.pm10 || '-'} µg/m³</span></li>
+                <li><b>NO₂</b> <span className="aq-value yellow">{weather.air.no2 || '-'} µg/m³</span></li>
+                <li><b>O₃</b> <span className="aq-value green">{weather.air.ozone || '-'} µg/m³</span></li>
+                <li><b>CO</b> <span className="aq-value red">{weather.air.co || '-'} µg/m³</span></li>
+              </ul>
+            </div>
+          </div>
+          <div className="aq-panel-der">
+            <div className="aq-card aq-evolucion">
+              <div className="aq-card-header">
+                Evolución Últimas 24 Horas
+                <select value={pollutant} onChange={(e) => setPollutant(e.target.value)}>
+                  <option>PM2.5</option>
+                  <option>PM10</option>
+                  <option>NO₂</option>
+                  <option>O₃</option>
+                  <option>CO</option>
+                </select>
+              </div>
+              <div className="aq-grafico-mock">
+                <div className="aq-grafico-icon">📈</div>
+                <div className="aq-grafico-txt">Gráfico de Evolución {pollutant}<br />Últimas 24 horas</div>
+              </div>
+            </div>
+            <div className="aq-card aq-recomendaciones">
+              <div className="aq-tag-list">
+                <span className="aq-tag">PM2.5</span>
+                <span className="aq-tag">PM10</span>
+                <span className="aq-tag">NO₂</span>
+                <span className="aq-tag">O₃</span>
+              </div>
+              <div className="aq-reco-row">
+                <div>
+                  <b>Recomendaciones de Salud</b>
+                  <ul>
+                    <li>Grupos sensibles: Reducir actividades al aire libre.</li>
+                    <li>Usar mascarilla en exteriores si es necesario.</li>
+                    <li>Mantener ventanas cerradas durante picos.</li>
+                  </ul>
+                </div>
+                <div>
+                  <b>Actividades Recomendadas</b>
+                  <ul>
+                    <li>Ejercicio intenso: No recomendado</li>
+                    <li>Caminata ligera: Aceptable</li>
+                    <li>Actividades manuales: Preferibles</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
