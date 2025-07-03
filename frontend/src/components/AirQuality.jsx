@@ -55,6 +55,11 @@ export default function AirQuality() {
               <div className="card-row"><span>Amoniaco</span><span>{weather.air.nh3}</span></div>
               <div className="card-row"><span>Índice AQI</span><span>{weather.air.aqi}</span></div>
               <div className="card-row"><span>Calidad</span><span>{AQI_TEXT[weather.air.aqi] || '-'}</span></div>
+              <div className="card-row"><span>Índice UAQI</span><span>{weather.air.uaqi}</span></div>
+              <div className="card-row"><span>Categoría UAQI</span><span>{weather.air.uaqiCategory}</span></div>
+              {weather.air.recommendations?.generalPopulation && (
+                <div className="card-row"><span>Recomendación</span><span>{weather.air.recommendations.generalPopulation}</span></div>
+              )}
             </article>
           </div>
         </section>

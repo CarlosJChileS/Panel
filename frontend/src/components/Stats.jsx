@@ -47,6 +47,9 @@ export default function Stats() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
+            {weather.air.uaqi && (
+              <p style={{marginTop:10}}>UAQI actual: {weather.air.uaqi} - {weather.air.uaqiCategory}</p>
+            )}
           </div>
         </section>
       </main>

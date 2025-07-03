@@ -165,6 +165,14 @@ function Dashboard() {
                 <span>Partículas PM2.5</span>
                 {(function(){const s=getStatus('pm25', weatherData.air.pm25);return <span className={s.className} aria-label={s.label}>{weatherData.air.pm25}</span>;})()}
               </div>
+              <div className="card-row">
+                <span>Índice UAQI</span>
+                {(function(){const s=getStatus('uaqi', weatherData.air.uaqi);return <span className={s.className} aria-label={s.label}>{weatherData.air.uaqi}</span>;})()}
+              </div>
+              <div className="card-row">
+                <span>Categoría UAQI</span>
+                <span>{weatherData.air.uaqiCategory}</span>
+              </div>
             </article>
             {/* Extras */}
             <article className="card" role="region" aria-label="Condiciones adicionales">

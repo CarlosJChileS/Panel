@@ -50,6 +50,8 @@ export default function Alerts() {
               <div className="card-row"><span>Humedad</span><span>{weather.alerts.humidity}</span></div>
               <div className="card-row"><span>Aire Contaminado</span><span>{weather.alerts.air}</span></div>
               <div className="card-row"><span>Índice AQI</span><span>{weather.alerts.aqi}</span></div>
+              <div className="card-row"><span>Índice UAQI</span><span>{weather.air.uaqi}</span></div>
+              <div className="card-row"><span>Categoría UAQI</span><span>{weather.air.uaqiCategory}</span></div>
               <div className="card-row"><span>Nivel general</span><span>{overallLevel(weather.alerts)}</span></div>
             </article>
           </div>

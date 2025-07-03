@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext } from 'react';
 import { initialWeather, mockWeather } from '../data/mockWeather';
 import { fetchWeather, fetchForecast } from '../services/openWeatherService';
+import { fetchGoogleAirQuality } from '../services/googleAirService';
 import { supabase } from '../services/supabaseClient';
 
 function parseNum(value) {
@@ -30,6 +31,10 @@ function computeAlerts(w) {
     const aqi = parseFloat(w.air.aqi);
     alerts.aqi = aqi > 3 ? 'ALTA' : aqi > 2 ? 'MEDIA' : 'BAJA';
   }
+  if (w.air && w.air.uaqi) {
+    const u = parseFloat(w.air.uaqi);
+    alerts.uaqi = u > 100 ? 'ALTA' : u > 50 ? 'MEDIA' : 'BAJA';
+  }
   return alerts;
 }
 
@@ -56,6 +61,7 @@ export function WeatherProvider({ children }) {
     setLoading(true);
     try {
       const apiKey = process.env.REACT_APP_OPENWEATHER_KEY;
+      const googleKey = process.env.REACT_APP_GOOGLEAIR_KEY;
       const real = await fetchWeather(cityToSearch, apiKey);
       let forecast = [];
       try {
@@ -69,6 +75,14 @@ export function WeatherProvider({ children }) {
         air: { ...mockWeather.air, ...real.air },
         extras: { ...mockWeather.extras, ...(real.extras || {}) },
       };
+      if (googleKey && merged.lat && merged.lon) {
+        try {
+          const gAir = await fetchGoogleAirQuality(merged.lat, merged.lon, googleKey);
+          merged.air = { ...merged.air, ...gAir };
+        } catch (_) {
+          // ignore google air errors
+        }
+      }
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
       setData(merged);

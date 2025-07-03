@@ -13,7 +13,7 @@ Se han incorporado buenas prácticas de accesibilidad para cumplir con las pauta
 
 ## Instalación y pruebas
 
-1. Copia el archivo `.env` y coloca tu clave en `REACT_APP_OPENWEATHER_KEY` para obtener datos reales.
+1. Copia el archivo `.env` y coloca tus claves en `REACT_APP_OPENWEATHER_KEY` y `REACT_APP_GOOGLEAIR_KEY` para obtener datos reales.
 2. Ejecuta `npm install --force` dentro del directorio `frontend` para instalar las dependencias.
 3. Para las pruebas automáticas usa `CI=true npm test --silent --runInBand`.
 

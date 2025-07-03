@@ -53,9 +53,14 @@ export default function MapPage() {
                 style={{ height: '300px', width: '100%' }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]} />
-              </MapContainer>
+              <Marker position={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]} />
+            </MapContainer>
             </div>
+            {weather.air.uaqi && (
+              <p style={{marginTop:10}}>
+                UAQI: {weather.air.uaqi} - {weather.air.uaqiCategory}
+              </p>
+            )}
           </div>
         </section>
       </main>
