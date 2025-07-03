@@ -15,13 +15,15 @@ import Stats from "./components/Stats";
 import Contact from "./components/Contact";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./AuthContext";
+import { WeatherProvider } from "./hooks/useWeather";
 
 function App() {
   return (
     <AuthProvider>
-      <Router basename={process.env.PUBLIC_URL}>
-        <AccessibilityPanel />
-        <Routes>
+      <WeatherProvider>
+        <Router basename={process.env.PUBLIC_URL}>
+          <AccessibilityPanel />
+          <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -98,7 +100,8 @@ function App() {
             }
           />
         </Routes>
-      </Router>
+        </Router>
+      </WeatherProvider>
     </AuthProvider>
   );
 }

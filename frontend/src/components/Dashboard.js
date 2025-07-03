@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Dashboard.css";
 import { useWeather } from "../hooks/useWeather";
 import { Link } from "react-router-dom";
@@ -65,8 +65,7 @@ function getStatus(type, val) {
 }
 
 function Dashboard() {
-  const [city, setCity] = useState("");
-  const { weather: weatherData, trend, loading, error, search } = useWeather();
+  const { weather: weatherData, trend, loading, error, search, city, setCity } = useWeather();
 
   return (
     <div className="dashboard-container dashboard-bg">
