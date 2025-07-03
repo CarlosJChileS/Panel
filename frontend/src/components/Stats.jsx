@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import { mockTrend } from '../data/mockWeather';
@@ -6,8 +6,7 @@ import '../Dashboard.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Stats() {
-  const [city, setCity] = useState('');
-  const { weather, trend, loading, error, search } = useWeather();
+  const { weather, trend, loading, error, search, city, setCity } = useWeather();
 
   return (
     <div className="dashboard-bg">

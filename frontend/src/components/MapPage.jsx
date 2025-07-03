@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import '../Dashboard.css';
@@ -17,8 +17,7 @@ L.Marker.prototype.options.icon = L.icon({
   shadowSize: [41, 41],
 });
 export default function MapPage() {
-  const [city, setCity] = useState('');
-  const { weather, loading, error, search } = useWeather();
+  const { weather, loading, error, search, city, setCity } = useWeather();
 
   return (
     <div className="dashboard-bg">
