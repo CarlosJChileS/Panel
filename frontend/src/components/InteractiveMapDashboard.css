@@ -1,0 +1,237 @@
+.imd-dashboard-container {
+  background: #f4f6fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.imd-header {
+  background: #222e4e;
+  color: #fff;
+  padding: 10px 0 0 20px;
+}
+
+.imd-titulo {
+  font-size: 18px;
+  opacity: 0.75;
+}
+
+.imd-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 40px 10px 0;
+}
+
+.imd-logo {
+  font-weight: bold;
+  margin-right: 16px;
+  color: #2bbef9;
+}
+
+.imd-navbar ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.imd-navbar li {
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+.imd-navbar li.imd-nav-active,
+.imd-navbar li:hover {
+  background: #284a87;
+}
+
+.imd-user-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.imd-main-content {
+  display: flex;
+  max-width: 1400px;
+  margin: 30px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px #0001;
+  min-height: 720px;
+  padding: 0;
+}
+
+.imd-sidebar {
+  width: 280px;
+  background: #f8fafc;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  box-shadow: 2px 0 12px #0001;
+  padding: 18px 18px 0 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.imd-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 14px 14px 10px 18px;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.imd-card-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #284a87;
+  font-size: 16px;
+}
+
+.imd-filter-row {
+  display: flex;
+  gap: 7px;
+  margin: 8px 0 10px 0;
+}
+
+.imd-btn-aplicar {
+  background: #2876e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.imd-dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+.imd-green { background: #79d672; }
+.imd-orange { background: #ffae2a; }
+.imd-yellow { background: #ffd43b; }
+.imd-red { background: #e76a6a; }
+
+.imd-estaciones-cercanas {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.imd-estacion {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+.imd-status { font-size: 12px; margin-left: 2px; }
+.imd-activo { color: #3fa23f; }
+.imd-alerta { color: #ffae2a; }
+.imd-critico { color: #e76a6a; }
+.imd-dist { margin-left: auto; font-size: 12px; color: #aaa; }
+
+.imd-mapa-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  padding: 0;
+  background: #fff;
+}
+
+.imd-mapa-header {
+  padding: 17px 25px 7px 35px;
+  background: #fff;
+  border-top-right-radius: 18px;
+  border-bottom: 1px solid #f0f2f4;
+}
+
+.imd-ubicacion {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.imd-btn-mas {
+  margin-left: 10px;
+  background: #e7eefa;
+  color: #467eea;
+  border: none;
+  border-radius: 22px;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.imd-mapa-box {
+  flex: 1;
+  min-height: 360px;
+  background: #f4f7fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imd-mapa-mock {
+  width: 90%;
+  height: 280px;
+  border: 2px dashed #b2c1e1;
+  border-radius: 15px;
+  background: #e7eefa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #3d5e9c;
+  font-size: 18px;
+  gap: 12px;
+}
+.imd-mapa-logo {
+  font-size: 44px;
+}
+
+.imd-mapa-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 36px 14px 36px;
+  border-top: 1px solid #e4e7ed;
+  background: #f4f7fa;
+  font-size: 15px;
+  border-bottom-right-radius: 18px;
+}
+.imd-footer-info { display: flex; flex-direction: column; }
+.imd-footer-update {
+  font-size: 11px;
+  color: #8193a8;
+}
+.imd-footer-data {
+  display: flex;
+  gap: 11px;
+  font-weight: 500;
+}
+.imd-footer-sep {
+  color: #bccce6;
+  font-weight: normal;
+}
+.imd-btn-detalles {
+  background: #fff;
+  color: #467eea;
+  border: 1.5px solid #467eea;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.imd-btn-detalles:hover {
+  background: #e7eefa;
+}
