@@ -29,6 +29,7 @@
 .card.aire { background: linear-gradient(90deg, #fdad0d, #ffce63); color: #fff; }
 .card.extra { background: linear-gradient(90deg, #34e5d9, #4aa6ff); color: #fff; }
 .card.viento { background: linear-gradient(90deg, #9346f6, #7f9aff); color: #fff; }
+.card.presion { background: linear-gradient(90deg, #4cb0ff, #6fd3ff); color: #fff; }
 .card .main { font-size: 2.1rem; font-weight: bold; }
 .card .desc, .card .rango { font-size: 1rem; margin: 3px 0; }
 .estado-alerta { margin: 0 0 12px; padding: 7px 13px; border-radius: 12px; display: inline-block; }
