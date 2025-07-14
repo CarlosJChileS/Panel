@@ -2,20 +2,8 @@ import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import './InteractiveMapDashboard.css';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import RealTimeMap from './RealTimeMap';
 import { mockWeather } from '../data/mockWeather';
-
-L.Marker.prototype.options.icon = L.icon({
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  shadowSize: [41, 41],
-});
 export default function MapPage() {
   const { weather, loading, error, search, city, setCity } = useWeather();
 
@@ -83,15 +71,13 @@ export default function MapPage() {
             </div>
           </div>
           <div className="imd-mapa-box">
-            <MapContainer
+            <RealTimeMap
               key={`${weather.lat || mockWeather.lat},${weather.lon || mockWeather.lon}`}
-              center={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]}
-              zoom={10}
-              style={{ height: '280px', width: '90%' }}
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={[weather.lat || mockWeather.lat, weather.lon || mockWeather.lon]} />
-            </MapContainer>
+              lat={weather.lat || mockWeather.lat}
+              lon={weather.lon || mockWeather.lon}
+              width="90%"
+              height="280px"
+            />
           </div>
           <div className="imd-mapa-footer">
             <div className="imd-footer-info">

@@ -127,7 +127,15 @@
   margin-bottom: 20px;
   box-shadow: 0 1px 7px 0 #d2e7f8;
 }
-.mapa-interactivo { background: #d7f2ed; border-radius: 12px; padding: 30px 0; text-align: center; font-size: 1.2em; margin-bottom: 12px; }
+.mapa-interactivo {
+  background: #d7f2ed;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
 .estaciones-relevantes ul { list-style: none; padding: 0; margin: 0; }
 .estaciones-relevantes li { padding: 5px 0; }
 .estaciones-relevantes li.ok { color: #009d72; }

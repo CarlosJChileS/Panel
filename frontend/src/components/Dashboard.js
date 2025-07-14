@@ -3,6 +3,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import '../DashboardAmbiente.css';
 import { useWeather } from '../hooks/useWeather';
 import Header from './Header';
+import RealTimeMap from './RealTimeMap';
+import { mockWeather } from '../data/mockWeather';
 
 export default function Dashboard() {
   const { weather, loading, error, search, city, setCity } = useWeather();
@@ -184,7 +186,11 @@ export default function Dashboard() {
       <section className="mapa-estaciones">
         <h4>Mapa de Estaciones en Tiempo Real</h4>
         <div className="mapa-interactivo">
-          <div className="mapa-icon">Vista Interactiva del Territorio</div>
+          <RealTimeMap
+            lat={weather.lat || mockWeather.lat}
+            lon={weather.lon || mockWeather.lon}
+            height="200px"
+          />
         </div>
         <div className="estaciones-relevantes">
           <b>Estaciones Más Relevantes</b>
