@@ -5,8 +5,10 @@ import "../Auth.css";
 import logo from "../logo.svg";
 import { useAuth } from "../AuthContext";
 import { useSupabaseStatus } from "../hooks/useSupabaseStatus";
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+  const { t } = useTranslation();
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,13 +23,13 @@ export default function Login() {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setUser(value);
-    setEmailError(/\S+@\S+\.\S+/.test(value) ? "" : "Correo inválido");
+    setEmailError(/\S+@\S+\.\S+/.test(value) ? '' : t('login.invalidEmail'));
   };
 
   const handlePassChange = (e) => {
     const value = e.target.value;
     setPass(value);
-    setPassError(value.length >= 6 ? "" : "Mínimo 6 caracteres");
+    setPassError(value.length >= 6 ? '' : t('login.minPass'));
   };
 
   async function handleSubmit(e) {
@@ -39,10 +41,10 @@ export default function Login() {
       password: pass,
     });
     if (!error) {
-      setMessage("Login exitoso");
+      setMessage(t('login.success'));
       navigate("/dashboard");
     } else {
-      setMessage("Error al iniciar sesión");
+      setMessage(t('login.error'));
     }
     setLoading(false);
   }
@@ -53,14 +55,14 @@ export default function Login() {
         <div className="logoCircle">
           <img src={logo} alt="logo" width="40" />
         </div>
-        <h2 className="welcome">Bienvenido</h2>
-        <p className="desc">Ingresa tus credenciales para continuar</p>
+        <h2 className="welcome">{t('login.welcome')}</h2>
+        <p className="desc">{t('login.desc')}</p>
       </div>
       <div className="login-rightPanel">
-        <h2 className="loginTitle">Iniciar Sesión</h2>
-        <p className="loginDesc">Introduce tu correo y contraseña</p>
-        <form className="form" onSubmit={handleSubmit} aria-label="Iniciar sesión">
-          <label className="label" htmlFor="username">Correo</label>
+        <h2 className="loginTitle">{t('login.title')}</h2>
+        <p className="loginDesc">{t('login.formDesc')}</p>
+        <form className="form" onSubmit={handleSubmit} aria-label={t('login.title')}>
+          <label className="label" htmlFor="username">{t('login.email')}</label>
           <div className="inputIcon">
             <input
               className="input"
@@ -77,7 +79,7 @@ export default function Login() {
               {emailError}
             </div>
           )}
-          <label className="label" htmlFor="password">Contraseña</label>
+          <label className="label" htmlFor="password">{t('login.password')}</label>
           <div className="inputIcon">
             <input
               className="input"
@@ -91,7 +93,7 @@ export default function Login() {
               type="button"
               className="iconEye"
               onClick={() => setShowPass((s) => !s)}
-              aria-label={showPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              aria-label={showPass ? t('login.hidePass') : t('login.showPass')}
             >
               {showPass ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -101,7 +103,7 @@ export default function Login() {
               {passError}
             </div>
           )}
-          <button className="loginBtn" type="submit">Ingresar</button>
+          <button className="loginBtn" type="submit">{t('login.submit')}</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && (
@@ -113,8 +115,8 @@ export default function Login() {
           </div>
         )}
         <p className="registerRow">
-          ¿No tienes cuenta?
-          <Link className="registerLink" to="/register">Regístrate</Link>
+          {t('login.noAccount')}
+          <Link className="registerLink" to="/register">{t('login.register')}</Link>
         </p>
       </div>
     </div>
