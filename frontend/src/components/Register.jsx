@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import '../Auth.css';
 import logo from '../logo.svg';
@@ -10,9 +11,36 @@ export default function Register() {
   const [pass, setPass] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
+  const [showPass, setShowPass] = useState(false);
+  const [strength, setStrength] = useState(0);
+  const strengthText = ['Muy débil', 'Débil', 'Regular', 'Buena', 'Fuerte'];
   const navigate = useNavigate();
   const { supabase } = useAuth();
   const status = useSupabaseStatus();
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    setEmailError(/\S+@\S+\.\S+/.test(value) ? '' : 'Correo inválido');
+  };
+
+  const calcStrength = (value) => {
+    let s = 0;
+    if (value.length > 5) s++;
+    if (/[A-Z]/.test(value)) s++;
+    if (/[0-9]/.test(value)) s++;
+    if (/[^A-Za-z0-9]/.test(value)) s++;
+    return s;
+  };
+
+  const handlePassChange = (e) => {
+    const value = e.target.value;
+    setPass(value);
+    setPassError(value.length >= 6 ? '' : 'Mínimo 6 caracteres');
+    setStrength(calcStrength(value));
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -49,27 +77,60 @@ export default function Register() {
               id="reg-email"
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={handleEmailChange}
+              autoFocus
               required
             />
           </div>
+          {emailError && (
+            <div style={{ color: 'red' }} aria-live="polite">
+              {emailError}
+            </div>
+          )}
           <label className="label" htmlFor="reg-pass">Contraseña</label>
           <div className="inputIcon">
             <input
               className="input"
               id="reg-pass"
-              type="password"
+              type={showPass ? 'text' : 'password'}
               value={pass}
-              onChange={e => setPass(e.target.value)}
+              onChange={handlePassChange}
               required
             />
+            <button
+              type="button"
+              className="iconEye"
+              onClick={() => setShowPass((s) => !s)}
+              aria-label={showPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+            >
+              {showPass ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+          {passError && (
+            <div style={{ color: 'red' }} aria-live="polite">
+              {passError}
+            </div>
+          )}
+          <div aria-live="polite" style={{ marginTop: 8 }}>
+            <meter
+              min="0"
+              max="4"
+              value={strength}
+              style={{ width: '100%' }}
+              aria-label="Fortaleza de la contraseña"
+            />
+            <div style={{ fontSize: '0.9rem', textAlign: 'center' }}>
+              {strengthText[strength]}
+            </div>
           </div>
           <button className="registerBtn" type="submit">Crear cuenta</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
-        {message && <div className="status-message">{message}</div>}
+        {message && (
+          <div className="status-message" aria-live="polite">{message}</div>
+        )}
         {status === 'error' && (
-          <div className="status-message" style={{ color: 'red' }}>
+          <div className="status-message" style={{ color: 'red' }} aria-live="polite">
             Error de conexión con Supabase
           </div>
         )}
