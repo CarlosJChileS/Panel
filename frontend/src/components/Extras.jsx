@@ -1,15 +1,19 @@
 import React from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
+import ExtrasChart from './ExtrasChart';
+import { mockTrend } from '../data/mockWeather';
 import './AirQualityDashboard.css';
 
 export default function Extras() {
-  const { weather, loading, error, search, city, setCity } = useWeather();
+  const { weather, trend, loading, error, search, city, setCity } = useWeather();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     search(city);
   };
+
+  const data = trend.length ? trend : mockTrend;
 
   return (
     <div className="aq-dashboard-container">
@@ -53,10 +57,16 @@ export default function Extras() {
           <div className="aq-panel-der">
             <div className="aq-card aq-evolucion">
               <div className="aq-card-header">Pronóstico</div>
-              <div className="aq-grafico-mock">
-                <div className="aq-grafico-icon">📈</div>
-                <div className="aq-grafico-txt">Gráfico de tendencia<br />Próximas horas</div>
-              </div>
+              {data.length ? (
+                <div className="aq-grafico">
+                  <ExtrasChart data={data} />
+                </div>
+              ) : (
+                <div className="aq-grafico-mock">
+                  <div className="aq-grafico-icon">📈</div>
+                  <div className="aq-grafico-txt">Gráfico de tendencia<br />Próximas horas</div>
+                </div>
+              )}
             </div>
           </div>
         </section>
