@@ -74,5 +74,78 @@
     "message": "Message",
     "send": "Send",
     "sent": "Message sent"
+  },
+  "access": {
+    "open": "Open accessibility panel",
+    "close": "Close panel",
+    "profilesTitle": "Accessibility profiles",
+    "voiceTitle": "Voice and navigation settings",
+    "colorTitle": "Color adjustment",
+    "contentTitle": "Content adjustment",
+    "advancedTitle": "Advanced options",
+    "customColor": "Custom color",
+    "customDesc": "Change site colors",
+    "backgrounds": "Backgrounds",
+    "headings": "Headings",
+    "contentTab": "Content",
+    "current": "Current",
+    "resetColors": "Reset colors",
+    "transcribe": "Transcribe video",
+    "resetAll": "Reset settings",
+    "videoMissing": "No video found on the page",
+    "expand": "Expand section",
+    "collapse": "Collapse section",
+    "profiles": {
+      "blind": "Blindness",
+      "motor": "Motor disorders",
+      "daltonism": "Color blindness",
+      "visual": "Low vision",
+      "epilepsy": "Epilepsy",
+      "adhd": "ADHD",
+      "learning": "Learning",
+      "elder": "Elder",
+      "dyslexia": "Dyslexia"
+    },
+    "voice": {
+      "screen": "Screen reader",
+      "keyboard": "Keyboard navigation",
+      "smartnav": "Smart navigation",
+      "speaker": "Text reader",
+      "mic": "Voice commands"
+    },
+    "color": {
+      "eye": "Monochrome",
+      "moon": "Dark contrast",
+      "sun": "Light contrast",
+      "lowSaturation": "Low saturation",
+      "highSaturation": "High saturation",
+      "contrast": "Contrast mode"
+    },
+    "content": {
+      "fontIncrease": "Increase font",
+      "fontDecrease": "Decrease font",
+      "lineSpace": "Line spacing",
+      "wordSpace": "Word spacing",
+      "letterSpace": "Letter spacing",
+      "cursorWhite": "White cursor",
+      "cursorBlack": "Black cursor",
+      "block": "Block flashes",
+      "cc": "Add captions",
+      "zoom": "Magnifier"
+    },
+    "advanced": {
+      "readable": "Readable font",
+      "image": "Image description",
+      "link": "Highlight links",
+      "heading": "Highlight headings",
+      "enlarge": "Enlarge buttons",
+      "doc": "Readable mode",
+      "textZoom": "Text zoom",
+      "mute": "Mute media",
+      "focus": "Read focus",
+      "guide": "Reading guide",
+      "dict": "Dictionary",
+      "virtualkb": "Virtual keyboard"
+    }
   }
 }
