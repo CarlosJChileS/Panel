@@ -15,9 +15,9 @@ export default function Header() {
         <div className="header-title">
           <span className="header-main-title">{t('header.mainTitle')}</span>
           <span className="header-subtitle">{t('header.subtitle')}</span>
-          <div className="lang-switch" style={{marginLeft:8}}>
+          <div className="lang-switch">
             <button onClick={() => i18n.changeLanguage('es')}>ES</button>
-            <button onClick={() => i18n.changeLanguage('en')} style={{marginLeft:4}}>EN</button>
+            <button onClick={() => i18n.changeLanguage('en')}>EN</button>
           </div>
         </div>
       <nav className="navbar-links" aria-label="Navegación principal">
