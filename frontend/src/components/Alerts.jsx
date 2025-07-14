@@ -29,6 +29,53 @@ export default function Alerts() {
     { label: 'Tiempo de Respuesta', value: '<5min', type: 'response' },
   ];
 
+  const alertEntries = [
+    { key: 'temp', title: 'Temperatura Óptima' },
+    { key: 'wind', title: 'Viento Fuerte' },
+    { key: 'humidity', title: 'Humedad' },
+    { key: 'air', title: 'Aire Contaminado' },
+    { key: 'uaqi', title: 'Índice UAQI' },
+  ];
+
+  const active = alertEntries
+    .map((e) => ({ ...e, level: weather.alerts[e.key] }))
+    .filter((a) => a.level && a.level !== 'BAJA');
+
+  const moderateAlerts = active.filter((a) => a.level === 'MEDIA');
+  const criticalAlerts = active.filter((a) => a.level === 'ALTA');
+
+  const stats = [
+    { label: 'Alertas Activas', value: active.length, type: 'active' },
+    { label: 'Alertas Hoy', value: active.length, type: 'today' },
+    { label: 'Estaciones Monit.', value: 1, type: 'stations' },
+    { label: 'Tiempo de Respuesta', value: '<5min', type: 'response' },
+  ];
+
+  const alertEntries = [
+    { key: 'temp', title: 'Temperatura Óptima', value: weather.temperature },
+    { key: 'wind', title: 'Viento Fuerte', value: weather.wind },
+    { key: 'humidity', title: 'Humedad', value: weather.humidity },
+    { key: 'air', title: 'Aire Contaminado', value: weather.air?.pm25 },
+    { key: 'aqi', title: 'Índice AQI', value: weather.air?.aqi },
+    { key: 'uaqi', title: 'Índice UAQI', value: weather.air?.uaqi },
+  ];
+
+  const allAlerts = alertEntries.map((e) => ({
+    ...e,
+    level: weather.alerts[e.key] || '',
+  }));
+
+  const active = allAlerts.filter((a) => a.level && a.level !== 'BAJA');
+
+  const moderateAlerts = active.filter((a) => a.level === 'MEDIA');
+  const criticalAlerts = active.filter((a) => a.level === 'ALTA');
+
+  const stats = [
+    { label: 'Alertas Activas', value: active.length, type: 'active' },
+    { label: 'Alertas Hoy', value: active.length, type: 'today' },
+    { label: 'Estaciones Monit.', value: 1, type: 'stations' },
+    { label: 'Tiempo de Respuesta', value: '<5min', type: 'response' },
+  ];
   return (
     <div className="dashboard-bg">
       <Header />
@@ -86,6 +133,32 @@ export default function Alerts() {
                       </div>
                     ))}
                     {criticalAlerts.length === 0 && <p>No hay alertas críticas</p>}
+                  </div>
+                </section>
+                <section className="alerts-section alerts-section--all">
+                  <h3>Todas las Alertas</h3>
+                  <div className="alerts-list">
+                    {allAlerts.map((a, i) => {
+                      const levelClass =
+                        a.level === 'ALTA'
+                          ? 'critical'
+                          : a.level === 'MEDIA'
+                          ? 'moderate'
+                          : 'low';
+                      return (
+                        <div key={i} className={`alert-card alert-card--${levelClass}`}>
+                          <FaExclamationTriangle className="alert-icon" />
+                          <div className="alert-info">
+                            <strong>{a.title}</strong>
+                            {a.value && (
+                              <span className="alert-location">Valor {a.value}</span>
+                            )}
+                            <span className="alert-time">Nivel {a.level || 'N/A'}</span>
+                          </div>
+                          <span className="alert-tag">{a.level || 'N/A'}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </section>
               </div>
