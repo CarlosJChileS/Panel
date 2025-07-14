@@ -6,6 +6,7 @@ import logo from '../logo.svg';
 import { useAuth } from '../AuthContext';
 import { useSupabaseStatus } from '../hooks/useSupabaseStatus';
 import { useTranslation } from 'react-i18next';
+import Header from './Header';
 
 export default function Register() {
   const { t } = useTranslation();
@@ -60,15 +61,18 @@ export default function Register() {
   }
 
   return (
-    <div className="register-container">
-      <div className="register-leftPanel">
-        <div className="logoCircle">
-          <img src={logo} alt="logo" width="40" />
-        </div>
-        <h2 className="title">{t('register.titleLeft')}</h2>
-        <p className="desc">{t('register.descLeft')}</p>
-      </div>
-      <div className="register-rightPanel">
+    <div className="dashboard-bg">
+      <Header />
+      <main id="main-content">
+        <div className="register-container">
+          <div className="register-leftPanel">
+            <div className="logoCircle">
+              <img src={logo} alt="logo" width="40" />
+            </div>
+            <h2 className="title">{t('register.titleLeft')}</h2>
+            <p className="desc">{t('register.descLeft')}</p>
+          </div>
+          <div className="register-rightPanel">
         <h2 className="registerTitle">{t('register.title')}</h2>
         <p className="registerDesc">{t('register.desc')}</p>
         <form className="form" onSubmit={handleSubmit} aria-label={t('register.title')}>
@@ -143,6 +147,8 @@ export default function Register() {
           <Link className="registerLink" to="/login">{t('register.login')}</Link>
         </p>
       </div>
+        </div>
+      </main>
     </div>
   );
 }
