@@ -46,7 +46,8 @@
     "success": "Login exitoso",
     "error": "Error al iniciar sesión",
     "noAccount": "¿No tienes cuenta?",
-    "register": "Regístrate"
+    "register": "Regístrate",
+    "remember": "Recordar usuario"
   },
   "register": {
     "titleLeft": "Crea tu cuenta",
@@ -66,12 +67,12 @@
   "contact": {
     "title": "Contacto",
     "intro": "¿Tienes dudas o comentarios? Estamos disponibles en:",
-    "report": "Reportar error",
-    "desc": "Descripción",
-    "send": "Enviar",
-    "tips": "Enviar consejo",
-    "comment": "Comentario",
     "direct": "Contacto directo",
-    "message": "Tu mensaje"
+    "name": "Nombre",
+    "email": "Correo",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "send": "Enviar",
+    "sent": "Mensaje enviado"
   }
 }

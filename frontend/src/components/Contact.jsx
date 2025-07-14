@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import '../Dashboard.css';
 import '../Profile.css';
@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
   const { t } = useTranslation();
+  const [sent, setSent] = useState(false);
   return (
     <div className="dashboard-bg">
       <Header />
@@ -22,43 +23,26 @@ export default function Contact() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                alert('Reporte enviado');
-                e.target.reset();
-              }}
-              className="contact-form"
-            >
-              <h3 className="card-title">{t('contact.report')}</h3>
-              <label htmlFor="err-msg">{t('contact.desc')}</label>
-              <textarea id="err-msg" required style={{ width: '100%', minHeight: 80 }} />
-              <button type="submit" style={{ marginTop: 8 }}>{t('contact.send')}</button>
-            </form>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Gracias por tu sugerencia');
-                e.target.reset();
-              }}
-              className="contact-form"
-            >
-              <h3 className="card-title">{t('contact.tips')}</h3>
-              <label htmlFor="tips-msg">{t('contact.comment')}</label>
-              <textarea id="tips-msg" required style={{ width: '100%', minHeight: 80 }} />
-              <button type="submit" style={{ marginTop: 8 }}>{t('contact.send')}</button>
-            </form>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Mensaje enviado');
+                setSent(true);
                 e.target.reset();
               }}
               className="contact-form"
             >
               <h3 className="card-title">{t('contact.direct')}</h3>
+              <label htmlFor="contact-name">{t('contact.name')}</label>
+              <input id="contact-name" type="text" required autoComplete="name" style={{ width: '100%' }} />
+              <label htmlFor="contact-email">{t('contact.email')}</label>
+              <input id="contact-email" type="email" required autoComplete="email" style={{ width: '100%' }} />
+              <label htmlFor="contact-subject">{t('contact.subject')}</label>
+              <input id="contact-subject" type="text" required style={{ width: '100%' }} />
               <label htmlFor="contact-msg">{t('contact.message')}</label>
               <textarea id="contact-msg" required style={{ width: '100%', minHeight: 80 }} />
               <button type="submit" style={{ marginTop: 8 }}>{t('contact.send')}</button>
+              {sent && (
+                <div style={{ color: 'green', marginTop: 8 }} aria-live="polite">
+                  {t('contact.sent')}
+                </div>
+              )}
             </form>
           </div>
         </section>
