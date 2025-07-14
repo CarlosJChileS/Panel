@@ -2,60 +2,66 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../Landing.css';
 import { useAuth } from '../AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Header() {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const isAdmin = user?.user_metadata?.is_admin;
   return (
     <>
-      <a href="#main-content" className="skip-link">Saltar al contenido</a>
+      <a href="#main-content" className="skip-link">{t('header.skip')}</a>
       <header className="header">
         <div className="header-title">
-          <span className="header-main-title">Dashboard Ambiental Costero</span>
-          <span className="header-subtitle">Monitoreo en Tiempo Real</span>
+          <span className="header-main-title">{t('header.mainTitle')}</span>
+          <span className="header-subtitle">{t('header.subtitle')}</span>
+          <div className="lang-switch" style={{marginLeft:8}}>
+            <button onClick={() => i18n.changeLanguage('es')}>ES</button>
+            <button onClick={() => i18n.changeLanguage('en')} style={{marginLeft:4}}>EN</button>
+          </div>
         </div>
       <nav className="navbar-links" aria-label="Navegación principal">
         <NavLink
           to="/dashboard"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Dashboard
+          {t('header.dashboard')}
         </NavLink>
         <NavLink
           to="/aire"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Calidad Aire
+          {t('header.air')}
         </NavLink>
         <NavLink
           to="/extras"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Condiciones Extra
+          {t('header.extras')}
         </NavLink>
         <NavLink
           to="/mapa"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Mapa
+          {t('header.map')}
         </NavLink>
         <NavLink
           to="/alertas"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Alertas
+          {t('header.alerts')}
         </NavLink>
         <NavLink
           to="/estadisticas"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Estadísticas
+          {t('header.stats')}
         </NavLink>
         <NavLink
           to="/contacto"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Contacto
+          {t('header.contact')}
         </NavLink>
           {user ? (
             <NavLink
@@ -80,7 +86,7 @@ export default function Header() {
               style={{ marginLeft: 8 }}
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
-              Admin
+              {t('header.admin')}
             </NavLink>
           )}
       </nav>

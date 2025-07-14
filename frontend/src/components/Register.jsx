@@ -5,8 +5,10 @@ import '../Auth.css';
 import logo from '../logo.svg';
 import { useAuth } from '../AuthContext';
 import { useSupabaseStatus } from '../hooks/useSupabaseStatus';
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ export default function Register() {
   const [passError, setPassError] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [strength, setStrength] = useState(0);
-  const strengthText = ['Muy débil', 'Débil', 'Regular', 'Buena', 'Fuerte'];
+  const strengthText = t('register.strength', { returnObjects: true });
   const navigate = useNavigate();
   const { supabase } = useAuth();
   const status = useSupabaseStatus();
@@ -23,7 +25,7 @@ export default function Register() {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    setEmailError(/\S+@\S+\.\S+/.test(value) ? '' : 'Correo inválido');
+    setEmailError(/\S+@\S+\.\S+/.test(value) ? '' : t('login.invalidEmail'));
   };
 
   const calcStrength = (value) => {
@@ -38,7 +40,7 @@ export default function Register() {
   const handlePassChange = (e) => {
     const value = e.target.value;
     setPass(value);
-    setPassError(value.length >= 6 ? '' : 'Mínimo 6 caracteres');
+    setPassError(value.length >= 6 ? '' : t('login.minPass'));
     setStrength(calcStrength(value));
   };
 
@@ -49,10 +51,10 @@ export default function Register() {
     const { data, error } = await supabase.auth.signUp({ email, password: pass });
     if (!error && data.user) {
       await supabase.from('users').insert({ id: data.user.id, email });
-      setMessage('Registro exitoso');
+      setMessage(t('register.success'));
       navigate('/dashboard');
     } else {
-      setMessage('Error al registrarse');
+      setMessage(t('register.error'));
     }
     setLoading(false);
   }
@@ -63,14 +65,14 @@ export default function Register() {
         <div className="logoCircle">
           <img src={logo} alt="logo" width="40" />
         </div>
-        <h2 className="title">Crea tu cuenta</h2>
-        <p className="desc">Regístrate para acceder al panel</p>
+        <h2 className="title">{t('register.titleLeft')}</h2>
+        <p className="desc">{t('register.descLeft')}</p>
       </div>
       <div className="register-rightPanel">
-        <h2 className="registerTitle">Registrarse</h2>
-        <p className="registerDesc">Introduce tus datos</p>
-        <form className="form" onSubmit={handleSubmit} aria-label="Crear cuenta">
-          <label className="label" htmlFor="reg-email">Correo</label>
+        <h2 className="registerTitle">{t('register.title')}</h2>
+        <p className="registerDesc">{t('register.desc')}</p>
+        <form className="form" onSubmit={handleSubmit} aria-label={t('register.title')}>
+          <label className="label" htmlFor="reg-email">{t('register.email')}</label>
           <div className="inputIcon">
             <input
               className="input"
@@ -87,7 +89,7 @@ export default function Register() {
               {emailError}
             </div>
           )}
-          <label className="label" htmlFor="reg-pass">Contraseña</label>
+          <label className="label" htmlFor="reg-pass">{t('register.password')}</label>
           <div className="inputIcon">
             <input
               className="input"
@@ -117,13 +119,13 @@ export default function Register() {
               max="4"
               value={strength}
               style={{ width: '100%' }}
-              aria-label="Fortaleza de la contraseña"
+              aria-label={t('register.strengthLabel')}
             />
             <div style={{ fontSize: '0.9rem', textAlign: 'center' }}>
               {strengthText[strength]}
             </div>
           </div>
-          <button className="registerBtn" type="submit">Crear cuenta</button>
+          <button className="registerBtn" type="submit">{t('register.create')}</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && (
@@ -135,8 +137,8 @@ export default function Register() {
           </div>
         )}
         <p className="registerRow">
-          ¿Ya tienes cuenta?
-          <Link className="registerLink" to="/login">Ingresa</Link>
+          {t('register.haveAccount')}
+          <Link className="registerLink" to="/login">{t('register.login')}</Link>
         </p>
       </div>
     </div>

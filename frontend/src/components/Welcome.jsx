@@ -2,53 +2,55 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../Landing.css";
 import Header from "./Header";
+import { useTranslation } from 'react-i18next';
 
 export default function Welcome() {
+  const { t } = useTranslation();
   return (
     <div className="dashboard-bg">
       <Header />
 
       <div className="central-panel">
-        <h1 className="welcome-title">Bienvenido al Sistema de Monitoreo Ambiental</h1>
+        <h1 className="welcome-title">{t('welcome.title')}</h1>
         <p className="welcome-desc">
-          Accede a información actualizada sobre la calidad del aire, agua y condiciones climáticas de tu zona costera.
+          {t('welcome.desc')}
         </p>
         <div className="stats">
           <div>
             <span className="stats-value">24</span>
             <br />
-            <span className="stats-label">Estaciones Activas</span>
+            <span className="stats-label">{t('welcome.activeStations')}</span>
           </div>
           <div>
             <span className="stats-value">15+</span>
             <br />
-            <span className="stats-label">Parámetros Monitoreados</span>
+            <span className="stats-label">{t('welcome.parameters')}</span>
           </div>
           <div>
             <span className="stats-value">30min</span>
             <br />
-            <span className="stats-label">Frecuencia Actualización</span>
+            <span className="stats-label">{t('welcome.frequency')}</span>
           </div>
         </div>
         <div className="central-actions">
           <Link to="/login">
-            <button className="main-btn">Consultar Datos Ahora</button>
+            <button className="main-btn">{t('welcome.btnData')}</button>
           </Link>
           <Link to="/login">
-            <button className="sec-btn">Explorar Mapa</button>
+            <button className="sec-btn">{t('welcome.btnMap')}</button>
           </Link>
         </div>
       </div>
 
       <div className="features-section">
-        <h2>¿Qué puedes hacer con nuestro sistema?</h2>
+        <h2>{t('welcome.what')}</h2>
         <p className="features-desc">
-          Explora todas las funcionalidades disponibles para el monitoreo ambiental
+          {t('welcome.featuresDesc')}
         </p>
         <div className="features-list">
           <div className="feature-card">
-            <div className="feature-title">Datos Climáticos</div>
-            <div className="feature-sub">En Tiempo Real</div>
+            <div className="feature-title">{t('welcome.featureClimate')}</div>
+            <div className="feature-sub">{t('welcome.featureClimateSub')}</div>
             <div className="feature-desc">
               Accede a información meteorológica actualizada cada 30 minutos incluyendo temperatura, humedad, presión atmosférica y condiciones del viento.
               <ul>
@@ -59,8 +61,8 @@ export default function Welcome() {
             </div>
           </div>
           <div className="feature-card">
-            <div className="feature-title air">Calidad del Aire</div>
-            <div className="feature-sub air">Monitoreo Continuo</div>
+            <div className="feature-title air">{t('welcome.featureAir')}</div>
+            <div className="feature-sub air">{t('welcome.featureAirSub')}</div>
             <div className="feature-desc">
               Monitorea los principales contaminantes atmosféricos con alertas automáticas cuando se superan los umbrales recomendados por la OMS.
               <ul>
@@ -71,8 +73,8 @@ export default function Welcome() {
             </div>
           </div>
           <div className="feature-card">
-            <div className="feature-title map">Mapa Interactivo</div>
-            <div className="feature-sub map">Visualización Geoespacial</div>
+            <div className="feature-title map">{t('welcome.featureMap')}</div>
+            <div className="feature-sub map">{t('welcome.featureMapSub')}</div>
             <div className="feature-desc">
               Explora datos ambientales en un mapa interactivo con filtros personalizables e información detallada de cada estación de monitoreo.
               <ul>
@@ -83,8 +85,8 @@ export default function Welcome() {
             </div>
           </div>
           <div className="feature-card">
-            <div className="feature-title alert">Sistema de Alertas</div>
-            <div className="feature-sub alert">Notificaciones Inteligentes</div>
+            <div className="feature-title alert">{t('welcome.featureAlert')}</div>
+            <div className="feature-sub alert">{t('welcome.featureAlertSub')}</div>
             <div className="feature-desc">
               Recibe alertas automáticas cuando los parámetros ambientales superen los umbrales establecidos, con recomendaciones personalizadas.
               <ul>
