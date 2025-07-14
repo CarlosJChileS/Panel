@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { icons } from "../data/icons";
 import { useAccessibility } from "../hooks/useAccessibility";
 import "../AccessibilityPanel.css";
+import {
+  loadVttFile,
+  enableSubtitles,
+  removeSubtitles,
+  generateSubtitlesFromVideo,
+} from "../services/captionService";
 
 function AccessibilityPanel() {
   const {
@@ -21,7 +27,35 @@ function AccessibilityPanel() {
     dict,
   } = useAccessibility();
 
+  const [vttText, setVttText] = useState("");
+
+  useEffect(() => {
+    if (!active.cc) {
+      removeSubtitles();
+    } else if (vttText) {
+      enableSubtitles(vttText);
+    }
+  }, [active.cc, vttText]);
+
   const DropIcon = icons.drop;
+
+  const handleCaptionUpload = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const text = await loadVttFile(file);
+      setVttText(text);
+    }
+  };
+
+  const handleTranscribe = async () => {
+    const video = document.querySelector("video");
+    if (video) {
+      const text = await generateSubtitlesFromVideo(video);
+      setVttText(text);
+    } else {
+      alert("No se encontró ningún video en la página");
+    }
+  };
 
   function Card({ icon: Icon, label, keyName, onClick, profile }) {
     return (
@@ -316,6 +350,22 @@ function AccessibilityPanel() {
               <Card icon={icons.cc} label="Añadir subtítulos" keyName="cc" />
               <Card icon={icons.zoom} label="Lupa" keyName="zoom" />
             </div>
+            {active.cc && (
+              <div style={{ marginTop: 10 }}>
+                <input
+                  type="file"
+                  accept=".vtt"
+                  onChange={handleCaptionUpload}
+                />
+                <button
+                  type="button"
+                  style={{ marginLeft: 8 }}
+                  onClick={handleTranscribe}
+                >
+                  Transcribir video
+                </button>
+              </div>
+            )}
           </Section>
 
           <Section
