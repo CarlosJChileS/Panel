@@ -1,4 +1,5 @@
 import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import '../DashboardAmbiente.css';
 import { useWeather } from '../hooks/useWeather';
 import Header from './Header';
@@ -21,9 +22,40 @@ export default function Dashboard() {
 
   const humedadNum = parseFloat(weather.humidity) || 0;
 
+  const trend7 = [
+    { day: 'Lun', aqi: 60 },
+    { day: 'Mar', aqi: 58 },
+    { day: 'Mié', aqi: 55 },
+    { day: 'Jue', aqi: 53 },
+    { day: 'Vie', aqi: 52 },
+    { day: 'Sáb', aqi: 50 },
+    { day: 'Dom', aqi: 48 },
+  ];
+
   return (
     <div className="dashboard-amb dashboard">
       <Header />
+
+      <section className="consulta-personalizada">
+        <h3>Consulta Personalizada de Datos</h3>
+        <p>Busca información específica por ubicación y obtén datos detallados</p>
+        <div className="consulta-form">
+          <input
+            placeholder="Ej: Madrid, ES o 40.4168,-3.7038"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <select>
+            <option>Datos Completos</option>
+          </select>
+          <button className="consulta-btn" onClick={handleSubmit}>
+            Consultar Ahora
+          </button>
+        </div>
+        {loading && <p>Consultando...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </section>
+
       <section className="estado-real">
         <h2>Estado Ambiental en Tiempo Real</h2>
         <p className="estado-sub">
@@ -58,6 +90,11 @@ export default function Dashboard() {
               <div className="rango">Nubosidad: {weather.extras.clouds}</div>
             )}
           </div>
+          <div className="card presion">
+            <div className="icon" />
+            <div className="main">{weather.pressure || '-'}</div>
+            <div className="desc">Presión hPa</div>
+          </div>
           <div className="card viento">
             <div className="icon" />
             <div className="main">{weather.wind || '-'}</div>
@@ -69,25 +106,6 @@ export default function Dashboard() {
         </div>
       </section>
 
-      <section className="consulta-personalizada">
-        <h3>Consulta Personalizada de Datos</h3>
-        <p>Busca información específica por ubicación y obtén datos detallados</p>
-        <div className="consulta-form">
-          <input
-            placeholder="Ej: Madrid, ES o 40.4168,-3.7038"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <select>
-            <option>Datos Completos</option>
-          </select>
-          <button className="consulta-btn" onClick={handleSubmit}>
-            Consultar Ahora
-          </button>
-        </div>
-        {loading && <p>Consultando...</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </section>
 
       <section className="condiciones-climaticas">
         <h4>Condiciones Climáticas</h4>
@@ -181,8 +199,15 @@ export default function Dashboard() {
       <section className="analisis-tendencias">
         <h4>Análisis de Tendencias Inteligente</h4>
         <div className="grafica">
-          Evolución Últimos 7 Días
-          <br />[Gráfico simulado]
+          <ResponsiveContainer width="100%" height={180}>
+            <LineChart data={trend7} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="aqi" stroke="#8884d8" name="AQI" />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
         <div className="insights">
           <div className="insight ok">
