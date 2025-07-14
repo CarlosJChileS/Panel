@@ -39,18 +39,51 @@ export default function Extras() {
           <div className="aq-panel-izq">
             <div className="aq-card" aria-label="Condiciones adicionales">
               <div className="aq-card-header">Condiciones Adicionales</div>
-              <ul>
-                <li>Sensación térmica: <b>{weather.extras.feelsLike}</b></li>
-                <li>Estado del cielo: <b>{weather.extras.sky}</b></li>
-                <li>Nubosidad: <b>{weather.extras.clouds}</b></li>
-                <li>Visibilidad: <b>{weather.extras.visibility}</b></li>
-                <li>Temp. mínima: <b>{weather.extras.tempMin}</b></li>
-                <li>Temp. máxima: <b>{weather.extras.tempMax}</b></li>
-                <li>Amanecer: <b>{weather.extras.sunrise}</b></li>
-                <li>Atardecer: <b>{weather.extras.sunset}</b></li>
-                <li>Presión atmosférica: <b>{weather.pressure}</b></li>
-                <li>Humedad: <b>{weather.humidity}</b></li>
-                <li>Viento: <b>{weather.wind}</b></li>
+              <ul className="aq-extras-list">
+                <li>
+                  <span>Sensación térmica</span>
+                  <span className="aq-value">{weather.extras.feelsLike}</span>
+                </li>
+                <li>
+                  <span>Estado del cielo</span>
+                  <span className="aq-value">{weather.extras.sky}</span>
+                </li>
+                <li>
+                  <span>Nubosidad</span>
+                  <span className="aq-value">{weather.extras.clouds}</span>
+                </li>
+                <li>
+                  <span>Visibilidad</span>
+                  <span className="aq-value">{weather.extras.visibility}</span>
+                </li>
+                <li>
+                  <span>Temp. mínima</span>
+                  <span className="aq-value">{weather.extras.tempMin}</span>
+                </li>
+                <li>
+                  <span>Temp. máxima</span>
+                  <span className="aq-value">{weather.extras.tempMax}</span>
+                </li>
+                <li>
+                  <span>Amanecer</span>
+                  <span className="aq-value">{weather.extras.sunrise}</span>
+                </li>
+                <li>
+                  <span>Atardecer</span>
+                  <span className="aq-value">{weather.extras.sunset}</span>
+                </li>
+                <li>
+                  <span>Presión atmosférica</span>
+                  <span className="aq-value">{weather.pressure}</span>
+                </li>
+                <li>
+                  <span>Humedad</span>
+                  <span className="aq-value">{weather.humidity}</span>
+                </li>
+                <li>
+                  <span>Viento</span>
+                  <span className="aq-value">{weather.wind}</span>
+                </li>
               </ul>
             </div>
           </div>

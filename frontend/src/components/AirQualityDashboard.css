@@ -283,3 +283,18 @@
   font-size: 11px;
   margin-left: 10px;
 }
+
+.aq-extras-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px 16px;
+}
+
+.aq-extras-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+}
