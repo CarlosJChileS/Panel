@@ -1,55 +1,13 @@
 import React from 'react';
-import '../DashboardNew.css';
+import '../DashboardAmbiente.css';
 import { useWeather } from '../hooks/useWeather';
 import Header from './Header';
 
 export default function Dashboard() {
-  const { weather, trend, loading, error, search, city, setCity } = useWeather();
+  const { weather, loading, error, search, city, setCity } = useWeather();
 
-  const metrics = [
-    {
-      title: 'Temperatura',
-      value: weather.temperature || '-',
-      subtitle: weather.extras.feelsLike ? `Sensación térmica: ${weather.extras.feelsLike}` : '',
-      range:
-        weather.extras.tempMin && weather.extras.tempMax
-          ? `Rango: ${weather.extras.tempMin}–${weather.extras.tempMax}`
-          : '',
-      type: 'temperature',
-    },
-    {
-      title: 'Calidad de Aire',
-      value: weather.air.uaqi || weather.air.aqi || '-',
-      subtitle: weather.air.uaqiCategory
-        ? `Índice AQI · ${weather.air.uaqiCategory}`
-        : 'Índice AQI',
-      range: weather.air.pm25 ? `PM2.5: ${weather.air.pm25} µg/m³` : '',
-      type: 'air',
-    },
-    {
-      title: 'Calidad Agua',
-      value: 'N/D',
-      subtitle: 'No disponible',
-      range: '',
-      type: 'water',
-    },
-    {
-      title: 'Viento',
-      value: weather.wind || '-',
-      subtitle: '',
-      range: '',
-      type: 'wind',
-    },
-  ];
-
-  if (trend && trend.length >= 2 && metrics[0].value && metrics[0].value !== '-') {
-    const current = parseFloat(metrics[0].value);
-    const yesterday = parseFloat(trend[0].temp);
-    if (!Number.isNaN(current) && !Number.isNaN(yesterday)) {
-      const diff = (current - yesterday).toFixed(1);
-      metrics[0].trend = `${diff >= 0 ? '+' : ''}${diff}°C vs ayer`;
-    }
-  }
+  const aqi = weather.air.uaqi || weather.air.aqi || '-';
+  const aqiCategory = weather.air.uaqiCategory || 'Moderado';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,89 +19,185 @@ export default function Dashboard() {
     minute: '2-digit',
   });
 
+  const humedadNum = parseFloat(weather.humidity) || 0;
+
   return (
-    <div className="dashboard dashboard-bg">
+    <div className="dashboard-amb dashboard">
       <Header />
-      <main id="main-content" tabIndex="-1">
-        <header className="dashboard-header">
-          <h1>Estado Ambiental en Tiempo Real</h1>
-          <div className="location">
-            {city || 'Ubicación'} · Última actualización: Hoy {lastUpdate}
+      <section className="estado-real">
+        <h2>Estado Ambiental en Tiempo Real</h2>
+        <p className="estado-sub">
+          {city || 'Ubicación'} · Última actualización: Hoy {lastUpdate}
+        </p>
+        <div className="estado-cards">
+          <div className="card temperatura">
+            <div className="icon" />
+            <div className="main">{weather.temperature || '-'}</div>
+            <div className="desc">
+              Sensación térmica: {weather.extras.feelsLike || '-'}
+            </div>
+            {weather.extras.tempMin && weather.extras.tempMax && (
+              <div className="rango">
+                Rango: {weather.extras.tempMin} - {weather.extras.tempMax}
+              </div>
+            )}
           </div>
-        </header>
+          <div className="card aire">
+            <div className="icon" />
+            <div className="main">{aqi}</div>
+            <div className="desc">Índice AQI - {aqiCategory}</div>
+            {weather.air.pm25 && (
+              <div className="rango">PM2.5: {weather.air.pm25} µg/m³</div>
+            )}
+          </div>
+          <div className="card extra">
+            <div className="icon" />
+            <div className="main">{weather.humidity || '-'}</div>
+            <div className="desc">Humedad relativa</div>
+            {weather.extras.clouds && (
+              <div className="rango">Nubosidad: {weather.extras.clouds}</div>
+            )}
+          </div>
+          <div className="card viento">
+            <div className="icon" />
+            <div className="main">{weather.wind || '-'}</div>
+            <div className="desc">Dirección: {weather.extras.sky || '-'}</div>
+          </div>
+        </div>
+        <div className="estado-alerta moderado">
+          <span>{weather.alerts?.uaqi || 'MODERADO'}</span> Precaución recomendada
+        </div>
+      </section>
 
-        <section className="metrics-grid">
-          {metrics.map((m) => (
-            <div key={m.title} className={`card card--${m.type}`}>
-              <h2 className="card-title">{m.title}</h2>
-              <div className="card-value">{m.value}</div>
-              {m.subtitle && <div className="card-sub">{m.subtitle}</div>}
-              {m.range && <div className="card-range">{m.range}</div>}
-              {m.trend && <div className="card-range">{m.trend}</div>}
-            </div>
-          ))}
-          <div className="card card--alert">
-            <span className="alert-label">{weather.alerts?.temp || 'MODERADO'}</span>
-            <p>Precaución recomendada</p>
-          </div>
-        </section>
+      <section className="consulta-personalizada">
+        <h3>Consulta Personalizada de Datos</h3>
+        <p>Busca información específica por ubicación y obtén datos detallados</p>
+        <div className="consulta-form">
+          <input
+            placeholder="Ej: Madrid, ES o 40.4168,-3.7038"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <select>
+            <option>Datos Completos</option>
+          </select>
+          <button className="consulta-btn" onClick={handleSubmit}>
+            Consultar Ahora
+          </button>
+        </div>
+        {loading && <p>Consultando...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </section>
 
-        <section className="custom-query">
-          <h2>Consulta Personalizada de Datos</h2>
-          <div className="query-form">
-            <input
-              type="text"
-              placeholder="Ubicación o Coordenadas"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              required
-            />
-            <select>
-              <option>Datos Completos</option>
-              <option>Solo Aire</option>
-              <option>Solo Agua</option>
-            </select>
-            <button onClick={handleSubmit}>Consultar Ahora</button>
+      <section className="condiciones-climaticas">
+        <h4>Condiciones Climáticas</h4>
+        <div className="clima-datos">
+          <div>
+            <span>Humedad Relativa</span>
+            <div className="progress-bar">
+              <div className="progress" style={{ width: `${humedadNum}%` }} />
+              <span>{weather.humidity || '-'}</span>
+            </div>
           </div>
-          {loading && <p>Consultando...</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-        </section>
+          <div>
+            <span>Presión Atmosférica</span>
+            <div className="valor">{weather.pressure || '-'}</div>
+          </div>
+          <div>
+            <span>Visibilidad</span>
+            <div className="valor">{weather.extras.visibility || '-'}</div>
+          </div>
+          <div>
+            <span>Índice UV</span>
+            <div className="valor uv">-</div>
+          </div>
+        </div>
+      </section>
 
-        <section className="climate-conditions">
-          <h2>Condiciones Climáticas</h2>
-          <div className="conditions-grid">
-            <div className="condition">
-              <span className="cond-name">Humedad Relativa</span>
-              <span className="cond-value">{weather.humidity || '-'}</span>
-              <div className="cond-bar">
-                <div style={{ width: `${parseFloat(weather.humidity) || 0}%` }} />
-              </div>
+      <section className="monitoreo-aire">
+        <h4>Monitoreo de Calidad del Aire</h4>
+        <div className="card-aqi">
+          <div className="aqi-value">{aqi} AQI</div>
+          <div className="aqi-alerta moderado">{aqiCategory.toUpperCase()}</div>
+          <p>
+            Grupos sensibles deben limitar actividades prolongadas al aire libre
+          </p>
+          <div className="contaminantes">
+            <div>
+              <span>PM2.5</span>
+              <span>{weather.air.pm25 || '-'} µg/m³</span>
             </div>
-            <div className="condition">
-              <span className="cond-name">Presión Atmosférica</span>
-              <span className="cond-value">{weather.pressure || '-'}</span>
-              <div className="cond-bar">
-                <div style={{ width: '50%' }} />
-              </div>
+            <div>
+              <span>NO₂</span>
+              <span>{weather.air.no2 || '-'} µg/m³</span>
             </div>
-            <div className="condition">
-              <span className="cond-name">Visibilidad</span>
-              <span className="cond-value">{weather.extras.visibility || '-'}</span>
-              <div className="cond-bar">
-                <div style={{ width: '90%' }} />
-              </div>
-            </div>
-            <div className="condition">
-              <span className="cond-name">Índice UV</span>
-              <span className="cond-value">-</span>
-              <div className="cond-bar">
-                <div style={{ width: '60%' }} />
-              </div>
+            <div>
+              <span>O₃</span>
+              <span>{weather.air.ozone || '-'} µg/m³</span>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      <section className="sistema-alertas">
+        <h4>Sistema de Alertas Inteligente</h4>
+        <div className="alerta critica">
+          <b>PM2.5 Nivel {weather.alerts?.air === 'ALTA' ? 'Peligroso' : 'Seguro'}</b>
+          <span>
+            PM2.5: {weather.air.pm25 || '-'} µg/m³ (Límite OMS: 15 µg/m³)
+          </span>
+          <div className="tiempo">Actual</div>
+        </div>
+        <div className="alerta moderada">
+          <b>
+            Temperatura {parseFloat(weather.temperature) >= 25 ? 'Elevada' : 'Normal'}
+          </b>
+          <span>
+            {city || 'Ubicación'}: {weather.temperature || '-'} (Umbral: 25°C)
+          </span>
+          <div className="tiempo">Actual</div>
+        </div>
+        <div className="alerta buena">
+          <b>Condiciones Favorables</b>
+          <span>Cielo {weather.extras.sky || '-'}</span>
+        </div>
+      </section>
+
+      <section className="mapa-estaciones">
+        <h4>Mapa de Estaciones en Tiempo Real</h4>
+        <div className="mapa-interactivo">
+          <div className="mapa-icon">Vista Interactiva del Territorio</div>
+        </div>
+        <div className="estaciones-relevantes">
+          <b>Estaciones Más Relevantes</b>
+          <ul>
+            <li className="ok">Centro Histórico Valencia <span>AQI: 45 · 23°C</span></li>
+            <li className="mod">Puerto Comercial <span>AQI: 78 · 24°C</span></li>
+            <li className="alert">Zona Industrial Norte <span>AQI: 95 · 25°C</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="analisis-tendencias">
+        <h4>Análisis de Tendencias Inteligente</h4>
+        <div className="grafica">
+          Evolución Últimos 7 Días
+          <br />[Gráfico simulado]
+        </div>
+        <div className="insights">
+          <div className="insight ok">
+            Mejora Progresiva: la calidad del aire ha mejorado un 12% esta semana
+          </div>
+          <div className="insight mod">
+            Patrón Horario Detectado: picos de contaminación entre 7-9 AM y 18-20 PM
+          </div>
+        </div>
+      </section>
+
+      <section className="recomendaciones">
+        <h4>Recomendaciones Inteligentes</h4>
+        <div className="reco-card">Personalizadas según las condiciones actuales</div>
+      </section>
     </div>
   );
 }
-
