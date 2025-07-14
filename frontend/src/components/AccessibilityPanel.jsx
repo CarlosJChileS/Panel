@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { icons } from "../data/icons";
 import { useAccessibility } from "../hooks/useAccessibility";
 import "../AccessibilityPanel.css";
@@ -27,6 +28,8 @@ function AccessibilityPanel() {
     dict,
   } = useAccessibility();
 
+  const { t } = useTranslation();
+
   const [vttText, setVttText] = useState("");
 
   useEffect(() => {
@@ -53,7 +56,7 @@ function AccessibilityPanel() {
       const text = await generateSubtitlesFromVideo(video);
       setVttText(text);
     } else {
-      alert("No se encontró ningún video en la página");
+      alert(t('access.videoMissing'));
     }
   };
 
@@ -103,7 +106,7 @@ function AccessibilityPanel() {
         <div style={{ display: "flex", alignItems: "center", marginBottom: 4 }}>
           <h3 style={{ flex: 1, color: "#0086c3" }}>{title}</h3>
           <button
-            aria-label={open ? "Colapsar sección" : "Expandir sección"}
+            aria-label={open ? t('access.collapse') : t('access.expand')}
             style={{
               background: "#eee",
               border: "none",
@@ -128,7 +131,7 @@ function AccessibilityPanel() {
     <>
       <button
         className="access-btn"
-        aria-label="Abrir panel de accesibilidad"
+        aria-label={t('access.open')}
         onClick={() => setVisible(true)}
         tabIndex={0}
       >
@@ -156,7 +159,7 @@ function AccessibilityPanel() {
               cursor: "pointer",
               color: "#0086c3",
             }}
-            aria-label="Cerrar panel"
+            aria-label={t('access.close')}
             tabIndex={0}
             autoFocus
           >
@@ -164,49 +167,49 @@ function AccessibilityPanel() {
           </button>
 
           <Section
-            title="Perfiles de accesibilidad"
+            title={t('access.profilesTitle')}
             open={!collapse.profiles}
             onToggle={() => setCollapse((s) => ({ ...s, profiles: !s.profiles }))}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <Card icon={icons.blindness} label="Ceguera" profile="blindness" keyName="blindness" />
-              <Card icon={icons.motor} label="Trastornos motores" profile="motor" keyName="motor" />
-              <Card icon={icons.daltonism} label="Daltonismo" profile="daltonism" keyName="daltonism" />
-              <Card icon={icons.visual} label="Discapacidad visual" profile="visual" keyName="visual" />
-              <Card icon={icons.epilepsy} label="Epilepsia" profile="epilepsy" keyName="epilepsy" />
-              <Card icon={icons.adhd} label="TDAH" profile="adhd" keyName="adhd" />
-              <Card icon={icons.learning} label="Aprendizaje" profile="learning" keyName="learning" />
-              <Card icon={icons.elder} label="Mayor" profile="elder" keyName="elder" />
-              <Card icon={icons.dyslexia} label="Dislexia" profile="dyslexia" keyName="dyslexia" />
+              <Card icon={icons.blindness} label={t('access.profiles.blind')} profile="blindness" keyName="blindness" />
+              <Card icon={icons.motor} label={t('access.profiles.motor')} profile="motor" keyName="motor" />
+              <Card icon={icons.daltonism} label={t('access.profiles.daltonism')} profile="daltonism" keyName="daltonism" />
+              <Card icon={icons.visual} label={t('access.profiles.visual')} profile="visual" keyName="visual" />
+              <Card icon={icons.epilepsy} label={t('access.profiles.epilepsy')} profile="epilepsy" keyName="epilepsy" />
+              <Card icon={icons.adhd} label={t('access.profiles.adhd')} profile="adhd" keyName="adhd" />
+              <Card icon={icons.learning} label={t('access.profiles.learning')} profile="learning" keyName="learning" />
+              <Card icon={icons.elder} label={t('access.profiles.elder')} profile="elder" keyName="elder" />
+              <Card icon={icons.dyslexia} label={t('access.profiles.dyslexia')} profile="dyslexia" keyName="dyslexia" />
             </div>
           </Section>
 
           <Section
-            title="Ajustes de voz y navegación"
+            title={t('access.voiceTitle')}
             open={!collapse.voice}
             onToggle={() => setCollapse((s) => ({ ...s, voice: !s.voice }))}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <Card icon={icons.screen} label="Lector de pantalla" keyName="screen" />
-              <Card icon={icons.keyboard} label="Navegación teclado" keyName="keyboard" />
-              <Card icon={icons.smartnav} label="Navegación inteligente" keyName="smartnav" />
-              <Card icon={icons.speaker} label="Lector de texto" keyName="speaker" onClick={speak} />
-              <Card icon={icons.mic} label="Comandos de voz" keyName="mic" />
+              <Card icon={icons.screen} label={t('access.voice.screen')} keyName="screen" />
+              <Card icon={icons.keyboard} label={t('access.voice.keyboard')} keyName="keyboard" />
+              <Card icon={icons.smartnav} label={t('access.voice.smartnav')} keyName="smartnav" />
+              <Card icon={icons.speaker} label={t('access.voice.speaker')} keyName="speaker" onClick={speak} />
+              <Card icon={icons.mic} label={t('access.voice.mic')} keyName="mic" />
             </div>
           </Section>
 
           <Section
-            title="Ajuste de color"
+            title={t('access.colorTitle')}
             open={!collapse.color}
             onToggle={() => setCollapse((s) => ({ ...s, color: !s.color }))}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <Card icon={icons.eye} label="Monocromo" keyName="eye" />
-              <Card icon={icons.moon} label="Contraste oscuro" keyName="moon" />
-              <Card icon={icons.sun} label="Contraste claro" keyName="sun" />
-              <Card icon={icons.drop} label="Baja saturación" keyName="lowSaturation" />
-              <Card icon={icons.drop} label="Alta saturación" keyName="highSaturation" />
-              <Card icon={icons.contrast} label="Modo contraste" keyName="contrast" />
+              <Card icon={icons.eye} label={t('access.color.eye')} keyName="eye" />
+              <Card icon={icons.moon} label={t('access.color.moon')} keyName="moon" />
+              <Card icon={icons.sun} label={t('access.color.sun')} keyName="sun" />
+              <Card icon={icons.drop} label={t('access.color.lowSaturation')} keyName="lowSaturation" />
+              <Card icon={icons.drop} label={t('access.color.highSaturation')} keyName="highSaturation" />
+              <Card icon={icons.contrast} label={t('access.color.contrast')} keyName="contrast" />
             </div>
             <div
               style={{
@@ -220,8 +223,8 @@ function AccessibilityPanel() {
               <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
                 <DropIcon size={26} style={{ marginRight: 8 }} />
                 <span>
-                  <b style={{ color: "#0086c3" }}>Color personalizado</b>
-                  <div style={{ fontSize: 15, color: "#444" }}>Cambiar los colores del sitio</div>
+                  <b style={{ color: "#0086c3" }}>{t('access.customColor')}</b>
+                  <div style={{ fontSize: 15, color: "#444" }}>{t('access.customDesc')}</div>
                 </span>
               </div>
               <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
@@ -238,7 +241,7 @@ function AccessibilityPanel() {
                     fontSize: 16,
                   }}
                 >
-                  Fondos
+                  {t('access.backgrounds')}
                 </button>
                 <button
                   onClick={() => setColorTab("encabezados")}
@@ -253,7 +256,7 @@ function AccessibilityPanel() {
                     fontSize: 16,
                   }}
                 >
-                  Encabezados
+                  {t('access.headings')}
                 </button>
                 <button
                   onClick={() => setColorTab("contenido")}
@@ -268,7 +271,7 @@ function AccessibilityPanel() {
                     fontSize: 16,
                   }}
                 >
-                  Contenido
+                  {t('access.contentTab')}
                 </button>
               </div>
               <input
@@ -276,7 +279,7 @@ function AccessibilityPanel() {
                 min={0}
                 max={360}
                 value={hue}
-                aria-label="Color personalizado"
+                aria-label={t('access.customColor')}
                 style={{
                   width: "98%",
                   marginBottom: 8,
@@ -299,7 +302,7 @@ function AccessibilityPanel() {
                   color: "#055a7d",
                 }}
               >
-                Actual: <span
+                {t('access.current')}: <span
                   style={{
                     display: "inline-block",
                     width: 22,
@@ -327,28 +330,28 @@ function AccessibilityPanel() {
                   onClick={resetColors}
                   type="button"
                 >
-                  Restablecer colores
+                  {t('access.resetColors')}
                 </button>
               </div>
             </div>
           </Section>
 
           <Section
-            title="Ajuste de contenido"
+            title={t('access.contentTitle')}
             open={!collapse.content}
             onToggle={() => setCollapse((s) => ({ ...s, content: !s.content }))}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <Card icon={icons.font} label="Aumentar letra" keyName="fontIncrease" />
-              <Card icon={icons.font} label="Disminuir letra" keyName="fontDecrease" />
-              <Card icon={icons.font} label="Espacio entre líneas" keyName="lineSpace" />
-              <Card icon={icons.font} label="Espacio entre palabras" keyName="wordSpace" />
-              <Card icon={icons.font} label="Espacio entre letras" keyName="letterSpace" />
-              <Card icon={icons.cursor} label="Cursor blanco" keyName="cursorWhite" />
-              <Card icon={icons.cursor} label="Cursor negro" keyName="cursorBlack" />
-              <Card icon={icons.block} label="Bloquear parpadeos" keyName="block" />
-              <Card icon={icons.cc} label="Añadir subtítulos" keyName="cc" />
-              <Card icon={icons.zoom} label="Lupa" keyName="zoom" />
+              <Card icon={icons.font} label={t('access.content.fontIncrease')} keyName="fontIncrease" />
+              <Card icon={icons.font} label={t('access.content.fontDecrease')} keyName="fontDecrease" />
+              <Card icon={icons.font} label={t('access.content.lineSpace')} keyName="lineSpace" />
+              <Card icon={icons.font} label={t('access.content.wordSpace')} keyName="wordSpace" />
+              <Card icon={icons.font} label={t('access.content.letterSpace')} keyName="letterSpace" />
+              <Card icon={icons.cursor} label={t('access.content.cursorWhite')} keyName="cursorWhite" />
+              <Card icon={icons.cursor} label={t('access.content.cursorBlack')} keyName="cursorBlack" />
+              <Card icon={icons.block} label={t('access.content.block')} keyName="block" />
+              <Card icon={icons.cc} label={t('access.content.cc')} keyName="cc" />
+              <Card icon={icons.zoom} label={t('access.content.zoom')} keyName="zoom" />
             </div>
             {active.cc && (
               <div style={{ marginTop: 10 }}>
@@ -362,30 +365,30 @@ function AccessibilityPanel() {
                   style={{ marginLeft: 8 }}
                   onClick={handleTranscribe}
                 >
-                  Transcribir video
+                  {t('access.transcribe')}
                 </button>
               </div>
             )}
           </Section>
 
           <Section
-            title="Opciones avanzadas"
+            title={t('access.advancedTitle')}
             open={!collapse.advanced}
             onToggle={() => setCollapse((s) => ({ ...s, advanced: !s.advanced }))}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <Card icon={icons.readable} label="Letra legible" keyName="readable" />
-              <Card icon={icons.image} label="Descripción imágenes" keyName="image" />
-              <Card icon={icons.link} label="Resaltar enlaces" keyName="link" />
-              <Card icon={icons.heading} label="Resaltar títulos" keyName="heading" />
-              <Card icon={icons.enlarge} label="Botones para ampliar" keyName="enlarge" />
-              <Card icon={icons.doc} label="Modo legible" keyName="doc" />
-              <Card icon={icons.zoom} label="Lupa de texto" keyName="textZoom" />
-              <Card icon={icons.mute} label="Silenciar medios" keyName="mute" />
-              <Card icon={icons.focus} label="Leer enfoque" keyName="focus" />
-              <Card icon={icons.guide} label="Guía de lectura" keyName="guide" />
-              <Card icon={icons.dict} label="Diccionario" keyName="dict" onClick={dict} />
-              <Card icon={icons.virtualkb} label="Teclado virtual" keyName="virtualkb" />
+              <Card icon={icons.readable} label={t('access.advanced.readable')} keyName="readable" />
+              <Card icon={icons.image} label={t('access.advanced.image')} keyName="image" />
+              <Card icon={icons.link} label={t('access.advanced.link')} keyName="link" />
+              <Card icon={icons.heading} label={t('access.advanced.heading')} keyName="heading" />
+              <Card icon={icons.enlarge} label={t('access.advanced.enlarge')} keyName="enlarge" />
+              <Card icon={icons.doc} label={t('access.advanced.doc')} keyName="doc" />
+              <Card icon={icons.zoom} label={t('access.advanced.textZoom')} keyName="textZoom" />
+              <Card icon={icons.mute} label={t('access.advanced.mute')} keyName="mute" />
+              <Card icon={icons.focus} label={t('access.advanced.focus')} keyName="focus" />
+              <Card icon={icons.guide} label={t('access.advanced.guide')} keyName="guide" />
+              <Card icon={icons.dict} label={t('access.advanced.dict')} keyName="dict" onClick={dict} />
+              <Card icon={icons.virtualkb} label={t('access.advanced.virtualkb')} keyName="virtualkb" />
             </div>
           </Section>
 
@@ -404,7 +407,7 @@ function AccessibilityPanel() {
             onClick={() => window.location.reload()}
             tabIndex={-1}
           >
-            Restablecer parámetros
+            {t('access.resetAll')}
           </button>
         </div>
         </>

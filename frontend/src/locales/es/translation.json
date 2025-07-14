@@ -74,5 +74,78 @@
     "message": "Mensaje",
     "send": "Enviar",
     "sent": "Mensaje enviado"
+  },
+  "access": {
+    "open": "Abrir panel de accesibilidad",
+    "close": "Cerrar panel",
+    "profilesTitle": "Perfiles de accesibilidad",
+    "voiceTitle": "Ajustes de voz y navegación",
+    "colorTitle": "Ajuste de color",
+    "contentTitle": "Ajuste de contenido",
+    "advancedTitle": "Opciones avanzadas",
+    "customColor": "Color personalizado",
+    "customDesc": "Cambiar los colores del sitio",
+    "backgrounds": "Fondos",
+    "headings": "Encabezados",
+    "contentTab": "Contenido",
+    "current": "Actual",
+    "resetColors": "Restablecer colores",
+    "transcribe": "Transcribir video",
+    "resetAll": "Restablecer parámetros",
+    "videoMissing": "No se encontró ningún video en la página",
+    "expand": "Expandir sección",
+    "collapse": "Colapsar sección",
+    "profiles": {
+      "blind": "Ceguera",
+      "motor": "Trastornos motores",
+      "daltonism": "Daltonismo",
+      "visual": "Discapacidad visual",
+      "epilepsy": "Epilepsia",
+      "adhd": "TDAH",
+      "learning": "Aprendizaje",
+      "elder": "Mayor",
+      "dyslexia": "Dislexia"
+    },
+    "voice": {
+      "screen": "Lector de pantalla",
+      "keyboard": "Navegación teclado",
+      "smartnav": "Navegación inteligente",
+      "speaker": "Lector de texto",
+      "mic": "Comandos de voz"
+    },
+    "color": {
+      "eye": "Monocromo",
+      "moon": "Contraste oscuro",
+      "sun": "Contraste claro",
+      "lowSaturation": "Baja saturación",
+      "highSaturation": "Alta saturación",
+      "contrast": "Modo contraste"
+    },
+    "content": {
+      "fontIncrease": "Aumentar letra",
+      "fontDecrease": "Disminuir letra",
+      "lineSpace": "Espacio entre líneas",
+      "wordSpace": "Espacio entre palabras",
+      "letterSpace": "Espacio entre letras",
+      "cursorWhite": "Cursor blanco",
+      "cursorBlack": "Cursor negro",
+      "block": "Bloquear parpadeos",
+      "cc": "Añadir subtítulos",
+      "zoom": "Lupa"
+    },
+    "advanced": {
+      "readable": "Letra legible",
+      "image": "Descripción imágenes",
+      "link": "Resaltar enlaces",
+      "heading": "Resaltar títulos",
+      "enlarge": "Botones para ampliar",
+      "doc": "Modo legible",
+      "textZoom": "Lupa de texto",
+      "mute": "Silenciar medios",
+      "focus": "Leer enfoque",
+      "guide": "Guía de lectura",
+      "dict": "Diccionario",
+      "virtualkb": "Teclado virtual"
+    }
   }
 }
