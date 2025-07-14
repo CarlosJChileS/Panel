@@ -1,0 +1,141 @@
+.dashboard {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 24px;
+  background: #f5f7fa;
+  color: #333;
+}
+.dashboard-header {
+  margin-bottom: 16px;
+}
+.dashboard-header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+.location {
+  font-size: 14px;
+  color: #666;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.card {
+  border-radius: 8px;
+  padding: 16px;
+  color: #fff;
+  position: relative;
+}
+.card-title {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.card-value {
+  font-size: 32px;
+  font-weight: bold;
+}
+.card-sub {
+  font-size: 14px;
+  margin-top: 4px;
+}
+.card-range {
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* Colores por tipo */
+.card--temperature { background: linear-gradient(135deg, #ff6e6e, #ff3b3b); }
+.card--air         { background: linear-gradient(135deg, #ffc866, #ffb300); }
+.card--water       { background: linear-gradient(135deg, #67d1f0, #20a8dc); }
+.card--wind        { background: linear-gradient(135deg, #b085f5, #7a4fff); }
+
+.card--alert {
+  background: #ffd966;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.alert-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Consulta personalizada */
+.custom-query {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+.custom-query h2 {
+  margin-top: 0;
+}
+.query-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.query-form input,
+.query-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 180px;
+}
+.query-form button {
+  padding: 8px 16px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Condiciones Climáticas */
+.climate-conditions {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+.climate-conditions h2 {
+  margin-top: 0;
+}
+.conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.condition {
+  background: #f0f4f8;
+  padding: 12px;
+  border-radius: 6px;
+}
+.cond-name {
+  font-size: 14px;
+  color: #555;
+}
+.cond-value {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 4px 0;
+}
+.cond-bar {
+  background: #ddd;
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+.cond-bar > div {
+  height: 100%;
+  background: #28a745;
+}
+
+@media (max-width: 600px) {
+  .query-form { flex-direction: column; }
+}
