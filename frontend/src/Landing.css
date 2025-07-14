@@ -4,7 +4,7 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 .header {
-  background: linear-gradient(90deg, #1866d2 80%, #3685eb 100%);
+  background: linear-gradient(90deg, #222e4e 80%, #3c5c9a 100%);
   padding: 22px 36px;
   display: flex;
   align-items: center;
@@ -226,7 +226,7 @@
 }
 .navbar-links {
   display: flex;
-  gap: 10px;
+  gap: 16px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -234,16 +234,16 @@
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 10px;
-  background: #2563eb;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: #3a4d7a;
 }
 .navbar-links a:hover {
-  background: #114cad;
+  background: #2c3a5c;
 }
 
 .active {
-  background: #114cad;
+  background: #2c3a5c;
 }
 
 .login-form {
