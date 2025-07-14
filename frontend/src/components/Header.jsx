@@ -7,11 +7,13 @@ export default function Header() {
   const { user } = useAuth();
   const isAdmin = user?.user_metadata?.is_admin;
   return (
-    <header className="header">
-      <div className="header-title">
-        <span className="header-main-title">Dashboard Ambiental Costero</span>
-        <span className="header-subtitle">Monitoreo en Tiempo Real</span>
-      </div>
+    <>
+      <a href="#main-content" className="skip-link">Saltar al contenido</a>
+      <header className="header">
+        <div className="header-title">
+          <span className="header-main-title">Dashboard Ambiental Costero</span>
+          <span className="header-subtitle">Monitoreo en Tiempo Real</span>
+        </div>
       <nav className="navbar-links" aria-label="Navegación principal">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/aire">Calidad Aire</Link>
@@ -33,6 +35,7 @@ export default function Header() {
           <Link to="/admin" style={{ marginLeft: 8 }}>Admin</Link>
         )}
       </nav>
-    </header>
+      </header>
+    </>
   );
 }
