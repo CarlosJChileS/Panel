@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccessibilityPanel from "./components/AccessibilityPanel";
-import Dashboard from "./components/Dashboard";
+import DashboardAmb from "./components/DashboardAmb";
 import Welcome from "./components/Welcome";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -32,7 +32,7 @@ function App() {
             path="/dashboard"
             element={
               <PrivateRoute>
-                <Dashboard />
+                <DashboardAmb />
               </PrivateRoute>
             }
           />
