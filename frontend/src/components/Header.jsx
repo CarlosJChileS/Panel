@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../Landing.css';
 import { useAuth } from '../AuthContext';
 
@@ -15,25 +15,74 @@ export default function Header() {
           <span className="header-subtitle">Monitoreo en Tiempo Real</span>
         </div>
       <nav className="navbar-links" aria-label="Navegación principal">
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/aire">Calidad Aire</Link>
-        <Link to="/extras">Condiciones Extra</Link>
-        <Link to="/mapa">Mapa</Link>
-        <Link to="/alertas">Alertas</Link>
-        <Link to="/estadisticas">Estadísticas</Link>
-        <Link to="/contacto">Contacto</Link>
-        {user ? (
-          <Link to="/profile" aria-label="Perfil">
-            <div className="profile-circle" title={user.email}></div>
-          </Link>
-        ) : (
-          <Link to="/login" aria-label="Iniciar sesión">
-            <div className="profile-circle"></div>
-          </Link>
-        )}
-        {isAdmin && (
-          <Link to="/admin" style={{ marginLeft: 8 }}>Admin</Link>
-        )}
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Dashboard
+        </NavLink>
+        <NavLink
+          to="/aire"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Calidad Aire
+        </NavLink>
+        <NavLink
+          to="/extras"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Condiciones Extra
+        </NavLink>
+        <NavLink
+          to="/mapa"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Mapa
+        </NavLink>
+        <NavLink
+          to="/alertas"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Alertas
+        </NavLink>
+        <NavLink
+          to="/estadisticas"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Estadísticas
+        </NavLink>
+        <NavLink
+          to="/contacto"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Contacto
+        </NavLink>
+          {user ? (
+            <NavLink
+              to="/profile"
+              aria-label="Perfil"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className="profile-circle" title={user.email}></div>
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/login"
+              aria-label="Iniciar sesión"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className="profile-circle"></div>
+            </NavLink>
+          )}
+          {isAdmin && (
+            <NavLink
+              to="/admin"
+              style={{ marginLeft: 8 }}
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Admin
+            </NavLink>
+          )}
       </nav>
       </header>
     </>

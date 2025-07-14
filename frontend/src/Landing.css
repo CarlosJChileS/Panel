@@ -223,6 +223,10 @@
   background: #114cad;
 }
 
+.active {
+  background: #114cad;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
