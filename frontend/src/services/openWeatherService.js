@@ -59,3 +59,18 @@ export async function fetchForecast(city, apiKey) {
     wind: item.wind.speed,
   }));
 }
+
+export async function fetchAirForecast(lat, lon, apiKey) {
+  const url = `https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('air forecast');
+  const json = await res.json();
+  return json.list.slice(0, 24).map((item) => ({
+    time: new Date(item.dt * 1000).toLocaleTimeString('es-ES', { hour: '2-digit' }),
+    co: item.components.co,
+    no2: item.components.no2,
+    o3: item.components.o3,
+    pm2_5: item.components.pm2_5,
+    pm10: item.components.pm10,
+  }));
+}

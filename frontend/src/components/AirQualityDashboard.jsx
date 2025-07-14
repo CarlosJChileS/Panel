@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWeather } from '../hooks/useWeather';
+import AirQualityChart from './AirQualityChart';
 import './AirQualityDashboard.css';
 
 const AQ_CATEGORY = [
@@ -10,7 +11,7 @@ const AQ_CATEGORY = [
 ];
 
 export default function AirQualityDashboard() {
-  const { weather, loading, error, search, city, setCity } = useWeather();
+  const { weather, airTrend, loading, error, search, city, setCity } = useWeather();
   const [pollutant, setPollutant] = useState('PM2.5');
 
   const aqi = parseFloat(weather.air.uaqi || weather.air.aqi) || 0;
@@ -114,10 +115,16 @@ export default function AirQualityDashboard() {
                   <option>CO</option>
                 </select>
               </div>
-              <div className="aq-grafico-mock">
-                <div className="aq-grafico-icon">📈</div>
-                <div className="aq-grafico-txt">Gráfico de Evolución {pollutant}<br />Últimas 24 horas</div>
-              </div>
+              {airTrend.length ? (
+                <div className="aq-grafico">
+                  <AirQualityChart data={airTrend} pollutant={pollutant} />
+                </div>
+              ) : (
+                <div className="aq-grafico-mock">
+                  <div className="aq-grafico-icon">📈</div>
+                  <div className="aq-grafico-txt">Gráfico de Evolución {pollutant}<br />Últimas 24 horas</div>
+                </div>
+              )}
             </div>
             <div className="aq-card aq-recomendaciones">
               <div className="aq-tag-list">

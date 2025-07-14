@@ -7,27 +7,6 @@ import { FaExclamationTriangle, FaEye, FaTimesCircle } from 'react-icons/fa';
 export default function Alerts() {
   const { weather } = useWeather();
 
-  const alertEntries = [
-    { key: 'temp', title: 'Temperatura Óptima' },
-    { key: 'wind', title: 'Viento Fuerte' },
-    { key: 'humidity', title: 'Humedad' },
-    { key: 'air', title: 'Aire Contaminado' },
-    { key: 'uaqi', title: 'Índice UAQI' },
-  ];
-
-  const active = alertEntries
-    .map((e) => ({ ...e, level: weather.alerts[e.key] }))
-    .filter((a) => a.level && a.level !== 'BAJA');
-
-  const moderateAlerts = active.filter((a) => a.level === 'MEDIA');
-  const criticalAlerts = active.filter((a) => a.level === 'ALTA');
-
-  const stats = [
-    { label: 'Alertas Activas', value: active.length, type: 'active' },
-    { label: 'Alertas Hoy', value: active.length, type: 'today' },
-    { label: 'Estaciones Monit.', value: 1, type: 'stations' },
-    { label: 'Tiempo de Respuesta', value: '<5min', type: 'response' },
-  ];
 
   const alertEntries = [
     { key: 'temp', title: 'Temperatura Óptima' },
