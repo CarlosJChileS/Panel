@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import { initialWeather, mockWeather } from '../data/mockWeather';
-import { fetchWeather, fetchForecast } from '../services/openWeatherService';
+import { fetchWeather, fetchForecast, fetchAirForecast } from '../services/openWeatherService';
 import { fetchGoogleAirQuality } from '../services/googleAirService';
 import { supabase } from '../services/supabaseClient';
 
@@ -43,6 +43,7 @@ const WeatherContext = createContext(null);
 export function WeatherProvider({ children }) {
   const [data, setData] = useState(initialWeather);
   const [trend, setTrend] = useState([]);
+  const [airTrend, setAirTrend] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [city, setCity] = useState('');
@@ -64,10 +65,18 @@ export function WeatherProvider({ children }) {
       const googleKey = process.env.REACT_APP_GOOGLEAIR_KEY;
       const real = await fetchWeather(cityToSearch, apiKey);
       let forecast = [];
+      let airForecast = [];
       try {
         forecast = await fetchForecast(cityToSearch, apiKey);
       } catch (_) {
         // ignore forecast errors
+      }
+      try {
+        if (real.lat && real.lon) {
+          airForecast = await fetchAirForecast(real.lat, real.lon, apiKey);
+        }
+      } catch (_) {
+        // ignore air forecast errors
       }
       const merged = {
         ...mockWeather,
@@ -85,6 +94,7 @@ export function WeatherProvider({ children }) {
       }
       merged.alerts = { ...mockWeather.alerts, ...computeAlerts(merged) };
       setTrend(forecast);
+      setAirTrend(airForecast);
       setData(merged);
       setHistory((h) => {
         const newHist = [cityToSearch, ...h.filter((c) => c !== cityToSearch)].slice(0, 5);
@@ -148,6 +158,7 @@ export function WeatherProvider({ children }) {
     } catch (e) {
       setError('No se pudo obtener datos');
       setTrend([]);
+      setAirTrend([]);
       setData(mockWeather);
     } finally {
       setLoading(false);
@@ -156,7 +167,7 @@ export function WeatherProvider({ children }) {
 
   return (
     <WeatherContext.Provider
-      value={{ weather: data, trend, loading, error, search, city, setCity, history }}
+      value={{ weather: data, trend, airTrend, loading, error, search, city, setCity, history }}
     >
       {children}
     </WeatherContext.Provider>
