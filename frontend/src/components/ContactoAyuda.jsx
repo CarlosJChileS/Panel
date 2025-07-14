@@ -1,9 +1,12 @@
 import React from 'react';
 import '../ContactoAyuda.css';
+import Header from './Header';
 
 export default function ContactoAyuda() {
   return (
-    <div className="contacto-main">
+    <div className="dashboard-bg">
+      <Header />
+      <div className="contacto-main">
       {/* Encabezado */}
       <div className="contacto-header">
         <div className="contacto-header-icon">?</div>
@@ -145,6 +148,7 @@ export default function ContactoAyuda() {
             </form>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
