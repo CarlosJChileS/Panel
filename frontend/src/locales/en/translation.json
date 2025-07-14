@@ -46,7 +46,8 @@
     "success": "Login successful",
     "error": "Error logging in",
     "noAccount": "Don't have an account?",
-    "register": "Register"
+    "register": "Register",
+    "remember": "Remember me"
   },
   "register": {
     "titleLeft": "Create your account",
@@ -66,12 +67,12 @@
   "contact": {
     "title": "Contact",
     "intro": "Have questions or comments? You can reach us at:",
-    "report": "Report error",
-    "desc": "Description",
-    "send": "Send",
-    "tips": "Send advice",
-    "comment": "Comment",
     "direct": "Direct contact",
-    "message": "Your message"
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "sent": "Message sent"
   }
 }

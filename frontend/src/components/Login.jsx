@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import "../Auth.css";
@@ -16,9 +16,18 @@ export default function Login() {
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [remember, setRemember] = useState(false);
   const navigate = useNavigate();
   const { supabase } = useAuth();
   const status = useSupabaseStatus();
+
+  useEffect(() => {
+    const saved = localStorage.getItem('remember_user');
+    if (saved) {
+      setUser(saved);
+      setRemember(true);
+    }
+  }, []);
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -41,6 +50,11 @@ export default function Login() {
       password: pass,
     });
     if (!error) {
+      if (remember) {
+        localStorage.setItem('remember_user', user);
+      } else {
+        localStorage.removeItem('remember_user');
+      }
       setMessage(t('login.success'));
       navigate("/dashboard");
     } else {
@@ -72,6 +86,7 @@ export default function Login() {
               onChange={handleEmailChange}
               autoFocus
               required
+              autoComplete="username"
             />
           </div>
           {emailError && (
@@ -88,6 +103,7 @@ export default function Login() {
               value={pass}
               onChange={handlePassChange}
               required
+              autoComplete="current-password"
             />
             <button
               type="button"
@@ -103,6 +119,17 @@ export default function Login() {
               {passError}
             </div>
           )}
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 8 }}>
+            <input
+              id="remember"
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+            />
+            <label htmlFor="remember" style={{ marginLeft: 6 }}>
+              {t('login.remember')}
+            </label>
+          </div>
           <button className="loginBtn" type="submit">{t('login.submit')}</button>
         </form>
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}

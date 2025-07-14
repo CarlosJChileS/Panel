@@ -2,7 +2,7 @@
 
 Demostración de un sistema de monitoreo ambiental con **React** y **Express**. Utiliza Supabase para almacenar usuarios y datos de ejemplo. El repositorio se organiza en dos carpetas principales: `frontend` y `backend`.
 
-La interfaz es **responsiva** y dispone de un panel de accesibilidad que ajusta contraste, tamaño de texto y otros efectos de acuerdo con las pautas **WCAG&nbsp;2.2**. El panel incluye un boton para *restablecer parametros*.
+La interfaz es **responsiva** y dispone de un panel de accesibilidad que ajusta contraste, tamaño de texto y otros efectos de acuerdo con las pautas **WCAG 2.2**. El panel incluye un boton para *restablecer parametros*. Consulta el documento [Usability Checklist](USABILITY_CHECKLIST.md) para ver las practicas aplicadas.
 
 ## Requisitos
 - Node.js 18 o superior

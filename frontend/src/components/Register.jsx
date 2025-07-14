@@ -82,6 +82,7 @@ export default function Register() {
               onChange={handleEmailChange}
               autoFocus
               required
+              autoComplete="email"
             />
           </div>
           {emailError && (
@@ -98,6 +99,7 @@ export default function Register() {
               value={pass}
               onChange={handlePassChange}
               required
+              autoComplete="new-password"
             />
             <button
               type="button"
