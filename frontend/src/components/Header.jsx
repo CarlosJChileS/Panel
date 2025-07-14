@@ -8,6 +8,9 @@ export default function Header() {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const isAdmin = user?.user_metadata?.is_admin;
+  const initials = user?.email
+    ? user.email.split('@')[0].slice(0, 2).toUpperCase()
+    : '';
   return (
     <>
       <a href="#main-content" className="skip-link">{t('header.skip')}</a>
@@ -69,7 +72,7 @@ export default function Header() {
               aria-label="Perfil"
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
-              <div className="profile-circle" title={user.email}></div>
+              <div className="profile-circle" title={user.email}>{initials}</div>
             </NavLink>
           ) : (
             <NavLink

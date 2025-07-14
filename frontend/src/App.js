@@ -17,6 +17,7 @@ import ContactoAyuda from "./components/ContactoAyuda";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./AuthContext";
 import { WeatherProvider } from "./hooks/useWeather";
+import UserHistoryDashboard from "./components/UserHistoryDashboard";
 
 function App() {
   return (
@@ -105,6 +106,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ContactoAyuda />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/historial"
+            element={
+              <PrivateRoute>
+                <UserHistoryDashboard />
               </PrivateRoute>
             }
           />
