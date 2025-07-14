@@ -13,7 +13,7 @@ import Extras from "./components/Extras";
 import MapPage from "./components/MapPage";
 import Alerts from "./components/Alerts";
 import Stats from "./components/Stats";
-import Contact from "./components/Contact";
+import ContactoAyuda from "./components/ContactoAyuda";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./AuthContext";
 import { WeatherProvider } from "./hooks/useWeather";
@@ -104,7 +104,7 @@ function App() {
             path="/contacto"
             element={
               <PrivateRoute>
-                <Contact />
+                <ContactoAyuda />
               </PrivateRoute>
             }
           />

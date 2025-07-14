@@ -1,0 +1,296 @@
+.contacto-main {
+  background: #f8fbff;
+  padding: 28px 12px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.contacto-header {
+  background: #eaf4fb;
+  border-radius: 12px;
+  text-align: center;
+  padding: 36px 16px 24px 16px;
+  margin-bottom: 26px;
+  border: 1.5px dashed #96c6e2;
+}
+
+.contacto-header-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #2985d2;
+}
+
+.contacto-header h2 {
+  margin: 0 0 7px 0;
+  font-weight: 600;
+}
+
+.contacto-header p {
+  color: #666;
+  margin-bottom: 22px;
+}
+
+.contacto-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.contacto-btns .btn-mail,
+.btn-phone,
+.btn-live {
+  padding: 9px 23px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-mail {
+  background: #eaf0fb;
+  color: #2d5ca4;
+  border: 1px solid #bed8f8;
+}
+
+.btn-phone {
+  background: #e4faeb;
+  color: #1c8f50;
+  border: 1px solid #96e2b7;
+}
+
+.btn-live {
+  background: #fff3d5;
+  color: #cc9300;
+  border: 1px solid #ffe7a7;
+}
+
+/* Grid Layout */
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contacto-col {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Información de Contacto */
+.info-contacto {
+  background: #fff;
+  border-radius: 11px;
+  padding: 20px 18px;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 8px;
+}
+
+.info-contacto h4 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-weight: 600;
+  color: #22538d;
+}
+
+.info-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding: 10px 0;
+}
+
+.info-card .icon {
+  font-size: 24px;
+  color: #3186d0;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.info-card.email .icon {
+  color: #3a88d3;
+}
+.info-card.phone .icon {
+  color: #41b681;
+}
+.info-card.location .icon {
+  color: #eaa936;
+}
+
+.info-card b {
+  font-size: 15px;
+}
+
+.info-card a {
+  color: #2684c6;
+  text-decoration: underline;
+  font-size: 15px;
+}
+
+.info-mini {
+  display: block;
+  font-size: 13px;
+  color: #868686;
+  margin-top: 3px;
+}
+
+/* FAQ */
+.faq {
+  background: #fff;
+  border-radius: 11px;
+  padding: 17px 16px 14px 16px;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.faq h4 {
+  margin-top: 0;
+  color: #22538d;
+  font-weight: 600;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+}
+
+.faq-item b {
+  font-size: 14px;
+}
+
+.faq-item span {
+  display: block;
+  font-size: 13px;
+  color: #555;
+}
+
+.btn-faq {
+  background: #eaf4fb;
+  color: #195ea6;
+  border: 1px solid #bed8f8;
+  padding: 8px 22px;
+  border-radius: 7px;
+  margin-top: 7px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 500;
+}
+
+/* Columna Derecha */
+.contacto-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Formularios */
+.form-card {
+  border-radius: 12px;
+  padding: 22px 18px 18px 18px;
+  background: #fff;
+  box-shadow: 0 2px 10px #0001;
+}
+
+.form-error {
+  background: #fff6f6;
+  border: 1px solid #ffd3d3;
+}
+
+.form-sugerencia {
+  background: #f6fff6;
+  border: 1px solid #d2ffd2;
+}
+
+.form-directo {
+  background: #f2f8fe;
+  border: 1px solid #bed8f8;
+}
+
+.form-card h4 {
+  margin-top: 0;
+  margin-bottom: 13px;
+  font-weight: 600;
+  color: #232323;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 17px;
+}
+
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-card label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+  padding: 9px 11px;
+  border-radius: 7px;
+  border: 1px solid #d6e6f4;
+  font-size: 14px;
+  margin-top: 3px;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.2s;
+  resize: none;
+}
+
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
+  border: 1.5px solid #8bc1ef;
+}
+
+.form-card textarea {
+  min-height: 56px;
+  max-height: 120px;
+}
+
+.btn-report {
+  background: #e95454;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-report:hover {
+  background: #c62e2e;
+}
+
+.btn-sugerencia {
+  background: #53b85a;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-sugerencia:hover {
+  background: #2f8c33;
+}
