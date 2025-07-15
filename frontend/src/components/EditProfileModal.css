@@ -14,11 +14,26 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 28px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.25);
   z-index: 9999;
-  max-width: 400px;
+  max-width: 420px;
   width: 90%;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.modal-box h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 22px;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 8px;
+}
+
+.modal-box label {
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .modal-box input {
@@ -29,11 +44,39 @@
   padding: 7px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 15px;
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  background: #3472f8;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.modal-actions button[type='button'] {
+  background: #f1f5f9;
+  color: #375178;
+}
+
+.modal-actions button:hover,
+.modal-actions button:focus {
+  background: #1b56c1;
+}
+
+.modal-actions button[type='button']:hover,
+.modal-actions button[type='button']:focus {
+  background: #e1e7f0;
 }

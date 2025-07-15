@@ -74,10 +74,14 @@ export default function Profile() {
             </div>
           </div>
           <div className="user-actions">
-            <button className="btn export" onClick={handleLogout}>Cerrar sesión</button>
-            <button className="btn export" onClick={() => setShowEdit(true)}>Editar perfil</button>
+            <button className="profile-btn logout" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
+            <button className="profile-btn edit" onClick={() => setShowEdit(true)}>
+              Editar perfil
+            </button>
             {isAdmin && (
-              <a className="btn export" href="/admin">Panel Admin</a>
+              <a className="profile-btn" href="/admin">Panel Admin</a>
             )}
           </div>
         </div>

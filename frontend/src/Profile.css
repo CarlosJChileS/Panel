@@ -12,3 +12,33 @@ body.contrast-mode .dashboard-container {
   background: #fff;
   color: #000;
 }
+
+/* Profile buttons */
+.profile-btn {
+  background: #3472f8;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.profile-btn:hover,
+.profile-btn:focus {
+  background: #1b56c1;
+}
+
+.profile-btn.logout {
+  background: #f34444;
+}
+
+.profile-btn.logout:hover,
+.profile-btn.logout:focus {
+  background: #c33232;
+}
