@@ -19,8 +19,8 @@ test('renders profile page', () => {
       <Profile />
     </MemoryRouter>
   );
-  const heading = screen.getByText(/Perfil de Usuario/i);
-  expect(heading).toBeInTheDocument();
+  const logout = screen.getByText(/Cerrar sesión/i);
+  expect(logout).toBeInTheDocument();
 });
 
 test('toggle dark mode', () => {

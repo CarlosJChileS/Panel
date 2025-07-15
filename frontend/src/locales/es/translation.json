@@ -9,8 +9,9 @@
     "alerts": "Alertas",
     "stats": "Estadísticas",
     "contact": "Contacto",
-    "admin": "Admin",
-    "skip": "Saltar al contenido"
+  "admin": "Admin",
+  "skip": "Saltar al contenido",
+  "searchPlaceholder": "Buscar secciones..."
   },
   "welcome": {
     "title": "Bienvenido al Sistema de Monitoreo Ambiental",

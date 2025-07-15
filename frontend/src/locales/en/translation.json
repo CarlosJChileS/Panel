@@ -9,8 +9,9 @@
     "alerts": "Alerts",
     "stats": "Statistics",
     "contact": "Contact",
-    "admin": "Admin",
-    "skip": "Skip to content"
+  "admin": "Admin",
+  "skip": "Skip to content",
+  "searchPlaceholder": "Search sections..."
   },
   "welcome": {
     "title": "Welcome to the Environmental Monitoring System",

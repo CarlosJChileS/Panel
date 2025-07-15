@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../Landing.css';
 import { useAuth } from '../AuthContext';
 import { useTranslation } from 'react-i18next';
+import SearchSections from './SearchSections';
 
 export default function Header() {
   const { t, i18n } = useTranslation();
@@ -23,7 +24,8 @@ export default function Header() {
             <button onClick={() => i18n.changeLanguage('en')}>EN</button>
           </div>
         </div>
-      <nav className="navbar-links" aria-label="Navegación principal">
+        <div className="header-actions">
+          <nav className="navbar-links" aria-label="Navegación principal">
         <NavLink
           to="/dashboard"
           className={({ isActive }) => (isActive ? 'active' : '')}
@@ -92,7 +94,9 @@ export default function Header() {
               {t('header.admin')}
             </NavLink>
           )}
-      </nav>
+          </nav>
+          <SearchSections />
+        </div>
       </header>
     </>
   );
