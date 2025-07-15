@@ -37,8 +37,8 @@ export default function SearchSections() {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder={t('searchPlaceholder')}
-        aria-label={t('searchPlaceholder')}
+        placeholder={t('header.searchPlaceholder')}
+        aria-label={t('header.searchPlaceholder')}
       />
       <button type="submit">Go</button>
       <button type="button" className="clear-btn" onClick={handleClear}>Limpiar</button>
