@@ -33,7 +33,7 @@
   },
   "login": {
     "welcome": "Welcome",
-    "desc": "Enter your credentials to continue",
+    "desc": "Sign in to unlock all environmental data",
     "title": "Login",
     "formDesc": "Enter your email and password",
     "email": "Email",
@@ -52,9 +52,9 @@
   },
   "register": {
     "titleLeft": "Create your account",
-    "descLeft": "Register to access the panel",
+    "descLeft": "Join our environmental community by registering",
     "title": "Register",
-    "desc": "Enter your details",
+    "desc": "Fill in your details and start exploring",
     "email": "Email",
     "password": "Password",
     "strength": ["Very weak", "Weak", "Fair", "Good", "Strong"],
