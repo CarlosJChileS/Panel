@@ -68,6 +68,17 @@ export default function Header() {
         >
           {t('header.contact')}
         </NavLink>
+        {isAdmin && (
+          <NavLink
+            to="/admin"
+            style={{ marginLeft: 8 }}
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              {t('header.admin')}
+            </NavLink>
+          )}
+          </nav>
+          <SearchSections />
           {user ? (
             <NavLink
               to="/profile"
@@ -85,17 +96,6 @@ export default function Header() {
               <div className="profile-circle"></div>
             </NavLink>
           )}
-          {isAdmin && (
-            <NavLink
-              to="/admin"
-              style={{ marginLeft: 8 }}
-              className={({ isActive }) => (isActive ? 'active' : '')}
-            >
-              {t('header.admin')}
-            </NavLink>
-          )}
-          </nav>
-          <SearchSections />
         </div>
       </header>
     </>
