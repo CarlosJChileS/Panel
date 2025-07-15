@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../ContactoAyuda.css';
 import Header from './Header';
 
@@ -6,6 +6,25 @@ export default function ContactoAyuda() {
   const [errorSent, setErrorSent] = useState(false);
   const [suggestionSent, setSuggestionSent] = useState(false);
   const [directSent, setDirectSent] = useState(false);
+
+  // Hide confirmation messages automatically after a few seconds
+  useEffect(() => {
+    if (!errorSent) return;
+    const t = setTimeout(() => setErrorSent(false), 3000);
+    return () => clearTimeout(t);
+  }, [errorSent]);
+
+  useEffect(() => {
+    if (!suggestionSent) return;
+    const t = setTimeout(() => setSuggestionSent(false), 3000);
+    return () => clearTimeout(t);
+  }, [suggestionSent]);
+
+  useEffect(() => {
+    if (!directSent) return;
+    const t = setTimeout(() => setDirectSent(false), 3000);
+    return () => clearTimeout(t);
+  }, [directSent]);
   return (
     <div className="dashboard-bg">
       <Header />
