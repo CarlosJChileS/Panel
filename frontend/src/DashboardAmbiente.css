@@ -60,6 +60,14 @@
   transition: background .2s;
 }
 .consulta-btn:hover { background: #0e9e65; }
+.consulta-limpiar {
+  background: #fff;
+  color: #13c783;
+  border: 1px solid #13c783;
+  border-radius: 8px;
+  padding: 9px 22px;
+  cursor: pointer;
+}
 
 .condiciones-climaticas {
   background: #fff;

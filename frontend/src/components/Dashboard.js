@@ -18,6 +18,11 @@ export default function Dashboard() {
     search(city);
   };
 
+  const handleClear = () => {
+    setCity('');
+    setQueryType('Datos Completos');
+  };
+
   const lastUpdate = new Date().toLocaleTimeString('es-ES', {
     hour: '2-digit',
     minute: '2-digit',
@@ -54,6 +59,9 @@ export default function Dashboard() {
           </select>
           <button className="consulta-btn" onClick={handleSubmit}>
             Consultar Ahora
+          </button>
+          <button className="consulta-limpiar" type="button" onClick={handleClear}>
+            Limpiar
           </button>
         </div>
         {loading && <p>Consultando...</p>}

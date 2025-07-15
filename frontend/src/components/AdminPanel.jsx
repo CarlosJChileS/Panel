@@ -62,6 +62,11 @@ export default function AdminPanel() {
     setModal('delete');
   };
 
+  const handleClear = () => {
+    setFilter('');
+    fetchRecords('');
+  };
+
   const closeModal = () => {
     setModal(null);
     setForm({ id: null, email: '' });
@@ -102,15 +107,18 @@ export default function AdminPanel() {
           <h2 id="admin-title" className="search-box-title">Panel de Administración</h2>
           <div className="admin-search">
             <label htmlFor="search-email" className="visually-hidden">Buscar usuario</label>
-            <input
-              id="search-email"
-              type="text"
-              placeholder="Buscar por email"
-              value={filter}
-              onChange={handleSearch}
-            />
-            <button type="button" onClick={openCreate}>Nuevo</button>
-          </div>
+          <input
+            id="search-email"
+            type="text"
+            placeholder="Buscar por email"
+            value={filter}
+            onChange={handleSearch}
+          />
+          <button type="button" className="admin-clear" onClick={handleClear}>
+            Limpiar
+          </button>
+          <button type="button" onClick={openCreate}>Nuevo</button>
+        </div>
           {loading && <p>Cargando...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {!loading && (

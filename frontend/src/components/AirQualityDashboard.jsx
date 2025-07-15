@@ -59,6 +59,12 @@ export default function AirQualityDashboard() {
     URL.revokeObjectURL(url);
   };
 
+  const handleClear = () => {
+    setCity('');
+    setPollutant('PM2.5');
+    setRange('24h');
+  };
+
   return (
     <div className="aq-dashboard-container">
       <header className="aq-header">
@@ -102,6 +108,7 @@ export default function AirQualityDashboard() {
               <option value="1y">Último año</option>
             </select>
             <button type="submit" className="aq-btn-aplicar">Aplicar</button>
+            <button type="button" className="aq-btn-limpiar" onClick={handleClear}>Limpiar</button>
             <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
           </form>
           {loading && <p>Consultando...</p>}

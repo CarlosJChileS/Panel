@@ -52,6 +52,12 @@ export default function StatisticsModule() {
     alert('Reporte exportado con éxito');
   };
 
+  const handleClear = () => {
+    setLocation('');
+    setParameter('temp');
+    setChartType('line');
+  };
+
   const renderChart = () => {
     switch (chartType) {
       case 'bar':
@@ -111,6 +117,9 @@ export default function StatisticsModule() {
           </select>
           <button className="btn-generate" onClick={handleGenerate}>
             Generar
+          </button>
+          <button className="btn-clear" type="button" onClick={handleClear}>
+            Limpiar
           </button>
           <button className="btn-export" onClick={handleExport}>
             <FaDownload /> Exportar Reporte

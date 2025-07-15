@@ -19,13 +19,10 @@
   border-radius: 8px;
   cursor: pointer;
 }
-
-@media (max-width: 600px) {
-  .section-search input,
-  .section-search button {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-  }
+.section-search .clear-btn {
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
 }
 .section-results {
   position: absolute;
