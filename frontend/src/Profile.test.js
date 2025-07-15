@@ -46,3 +46,24 @@ test('shows search history', () => {
   expect(screen.getByText('Manta')).toBeInTheDocument();
   expect(screen.getByText('Quito')).toBeInTheDocument();
 });
+
+test('filter search history', () => {
+  render(
+    <MemoryRouter>
+      <Profile />
+    </MemoryRouter>
+  );
+  const filterInput = screen.getByPlaceholderText(/Filtrar/i);
+  fireEvent.change(filterInput, { target: { value: 'Qui' } });
+  expect(screen.queryByText('Manta')).toBeNull();
+  expect(screen.getByText('Quito')).toBeInTheDocument();
+});
+
+test('shows edit profile button', () => {
+  render(
+    <MemoryRouter>
+      <Profile />
+    </MemoryRouter>
+  );
+  expect(screen.getByText(/Editar perfil/i)).toBeInTheDocument();
+});

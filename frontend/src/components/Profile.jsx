@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import EditProfileModal from './EditProfileModal';
 import '../Profile.css';
 import './UserHistoryDashboard.css';
 import { useAuth } from '../AuthContext';
@@ -9,6 +10,12 @@ export default function Profile() {
   const { user, supabase } = useAuth();
   const [dark, setDark] = useState(() => localStorage.getItem('pref_dark') === '1');
   const { history } = useWeather();
+  const [showEdit, setShowEdit] = useState(false);
+  const [filter, setFilter] = useState('');
+  const activityHistory = [
+    { action: 'Inicio de sesión', date: 'Hoy 10:00' },
+    { action: 'Búsqueda: Manta', date: 'Hoy 10:05' },
+  ];
 
   useEffect(() => {
     document.body.classList.toggle('dark-mode', dark);
@@ -35,6 +42,9 @@ export default function Profile() {
 
   const isAdmin = user.user_metadata?.is_admin;
   const userName = user.user_metadata?.full_name || user.email;
+  const filteredHistory = history.filter((c) =>
+    c.toLowerCase().includes(filter.toLowerCase())
+  );
   const initials = userName
     .split(/\s+/)
     .map((n) => n[0])
@@ -65,6 +75,7 @@ export default function Profile() {
           </div>
           <div className="user-actions">
             <button className="btn export" onClick={handleLogout}>Cerrar sesión</button>
+            <button className="btn export" onClick={() => setShowEdit(true)}>Editar perfil</button>
             {isAdmin && (
               <a className="btn export" href="/admin">Panel Admin</a>
             )}
@@ -76,10 +87,17 @@ export default function Profile() {
             <div className="history-header">
               <span>
                 Historial de Búsquedas{' '}
-                <span className="results-count">({history.length})</span>
+                <span className="results-count">({filteredHistory.length})</span>
               </span>
+              <input
+                className="filter-input"
+                placeholder="Filtrar"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                aria-label="Filtrar historial"
+              />
             </div>
-            {history.map((c, idx) => (
+            {filteredHistory.map((c, idx) => (
               <div className="history-card" key={idx}>
                 <div className="history-card-left">
                   <div className="alert-circle">
@@ -96,6 +114,30 @@ export default function Profile() {
             <div className="history-empty-card"></div>
           </div>
         )}
+
+        {activityHistory.length > 0 && (
+          <div className="history-section">
+            <div className="history-header">Historial de Actividad</div>
+            {activityHistory.map((a, idx) => (
+              <div className="history-card" key={idx}>
+                <div className="history-card-left">
+                  <div className="alert-circle">
+                    <span className="icon-alert" />
+                  </div>
+                </div>
+                <div className="history-card-body">
+                  <div className="history-title-row">
+                    <span className="history-title">{a.action}</span>
+                  </div>
+                  <div className="card-date">{a.date}</div>
+                </div>
+              </div>
+            ))}
+            <div className="history-empty-card"></div>
+          </div>
+        )}
+
+        {showEdit && <EditProfileModal user={user} onClose={() => setShowEdit(false)} />}
       </div>
     </div>
   );
