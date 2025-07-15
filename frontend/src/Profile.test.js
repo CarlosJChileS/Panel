@@ -3,7 +3,11 @@ import { MemoryRouter } from 'react-router-dom';
 import Profile from './components/Profile';
 
 jest.mock('./hooks/useWeather', () => ({
-  useWeather: () => ({ history: ['Manta', 'Quito'] })
+  useWeather: () => ({
+    history: ['Manta', 'Quito'],
+    editHistoryEntry: jest.fn(),
+    deleteHistoryEntry: jest.fn(),
+  })
 }));
 
 jest.mock('./AuthContext', () => ({
@@ -66,4 +70,14 @@ test('shows edit profile button', () => {
     </MemoryRouter>
   );
   expect(screen.getByText(/Editar perfil/i)).toBeInTheDocument();
+});
+
+test('shows edit and delete buttons for history', () => {
+  render(
+    <MemoryRouter>
+      <Profile />
+    </MemoryRouter>
+  );
+  expect(screen.getAllByLabelText(/Editar búsqueda/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByLabelText(/Eliminar búsqueda/i).length).toBeGreaterThan(0);
 });

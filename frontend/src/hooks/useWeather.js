@@ -55,6 +55,23 @@ export function WeatherProvider({ children }) {
     }
   });
 
+  const editHistoryEntry = (index, newValue) => {
+    setHistory((h) => {
+      const updated = [...h];
+      updated[index] = newValue;
+      localStorage.setItem('weather_history', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const deleteHistoryEntry = (index) => {
+    setHistory((h) => {
+      const updated = h.filter((_, i) => i !== index);
+      localStorage.setItem('weather_history', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   const search = async (newCity) => {
     const cityToSearch = newCity ?? city;
     if (!cityToSearch) return;
@@ -167,7 +184,19 @@ export function WeatherProvider({ children }) {
 
   return (
     <WeatherContext.Provider
-      value={{ weather: data, trend, airTrend, loading, error, search, city, setCity, history }}
+      value={{
+        weather: data,
+        trend,
+        airTrend,
+        loading,
+        error,
+        search,
+        city,
+        setCity,
+        history,
+        editHistoryEntry,
+        deleteHistoryEntry,
+      }}
     >
       {children}
     </WeatherContext.Provider>
