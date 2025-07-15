@@ -63,6 +63,7 @@ function AccessibilityPanel() {
   function Card({ icon: Icon, label, keyName, onClick, profile }) {
     return (
       <button
+        type="button"
         onClick={() =>
           profile ? toggleProfile(profile) : onClick ? onClick() : toggleOption(keyName)
         }
@@ -106,6 +107,7 @@ function AccessibilityPanel() {
         <div style={{ display: "flex", alignItems: "center", marginBottom: 4 }}>
           <h3 style={{ flex: 1, color: "#0086c3" }}>{title}</h3>
           <button
+            type="button"
             aria-label={open ? t('access.collapse') : t('access.expand')}
             style={{
               background: "#eee",
@@ -130,6 +132,7 @@ function AccessibilityPanel() {
   return (
     <>
       <button
+        type="button"
         className="access-btn"
         aria-label={t('access.open')}
         onClick={() => setVisible(true)}
@@ -146,8 +149,10 @@ function AccessibilityPanel() {
             tabIndex={-1}
             aria-modal="true"
             role="dialog"
+            onClick={(e) => e.stopPropagation()}
           >
           <button
+            type="button"
             onClick={() => setVisible(false)}
             style={{
               position: "absolute",
@@ -229,6 +234,7 @@ function AccessibilityPanel() {
               </div>
               <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
                 <button
+                  type="button"
                   onClick={() => setColorTab("fondos")}
                   style={{
                     background: colorTab === "fondos" ? "#0086c3" : "#e5f5fa",
@@ -244,6 +250,7 @@ function AccessibilityPanel() {
                   {t('access.backgrounds')}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setColorTab("encabezados")}
                   style={{
                     background: colorTab === "encabezados" ? "#0086c3" : "#e5f5fa",
@@ -259,6 +266,7 @@ function AccessibilityPanel() {
                   {t('access.headings')}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setColorTab("contenido")}
                   style={{
                     background: colorTab === "contenido" ? "#0086c3" : "#e5f5fa",
@@ -393,6 +401,7 @@ function AccessibilityPanel() {
           </Section>
 
           <button
+            type="button"
             style={{
               margin: "30px auto 20px auto",
               display: "block",
