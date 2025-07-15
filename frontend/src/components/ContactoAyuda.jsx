@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../ContactoAyuda.css';
 import Header from './Header';
 
 export default function ContactoAyuda() {
+  const [errorSent, setErrorSent] = useState(false);
+  const [suggestionSent, setSuggestionSent] = useState(false);
+  const [directSent, setDirectSent] = useState(false);
   return (
     <div className="dashboard-bg">
       <Header />
@@ -82,7 +85,13 @@ export default function ContactoAyuda() {
             <h4>
               <span className="icon">&#9888;</span> Reportar Error
             </h4>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setErrorSent(true);
+                e.target.reset();
+              }}
+            >
               <label>
                 Tipo de Error *
                 <select required>
@@ -100,9 +109,26 @@ export default function ContactoAyuda() {
                 Tu Email (opcional)
                 <input type="email" placeholder="tu@email.com" />
               </label>
-              <button className="btn-report" type="submit">
-                &#9993; Enviar Reporte
-              </button>
+              <div className="form-actions">
+                <button className="btn-report" type="submit">
+                  &#9993; Enviar Reporte
+                </button>
+                <button
+                  className="btn-cancel"
+                  type="button"
+                  onClick={(e) => {
+                    setErrorSent(false);
+                    e.target.form.reset();
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+              {errorSent && (
+                <div className="confirm-msg" aria-live="polite">
+                  Reporte enviado
+                </div>
+              )}
             </form>
           </div>
 
@@ -111,7 +137,13 @@ export default function ContactoAyuda() {
             <h4>
               <span className="icon">&#128161;</span> Enviar Consejo o Sugerencia
             </h4>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSuggestionSent(true);
+                e.target.reset();
+              }}
+            >
               <label>
                 Categoría *
                 <select required>
@@ -128,9 +160,26 @@ export default function ContactoAyuda() {
                 Tu Email (opcional)
                 <input type="email" placeholder="tu@email.com" />
               </label>
-              <button className="btn-sugerencia" type="submit">
-                &#9993; Enviar Sugerencia
-              </button>
+              <div className="form-actions">
+                <button className="btn-sugerencia" type="submit">
+                  &#9993; Enviar Sugerencia
+                </button>
+                <button
+                  className="btn-cancel"
+                  type="button"
+                  onClick={(e) => {
+                    setSuggestionSent(false);
+                    e.target.form.reset();
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+              {suggestionSent && (
+                <div className="confirm-msg" aria-live="polite">
+                  Sugerencia enviada
+                </div>
+              )}
             </form>
           </div>
 
@@ -139,12 +188,49 @@ export default function ContactoAyuda() {
             <h4>
               <span className="icon">&#128233;</span> Contacto Directo
             </h4>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setDirectSent(true);
+                e.target.reset();
+              }}
+            >
               <label>
                 Nombre Completo *
                 <input type="text" placeholder="Tu nombre completo" required />
               </label>
-              {/* Agrega aquí más campos si quieres */}
+              <label>
+                Email *
+                <input type="email" placeholder="tu@email.com" required />
+              </label>
+              <label>
+                Teléfono
+                <input type="tel" placeholder="Opcional" />
+              </label>
+              <label>
+                Mensaje *
+                <textarea placeholder="Escribe tu mensaje" required></textarea>
+              </label>
+              <div className="form-actions">
+                <button className="btn-sugerencia" type="submit">
+                  Enviar Mensaje
+                </button>
+                <button
+                  className="btn-cancel"
+                  type="button"
+                  onClick={(e) => {
+                    setDirectSent(false);
+                    e.target.form.reset();
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+              {directSent && (
+                <div className="confirm-msg" aria-live="polite">
+                  Mensaje enviado
+                </div>
+              )}
             </form>
           </div>
         </div>
