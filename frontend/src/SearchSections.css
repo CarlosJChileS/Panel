@@ -19,6 +19,11 @@
   border-radius: 8px;
   cursor: pointer;
 }
+.section-search .clear-btn {
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
 .section-results {
   position: absolute;
   top: 110%;

@@ -27,6 +27,10 @@ export default function SearchSections() {
     if (results.length) navigate(results[0].path);
   };
 
+  const handleClear = () => {
+    setQuery('');
+  };
+
   return (
     <form className="section-search" onSubmit={handleSubmit} role="search">
       <input
@@ -37,6 +41,7 @@ export default function SearchSections() {
         aria-label={t('searchPlaceholder')}
       />
       <button type="submit">Go</button>
+      <button type="button" className="clear-btn" onClick={handleClear}>Limpiar</button>
       {query && (
         <ul className="section-results">
           {results.map((r) => (

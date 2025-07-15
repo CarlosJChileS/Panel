@@ -75,6 +75,12 @@ export default function Extras() {
     document.body.removeChild(link);
   };
 
+  const handleClear = () => {
+    setCity('');
+    setMetric('Todos');
+    setRange('24h');
+  };
+
   const baseData = trend.length ? trend : mockTrend;
   const data = useMemo(() => expandTrend(baseData, range), [baseData, range]);
 
@@ -105,6 +111,7 @@ export default function Extras() {
             <option value="1y">Último año</option>
           </select>
           <button type="submit" className="aq-btn-aplicar">Aplicar</button>
+          <button type="button" className="aq-btn-limpiar" onClick={handleClear}>Limpiar</button>
           <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
           </form>
           {loading && <p>Consultando...</p>}

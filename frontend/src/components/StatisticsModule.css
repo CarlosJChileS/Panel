@@ -39,6 +39,14 @@
   border-radius: 4px;
   cursor: pointer;
 }
+.btn-clear {
+  background: #fff;
+  color: #6f42c1;
+  border: 1px solid #6f42c1;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
 
 .btn-export {
   margin-left: auto;

@@ -97,6 +97,14 @@
   padding: 6px 18px;
   cursor: pointer;
 }
+.aq-btn-limpiar {
+  background: #fff;
+  color: #467eea;
+  border: 1px solid #467eea;
+  border-radius: 6px;
+  padding: 6px 18px;
+  cursor: pointer;
+}
 
 .aq-btn-exportar {
   margin-left: auto;
