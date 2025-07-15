@@ -41,6 +41,19 @@ export default function Extras() {
     search(city);
   };
 
+  const handleExport = () => {
+    const rows = data.map((d) => `${d.time},${d.temp},${d.humidity},${d.wind}`);
+    const csv = ['time,temp,humidity,wind', ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'extras.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const data = trend.length ? trend : mockTrend;
 
   return (
@@ -58,7 +71,7 @@ export default function Extras() {
               required
             />
             <button type="submit" className="aq-btn-aplicar">Aplicar</button>
-            <button type="button" className="aq-btn-exportar">Exportar</button>
+            <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
           </form>
           {loading && <p>Consultando...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
