@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import ExtrasChart from './ExtrasChart';
@@ -35,6 +35,27 @@ function getColor(key, value) {
 
 export default function Extras() {
   const { weather, trend, loading, error, search, city, setCity } = useWeather();
+  const [metric, setMetric] = useState('Todos');
+  const [range, setRange] = useState('24h');
+
+  const RANGE_LABELS = {
+    '24h': 'Últimas 24h',
+    '7d': 'Última semana',
+    '1m': 'Último mes',
+    '1y': 'Último año',
+  };
+
+  function expandTrend(data, r) {
+    if (!data) return [];
+    if (r === '24h') return data;
+    const days = r === '7d' ? 7 : r === '1m' ? 30 : 365;
+    const expanded = [];
+    for (let i = 0; i < days; i++) {
+      const src = data[i % data.length];
+      expanded.push({ ...src, time: `D${i + 1}` });
+    }
+    return expanded;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +75,8 @@ export default function Extras() {
     document.body.removeChild(link);
   };
 
-  const data = trend.length ? trend : mockTrend;
+  const baseData = trend.length ? trend : mockTrend;
+  const data = useMemo(() => expandTrend(baseData, range), [baseData, range]);
 
   return (
     <div className="aq-dashboard-container">
@@ -62,16 +84,28 @@ export default function Extras() {
       <main className="aq-main-content" id="main-content" tabIndex="-1">
         <section className="aq-consulta-panel" aria-label="Consulta de ubicación">
           <form className="aq-form-row" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              placeholder="Ciudad"
-              aria-label="Ciudad"
-              required
-            />
-            <button type="submit" className="aq-btn-aplicar">Aplicar</button>
-            <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Ciudad"
+            aria-label="Ciudad"
+            required
+          />
+          <select value={metric} onChange={(e) => setMetric(e.target.value)}>
+            <option value="Todos">Todos</option>
+            <option value="Temperatura">Temperatura</option>
+            <option value="Humedad">Humedad</option>
+            <option value="Viento">Viento</option>
+          </select>
+          <select value={range} onChange={(e) => setRange(e.target.value)}>
+            <option value="24h">Últimas 24h</option>
+            <option value="7d">Última semana</option>
+            <option value="1m">Último mes</option>
+            <option value="1y">Último año</option>
+          </select>
+          <button type="submit" className="aq-btn-aplicar">Aplicar</button>
+          <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
           </form>
           {loading && <p>Consultando...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -130,10 +164,18 @@ export default function Extras() {
           </div>
           <div className="aq-panel-der">
             <div className="aq-card aq-evolucion">
-              <div className="aq-card-header">Pronóstico</div>
+              <div className="aq-card-header">
+                Pronóstico {RANGE_LABELS[range]}
+                <select value={metric} onChange={(e) => setMetric(e.target.value)}>
+                  <option value="Todos">Todos</option>
+                  <option value="Temperatura">Temperatura</option>
+                  <option value="Humedad">Humedad</option>
+                  <option value="Viento">Viento</option>
+                </select>
+              </div>
               {data.length ? (
                 <div className="aq-grafico">
-                  <ExtrasChart data={data} />
+                  <ExtrasChart data={data} metric={metric} />
                 </div>
               ) : (
                 <div className="aq-grafico-mock">
