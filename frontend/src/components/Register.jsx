@@ -18,6 +18,7 @@ export default function Register() {
   const [passError, setPassError] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [strength, setStrength] = useState(0);
+  const [success, setSuccess] = useState(false);
   const strengthText = t('register.strength', { returnObjects: true });
   const navigate = useNavigate();
   const { supabase } = useAuth();
@@ -53,7 +54,7 @@ export default function Register() {
     if (!error && data.user) {
       await supabase.from('users').insert({ id: data.user.id, email });
       setMessage(t('register.success'));
-      navigate('/dashboard');
+      setSuccess(true);
     } else {
       setMessage(t('register.error'));
     }
@@ -136,6 +137,16 @@ export default function Register() {
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && (
           <div className="status-message" aria-live="polite">{message}</div>
+        )}
+        {success && (
+          <button
+            type="button"
+            className="registerBtn"
+            style={{ marginTop: 8 }}
+            onClick={() => navigate('/dashboard')}
+          >
+            {t('register.continue')}
+          </button>
         )}
         {status === 'error' && (
           <div className="status-message" style={{ color: 'red' }} aria-live="polite">

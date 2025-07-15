@@ -18,6 +18,7 @@ export default function Login() {
   const [passError, setPassError] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { supabase } = useAuth();
   const status = useSupabaseStatus();
@@ -57,7 +58,7 @@ export default function Login() {
         localStorage.removeItem('remember_user');
       }
       setMessage(t('login.success'));
-      navigate("/dashboard");
+      setSuccess(true);
     } else {
       setMessage(t('login.error'));
     }
@@ -139,6 +140,16 @@ export default function Login() {
         {loading && <div className="loader" role="status" aria-label="Cargando"></div>}
         {message && (
           <div className="status-message" aria-live="polite">{message}</div>
+        )}
+        {success && (
+          <button
+            type="button"
+            className="loginBtn"
+            style={{ marginTop: 8 }}
+            onClick={() => navigate('/dashboard')}
+          >
+            {t('login.continue')}
+          </button>
         )}
         {status === 'error' && (
           <div className="status-message" style={{ color: 'red' }} aria-live="polite">
