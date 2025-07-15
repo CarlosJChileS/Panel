@@ -88,6 +88,7 @@ export default function ContactoAyuda() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!window.confirm('¿Enviar el reporte?')) return;
                 setErrorSent(true);
                 e.target.reset();
               }}
@@ -140,6 +141,7 @@ export default function ContactoAyuda() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!window.confirm('¿Enviar la sugerencia?')) return;
                 setSuggestionSent(true);
                 e.target.reset();
               }}
@@ -191,6 +193,7 @@ export default function ContactoAyuda() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!window.confirm('¿Enviar el mensaje?')) return;
                 setDirectSent(true);
                 e.target.reset();
               }}
