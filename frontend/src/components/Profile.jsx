@@ -9,7 +9,7 @@ import { useWeather } from '../hooks/useWeather';
 export default function Profile() {
   const { user, supabase } = useAuth();
   const [dark, setDark] = useState(() => localStorage.getItem('pref_dark') === '1');
-  const { history } = useWeather();
+  const { history, editHistoryEntry, deleteHistoryEntry } = useWeather();
   const [showEdit, setShowEdit] = useState(false);
   const [filter, setFilter] = useState('');
   const activityHistory = [
@@ -51,6 +51,19 @@ export default function Profile() {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+
+  const handleEdit = (idx) => {
+    const newValue = prompt('Editar búsqueda', history[idx]);
+    if (newValue) {
+      editHistoryEntry(idx, newValue);
+    }
+  };
+
+  const handleDelete = (idx) => {
+    if (window.confirm('¿Eliminar esta búsqueda?')) {
+      deleteHistoryEntry(idx);
+    }
+  };
 
   return (
     <div className="dashboard-bg">
@@ -112,6 +125,22 @@ export default function Profile() {
                   <div className="history-title-row">
                     <span className="history-title">{c}</span>
                   </div>
+                </div>
+                <div className="history-card-actions">
+                  <button
+                    className="profile-btn edit"
+                    onClick={() => handleEdit(idx)}
+                    aria-label="Editar búsqueda"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    className="profile-btn logout"
+                    onClick={() => handleDelete(idx)}
+                    aria-label="Eliminar búsqueda"
+                  >
+                    🗑
+                  </button>
                 </div>
               </div>
             ))}
