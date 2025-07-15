@@ -10,6 +10,9 @@ export default function Dashboard() {
   const { weather, loading, error, search, city, setCity } = useWeather();
   const [queryType, setQueryType] = React.useState('Datos Completos');
 
+  const showSection = (section) =>
+    queryType === 'Datos Completos' || queryType === section;
+
   const aqi = weather.air.uaqi || weather.air.aqi || '-';
   const aqiCategory = weather.air.uaqiCategory || 'Moderado';
 
@@ -56,6 +59,9 @@ export default function Dashboard() {
           <select value={queryType} onChange={(e) => setQueryType(e.target.value)}>
             <option>Datos Completos</option>
             <option>Aire</option>
+            <option>Condiciones Extras</option>
+            <option>Mapa</option>
+            <option>Estadísticas</option>
           </select>
           <button className="consulta-btn" onClick={handleSubmit}>
             Consultar Ahora
@@ -68,6 +74,7 @@ export default function Dashboard() {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </section>
 
+      {showSection('Datos Completos') && (
       <section className="estado-real">
         <h2>Estado Ambiental en Tiempo Real</h2>
         <p className="estado-sub">
@@ -117,8 +124,10 @@ export default function Dashboard() {
           <span>{weather.alerts?.uaqi || 'MODERADO'}</span> Precaución recomendada
         </div>
       </section>
+      )}
 
 
+      {showSection('Condiciones Extras') && (
       <section className="condiciones-climaticas">
         <h4>Condiciones Climáticas</h4>
         <div className="clima-datos">
@@ -143,7 +152,9 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+      )}
 
+      {showSection('Aire') && (
       <section className="monitoreo-aire">
         <h4>Monitoreo de Calidad del Aire</h4>
         <div className="card-aqi">
@@ -168,7 +179,9 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+      )}
 
+      {showSection('Datos Completos') && (
       <section className="sistema-alertas">
         <h4>Sistema de Alertas Inteligente</h4>
         <div className="alerta critica">
@@ -192,7 +205,9 @@ export default function Dashboard() {
           <span>Cielo {weather.extras.sky || '-'}</span>
         </div>
       </section>
+      )}
 
+      {showSection('Mapa') && (
       <section className="mapa-estaciones">
         <h4>Mapa de Estaciones en Tiempo Real</h4>
         <div className="mapa-interactivo">
@@ -211,7 +226,9 @@ export default function Dashboard() {
           </ul>
         </div>
       </section>
+      )}
 
+      {showSection('Estadísticas') && (
       <section className="analisis-tendencias">
         <h4>Análisis de Tendencias Inteligente</h4>
         <div className="grafica">
@@ -234,11 +251,14 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+      )}
 
+      {showSection('Datos Completos') && (
       <section className="recomendaciones">
         <h4>Recomendaciones Inteligentes</h4>
         <div className="reco-card">Personalizadas según las condiciones actuales</div>
       </section>
+      )}
     </div>
   );
 }
