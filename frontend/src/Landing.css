@@ -248,6 +248,8 @@
   font-size: 0.9rem;
   border-radius: 8px;
   background: #3a4d7a;
+  /* Keep text on one line so all buttons remain the same height */
+  white-space: nowrap;
 }
 .navbar-links a:hover {
   background: #2c3a5c;
