@@ -24,6 +24,7 @@ function AccessibilityPanel() {
     hue,
     handleColorChange,
     resetColors,
+    resetAll,
     speak,
     pauseReading,
     repeatReading,
@@ -417,7 +418,7 @@ function AccessibilityPanel() {
               fontSize: 18,
               cursor: "pointer",
             }}
-            onClick={() => window.location.reload()}
+            onClick={resetAll}
             tabIndex={-1}
           >
             {t('access.resetAll')}

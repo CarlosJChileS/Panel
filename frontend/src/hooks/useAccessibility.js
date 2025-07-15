@@ -2,6 +2,54 @@ import { useState, useEffect } from "react";
 import { accessibilityProfiles } from "../data/accessibilityProfiles";
 import { applyAccessibilityEffects } from "../services/applyAccessibilityEffects";
 
+const initialActive = {
+  blindness: false,
+  motor: false,
+  daltonism: false,
+  visual: false,
+  epilepsy: false,
+  adhd: false,
+  learning: false,
+  elder: false,
+  dyslexia: false,
+  screen: false,
+  keyboard: false,
+  smartnav: false,
+  speaker: false,
+  pause: false,
+  repeat: false,
+  mic: false,
+  eye: false,
+  moon: false,
+  sun: false,
+  lowSaturation: false,
+  highSaturation: false,
+  contrast: false,
+  customColor: false,
+  fontIncrease: false,
+  fontDecrease: false,
+  lineSpace: false,
+  wordSpace: false,
+  letterSpace: false,
+  cursorWhite: false,
+  cursorBlack: false,
+  block: false,
+  cc: false,
+  zoom: false,
+  readable: false,
+  image: false,
+  link: false,
+  heading: false,
+  enlarge: false,
+  doc: false,
+  textZoom: false,
+  mute: false,
+  focus: false,
+  guide: false,
+  dict: false,
+  virtualkb: false,
+};
+
 export function useAccessibility() {
   const [visible, setVisible] = useState(false);
   const [collapse, setCollapse] = useState({
@@ -11,53 +59,7 @@ export function useAccessibility() {
     content: false,
     advanced: false,
   });
-  const [active, setActive] = useState({
-    blindness: false,
-    motor: false,
-    daltonism: false,
-    visual: false,
-    epilepsy: false,
-    adhd: false,
-    learning: false,
-    elder: false,
-    dyslexia: false,
-    screen: false,
-    keyboard: false,
-    smartnav: false,
-    speaker: false,
-    pause: false,
-    repeat: false,
-    mic: false,
-    eye: false,
-    moon: false,
-    sun: false,
-    lowSaturation: false,
-    highSaturation: false,
-    contrast: false,
-    customColor: false,
-    fontIncrease: false,
-    fontDecrease: false,
-    lineSpace: false,
-    wordSpace: false,
-    letterSpace: false,
-    cursorWhite: false,
-    cursorBlack: false,
-    block: false,
-    cc: false,
-    zoom: false,
-    readable: false,
-    image: false,
-    link: false,
-    heading: false,
-    enlarge: false,
-    doc: false,
-    textZoom: false,
-    mute: false,
-    focus: false,
-    guide: false,
-    dict: false,
-    virtualkb: false,
-  });
+  const [active, setActive] = useState(initialActive);
   const [colorTab, setColorTab] = useState("fondos");
   const [hue, setHue] = useState(180);
   const [customColors, setCustomColors] = useState({
@@ -95,6 +97,22 @@ export function useAccessibility() {
     setActive((a) => ({ ...a, customColor: false }));
   };
 
+  const resetAll = () => {
+    setActive(initialActive);
+    setCollapse({
+      profiles: false,
+      voice: false,
+      color: false,
+      content: false,
+      advanced: false,
+    });
+    setColorTab("fondos");
+    setHue(180);
+    setCustomColors({ fondos: "", encabezados: "", contenido: "" });
+    setVisible(false);
+    window.speechSynthesis.cancel();
+  };
+
   const speak = () => {
     const root = document.body;
     window.speechSynthesis.cancel();
@@ -128,6 +146,7 @@ export function useAccessibility() {
     hue,
     handleColorChange,
     resetColors,
+    resetAll,
     speak,
     pauseReading,
     repeatReading,
