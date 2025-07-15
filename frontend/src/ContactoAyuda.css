@@ -294,3 +294,29 @@
 .btn-sugerencia:hover {
   background: #2f8c33;
 }
+
+.btn-cancel {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-cancel:hover {
+  background: #cacaca;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm-msg {
+  color: green;
+  margin-top: 8px;
+}
