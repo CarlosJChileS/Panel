@@ -53,10 +53,10 @@
 
 .imd-main-content {
   display: flex;
-  max-width: 1400px;
+  max-width: 1250px;
   margin: 30px auto 0 auto;
   background: #fff;
-  border-radius: 18px;
+  border-radius: 16px;
   box-shadow: 0 6px 20px #0001;
   min-height: 720px;
   padding: 0;

@@ -1,8 +1,12 @@
 .stats-module {
   font-family: 'Segoe UI', sans-serif;
   padding: 24px;
-  background: #f6faff;
+  background: #fff;
   color: #333;
+  max-width: 1250px;
+  margin: 24px auto;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px #0001;
 }
 
 .stats-header {

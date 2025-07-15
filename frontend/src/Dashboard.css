@@ -58,8 +58,8 @@ body, .dashboard-bg {
   border-radius: 12px;
   padding: 30px 36px;
   min-width: 600px;
-  max-width: 800px;
-  width: 80%;
+  max-width: 1250px;
+  width: 90%;
   box-shadow: 0 1px 6px #c0d4ec22;
   display: flex;
   flex-direction: column;
