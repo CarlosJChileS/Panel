@@ -1,0 +1,39 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9998;
+}
+
+.modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 9999;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-box input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
