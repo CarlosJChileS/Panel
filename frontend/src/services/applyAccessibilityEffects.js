@@ -1,5 +1,5 @@
 export function applyAccessibilityEffects(active, customColors) {
-  const root = document.querySelector('.dashboard-bg') || document.body;
+  const root = document.body;
 
   const baseBg = customColors.fondos || (active.moon ? "#222" : active.sun ? "#fff" : "#fff");
   const baseColor = customColors.contenido || (active.moon ? "#fff" : active.sun ? "#111" : "#222");

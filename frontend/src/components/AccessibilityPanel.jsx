@@ -25,6 +25,8 @@ function AccessibilityPanel() {
     handleColorChange,
     resetColors,
     speak,
+    pauseReading,
+    repeatReading,
     dict,
   } = useAccessibility();
 
@@ -194,6 +196,8 @@ function AccessibilityPanel() {
               <Card icon={icons.keyboard} label={t('access.voice.keyboard')} keyName="keyboard" />
               <Card icon={icons.smartnav} label={t('access.voice.smartnav')} keyName="smartnav" />
               <Card icon={icons.speaker} label={t('access.voice.speaker')} keyName="speaker" onClick={speak} />
+              <Card icon={icons.pause} label={t('access.voice.pause')} keyName="pause" onClick={pauseReading} />
+              <Card icon={icons.repeat} label={t('access.voice.repeat')} keyName="repeat" onClick={repeatReading} />
               <Card icon={icons.mic} label={t('access.voice.mic')} keyName="mic" />
             </div>
           </Section>
