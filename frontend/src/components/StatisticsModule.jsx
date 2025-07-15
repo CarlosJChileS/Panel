@@ -36,6 +36,22 @@ export default function StatisticsModule() {
     if (location) search(location);
   };
 
+  const handleExport = () => {
+    const header = ['time', 'temp', 'humidity', 'wind'];
+    const rows = data.map((d) => [d.time, d.temp, d.humidity, d.wind]);
+    const csv = [header.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `reporte_${location || 'datos'}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    alert('Reporte exportado con éxito');
+  };
+
   const renderChart = () => {
     switch (chartType) {
       case 'bar':
@@ -96,7 +112,7 @@ export default function StatisticsModule() {
           <button className="btn-generate" onClick={handleGenerate}>
             Generar
           </button>
-          <button className="btn-export">
+          <button className="btn-export" onClick={handleExport}>
             <FaDownload /> Exportar Reporte
           </button>
         </div>
