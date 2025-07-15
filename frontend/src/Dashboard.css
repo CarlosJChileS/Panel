@@ -37,6 +37,8 @@ body, .dashboard-bg {
   padding-bottom: 2px;
   outline: none;
   transition: background 0.18s;
+  /* Prevent wrapping so all buttons keep a consistent height */
+  white-space: nowrap;
 }
 .navbar-links a:hover,
 .navbar-links a:focus {
