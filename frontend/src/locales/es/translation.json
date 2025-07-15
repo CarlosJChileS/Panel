@@ -33,7 +33,7 @@
   },
   "login": {
     "welcome": "Bienvenido",
-    "desc": "Ingresa tus credenciales para continuar",
+    "desc": "Accede a toda la información ambiental iniciando sesión",
     "title": "Iniciar Sesión",
     "formDesc": "Introduce tu correo y contraseña",
     "email": "Correo",
@@ -52,9 +52,9 @@
   },
   "register": {
     "titleLeft": "Crea tu cuenta",
-    "descLeft": "Regístrate para acceder al panel",
+    "descLeft": "Únete a nuestra comunidad ambiental registrándote",
     "title": "Registrarse",
-    "desc": "Introduce tus datos",
+    "desc": "Completa tus datos y comienza a explorar",
     "email": "Correo",
     "password": "Contraseña",
     "strength": ["Muy débil", "Débil", "Regular", "Buena", "Fuerte"],
