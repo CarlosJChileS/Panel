@@ -8,6 +8,7 @@ import { mockWeather } from '../data/mockWeather';
 
 export default function Dashboard() {
   const { weather, loading, error, search, city, setCity } = useWeather();
+  const [queryType, setQueryType] = React.useState('Datos Completos');
 
   const aqi = weather.air.uaqi || weather.air.aqi || '-';
   const aqiCategory = weather.air.uaqiCategory || 'Moderado';
@@ -47,8 +48,9 @@ export default function Dashboard() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
-          <select>
+          <select value={queryType} onChange={(e) => setQueryType(e.target.value)}>
             <option>Datos Completos</option>
+            <option>Aire</option>
           </select>
           <button className="consulta-btn" onClick={handleSubmit}>
             Consultar Ahora
