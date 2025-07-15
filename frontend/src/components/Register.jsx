@@ -96,6 +96,7 @@ export default function Register() {
             </div>
           )}
           <label className="label" htmlFor="reg-pass">{t('register.password')}</label>
+          <small className="pass-desc">{t('register.passDesc')}</small>
           <div className="inputIcon">
             <input
               className="input"
