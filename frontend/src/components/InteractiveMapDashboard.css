@@ -107,6 +107,30 @@
   cursor: pointer;
 }
 
+.imd-btn-limpiar {
+  background: #fff;
+  color: #467eea;
+  border: 1px solid #467eea;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.imd-filter-info {
+  font-size: 13px;
+  color: #546;
+  margin: -4px 0 6px 0;
+}
+
+.imd-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
 .imd-dot {
   display: inline-block;
   width: 11px;
@@ -157,6 +181,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.imd-map-desc {
+  font-size: 14px;
+  margin: 6px 0 0 35px;
+  color: #4a4a4a;
 }
 .imd-btn-mas {
   margin-left: 10px;
