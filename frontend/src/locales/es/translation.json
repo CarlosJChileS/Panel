@@ -48,6 +48,7 @@
     "noAccount": "¿No tienes cuenta?",
     "register": "Regístrate",
     "remember": "Recordar usuario"
+    , "continue": "Ir al dashboard"
   },
   "register": {
     "titleLeft": "Crea tu cuenta",
@@ -63,6 +64,7 @@
     "error": "Error al registrarse",
     "haveAccount": "¿Ya tienes cuenta?",
     "login": "Ingresa"
+    , "continue": "Ir al dashboard"
   },
   "contact": {
     "title": "Contacto",
