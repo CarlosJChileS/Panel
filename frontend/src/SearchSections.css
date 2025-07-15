@@ -19,6 +19,14 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  .section-search input,
+  .section-search button {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+  }
+}
 .section-results {
   position: absolute;
   top: 110%;
