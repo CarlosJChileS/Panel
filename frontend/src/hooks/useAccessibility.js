@@ -25,6 +25,8 @@ export function useAccessibility() {
     keyboard: false,
     smartnav: false,
     speaker: false,
+    pause: false,
+    repeat: false,
     mic: false,
     eye: false,
     moon: false,
@@ -94,13 +96,21 @@ export function useAccessibility() {
   };
 
   const speak = () => {
-    const root = document.querySelector('.dashboard-bg') || document.body;
+    const root = document.body;
     window.speechSynthesis.cancel();
     const utter = new window.SpeechSynthesisUtterance(root.innerText);
     utter.lang = "es-ES";
     const voice = window.speechSynthesis.getVoices().find((v) => v.lang.startsWith("es"));
     if (voice) utter.voice = voice;
     window.speechSynthesis.speak(utter);
+  };
+
+  const pauseReading = () => {
+    window.speechSynthesis.pause();
+  };
+
+  const repeatReading = () => {
+    speak();
   };
 
   const dict = () => window.open("https://www.rae.es/", "_blank");
@@ -119,6 +129,8 @@ export function useAccessibility() {
     handleColorChange,
     resetColors,
     speak,
+    pauseReading,
+    repeatReading,
     dict,
   };
 }

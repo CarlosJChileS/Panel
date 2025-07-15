@@ -114,6 +114,8 @@
       "keyboard": "Keyboard navigation",
       "smartnav": "Smart navigation",
       "speaker": "Text reader",
+      "pause": "Pause reader",
+      "repeat": "Repeat reader",
       "mic": "Voice commands"
     },
     "color": {
