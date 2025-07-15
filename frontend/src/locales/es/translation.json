@@ -58,6 +58,7 @@
     "desc": "Completa tus datos y comienza a explorar",
     "email": "Correo",
     "password": "Contraseña",
+    "passDesc": "Mínimo 8 caracteres y al menos un número",
     "strength": ["Muy débil", "Débil", "Regular", "Buena", "Fuerte"],
     "strengthLabel": "Fortaleza de la contraseña",
     "create": "Crear cuenta",

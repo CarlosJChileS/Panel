@@ -58,6 +58,7 @@
     "desc": "Fill in your details and start exploring",
     "email": "Email",
     "password": "Password",
+    "passDesc": "At least 8 characters including a number",
     "strength": ["Very weak", "Weak", "Fair", "Good", "Strong"],
     "strengthLabel": "Password strength",
     "create": "Create account",
