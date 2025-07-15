@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import { useWeather } from '../hooks/useWeather';
 import './InteractiveMapDashboard.css';
@@ -6,10 +6,20 @@ import RealTimeMap from './RealTimeMap';
 import { mockWeather } from '../data/mockWeather';
 export default function MapPage() {
   const { weather, loading, error, search, city, setCity } = useWeather();
+  const [pollutant, setPollutant] = useState('all');
+  const [dateRange, setDateRange] = useState('24h');
+  const [onlyActive, setOnlyActive] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     search(city);
+  };
+
+  const handleClear = () => {
+    setCity('');
+    setPollutant('all');
+    setDateRange('24h');
+    setOnlyActive(false);
   };
 
   return (
@@ -19,6 +29,9 @@ export default function MapPage() {
         <aside className="imd-sidebar">
           <div className="imd-card">
             <div className="imd-card-header">Filtros</div>
+            <p className="imd-filter-info">
+              Personaliza los datos que se muestran en el mapa.
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="imd-filter-row">
                 <input
@@ -29,11 +42,47 @@ export default function MapPage() {
                   aria-label="Ciudad"
                   required
                 />
-                <select>
-                  <option>Todos los contaminantes</option>
+                <select
+                  value={pollutant}
+                  onChange={(e) => setPollutant(e.target.value)}
+                  aria-label="Contaminante"
+                >
+                  <option value="all">Todos los contaminantes</option>
+                  <option value="pm25">PM2.5</option>
+                  <option value="pm10">PM10</option>
+                  <option value="no2">NO₂</option>
+                  <option value="o3">O₃</option>
                 </select>
               </div>
-              <button className="imd-btn-aplicar" type="submit">Aplicar</button>
+              <div className="imd-filter-row">
+                <select
+                  value={dateRange}
+                  onChange={(e) => setDateRange(e.target.value)}
+                  aria-label="Rango de fecha"
+                >
+                  <option value="24h">Últimas 24h</option>
+                  <option value="7d">Última semana</option>
+                  <option value="30d">Último mes</option>
+                </select>
+                <label className="imd-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={onlyActive}
+                    onChange={(e) => setOnlyActive(e.target.checked)}
+                  />
+                  Solo activas
+                </label>
+              </div>
+              <div className="imd-filter-row">
+                <button className="imd-btn-aplicar" type="submit">Aplicar</button>
+                <button
+                  className="imd-btn-limpiar"
+                  type="button"
+                  onClick={handleClear}
+                >
+                  Limpiar
+                </button>
+              </div>
             </form>
           </div>
           <div className="imd-card">
@@ -69,6 +118,9 @@ export default function MapPage() {
               <b>{city || 'Valencia, España'}</b> · Coordenadas: {weather.lat || mockWeather.lat}, {weather.lon || mockWeather.lon}
               <button className="imd-btn-mas">+</button>
             </div>
+            <p className="imd-map-desc">
+              Selecciona filtros para visualizar datos de calidad del aire de distintas estaciones.
+            </p>
           </div>
           <div className="imd-mapa-box">
             <RealTimeMap
