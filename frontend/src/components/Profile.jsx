@@ -46,6 +46,7 @@ export default function Profile() {
     <div className="dashboard-bg">
       <Header />
       <div className="dashboard-container" aria-labelledby="profile-title">
+        <h2 id="profile-title" className="profile-title">Perfil de Usuario</h2>
         <div className="user-card">
           <div className="user-avatar">{initials}</div>
           <div className="user-info">

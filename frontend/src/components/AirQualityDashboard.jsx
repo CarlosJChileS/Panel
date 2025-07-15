@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useWeather } from '../hooks/useWeather';
 import AirQualityChart from './AirQualityChart';
 import './AirQualityDashboard.css';
@@ -13,6 +13,28 @@ const AQ_CATEGORY = [
 export default function AirQualityDashboard() {
   const { weather, airTrend, loading, error, search, city, setCity } = useWeather();
   const [pollutant, setPollutant] = useState('PM2.5');
+  const [range, setRange] = useState('24h');
+
+  const RANGE_LABELS = {
+    '24h': 'Últimas 24 Horas',
+    '7d': 'Última Semana',
+    '1m': 'Último Mes',
+    '1y': 'Último Año',
+  };
+
+  function expandTrend(data, r) {
+    if (!data) return [];
+    if (r === '24h') return data;
+    const days = r === '7d' ? 7 : r === '1m' ? 30 : 365;
+    const expanded = [];
+    for (let i = 0; i < days; i++) {
+      const src = data[i % data.length];
+      expanded.push({ ...src, time: `D${i + 1}` });
+    }
+    return expanded;
+  }
+
+  const displayTrend = useMemo(() => expandTrend(airTrend, range), [airTrend, range]);
 
   const aqi = parseFloat(weather.air.uaqi || weather.air.aqi) || 0;
   const category = AQ_CATEGORY.find((c) => aqi <= c.max) || AQ_CATEGORY[0];
@@ -20,6 +42,21 @@ export default function AirQualityDashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     search(city);
+  };
+
+  const handleExport = () => {
+    const rows = [
+      ['Time', 'CO', 'NO2', 'O3', 'PM2.5', 'PM10'],
+      ...displayTrend.map((d) => [d.time, d.co, d.no2, d.o3, d.pm2_5, d.pm10]),
+    ];
+    const csvContent = rows.map((r) => r.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `air_quality_${range}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -58,11 +95,14 @@ export default function AirQualityDashboard() {
               <option>O₃</option>
               <option>CO</option>
             </select>
-            <select>
-              <option>Últimas 24h</option>
+            <select value={range} onChange={(e) => setRange(e.target.value)}>
+              <option value="24h">Últimas 24h</option>
+              <option value="7d">Última semana</option>
+              <option value="1m">Último mes</option>
+              <option value="1y">Último año</option>
             </select>
             <button type="submit" className="aq-btn-aplicar">Aplicar</button>
-            <button type="button" className="aq-btn-exportar">Exportar</button>
+            <button type="button" className="aq-btn-exportar" onClick={handleExport}>Exportar</button>
           </form>
           {loading && <p>Consultando...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -106,7 +146,7 @@ export default function AirQualityDashboard() {
           <div className="aq-panel-der">
             <div className="aq-card aq-evolucion">
               <div className="aq-card-header">
-                Evolución Últimas 24 Horas
+                Evolución {RANGE_LABELS[range]}
                 <select value={pollutant} onChange={(e) => setPollutant(e.target.value)}>
                   <option>PM2.5</option>
                   <option>PM10</option>
@@ -115,14 +155,14 @@ export default function AirQualityDashboard() {
                   <option>CO</option>
                 </select>
               </div>
-              {airTrend.length ? (
+              {displayTrend.length ? (
                 <div className="aq-grafico">
-                  <AirQualityChart data={airTrend} pollutant={pollutant} />
+                  <AirQualityChart data={displayTrend} pollutant={pollutant} />
                 </div>
               ) : (
                 <div className="aq-grafico-mock">
                   <div className="aq-grafico-icon">📈</div>
-                  <div className="aq-grafico-txt">Gráfico de Evolución {pollutant}<br />Últimas 24 horas</div>
+                  <div className="aq-grafico-txt">Gráfico de Evolución {pollutant}<br />{RANGE_LABELS[range]}</div>
                 </div>
               )}
             </div>
